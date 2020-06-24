@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Login from './login';
-import './css/login.css';
 import 'bootstrap/dist/css/bootstrap.css';
+import './css/default.css';
+import Login from './login';
+import SignUp from './sign-up.js';
 
-ReactDOM.render(<Login />, document.getElementById('root'));
+ReactDOM.render(<SignUp />, document.getElementById('root'));

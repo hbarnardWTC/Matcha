@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
-import 'bootstrap/dist/css/bootstrap.css'
-
 
 class login extends Component {
     render() {
         return (
-            <div className="text-center">
+            <div className="text-center log-flex">
                 <form className="form-signin">
                     <img className="mb-4" src={require("./uwu.jpg")} alt height="400" width="300" />
                     <h1 className="h3 mb-3 font-weight-normal">Please Sign In</h1>
