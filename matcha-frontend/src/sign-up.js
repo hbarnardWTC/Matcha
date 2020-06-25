@@ -5,7 +5,7 @@ class SignUp extends Component {
         return(
             <div className="center-text log-flex">
                 <form className="form-signup">
-                    <h1 className="h3 mb-3 font-weight-normal">Account Creation</h1>
+                    <h1 className="h3 mb-3 font-weight-normal text-center">Account Creation</h1>
                     <div className="mb-3">
                         <label for="name">Name</label>
                         <div className="input-group">
@@ -42,6 +42,51 @@ class SignUp extends Component {
                             </div>
                         </div>
                     </div>
+                    <div className="mb-3">
+                        <label for="password">Password</label>
+                        <div className="input-group">
+                            <input type="password" className="form-control" id="password" placeholder="Hint Hint *****" required />
+                            <div className="invalid-feedback">
+                                Your password is required
+                            </div>
+                        </div>
+                    </div>
+                    <div className="mb-3">
+                        <label for="address">Address</label>
+                        <div className="input-group">
+                            <input type="text" className="form-control" id="address" placeholder="1 Endless Horizon Avenue" required />
+                            <div className="invalid-feedback">
+                                Your email is required
+                            </div>
+                        </div>
+                    </div>
+                    <div className="mb-3">
+                        <label for="dob">Date of Birth</label>
+                        <div className="input-group">
+                            <input type="date" className="form-control" id="dob" placeholder="I is Born!" required />
+                            <div className="invalid-feedback">
+                                Your Date of Birth is required
+                            </div>
+                        </div>
+                    </div>
+                    <div className="mb-3">
+                        <label for="gender">Gender</label>
+                        <div className="custom-control radio pad-zero">
+                            <label className="custom-cotrol-label" for="male">
+                                <input type="radio" className="" id="male" name="gender" required />
+                                Male
+                            </label>
+                        </div>
+                        <div className="custom-control radio pad-zero">
+                            <label className="custom-cotrol-label" for="female">
+                                <input type="radio" className="" id="female" name="gender" required />
+                                Female
+                            </label>
+                        </div>
+                    </div>
+                    <button className="btn btn-primary btn-lg btn-block" type="submit">
+                        Register
+                    </button>
                 </form>
             </div>
         )
