@@ -45,9 +45,18 @@ class SignUp extends Component {
                     <div className="mb-3">
                         <label for="password">Password</label>
                         <div className="input-group">
-                            <input type="password" className="form-control" id="password" placeholder="Hint Hint *****" required />
+                            <input type="password" className="form-control" id="password" placeholder="Insert Password Senpai" required />
                             <div className="invalid-feedback">
                                 Your password is required
+                            </div>
+                        </div>
+                    </div>
+                    <div className="mb-3">
+                        <label for="passwordconfirm">Password Confirm</label>
+                        <div className="input-group">
+                            <input type="password" className="form-control" id="passwordconfirm" placeholder="Hint Hint *****" required />
+                            <div className="invalid-feedback">
+                                Your password does not match
                             </div>
                         </div>
                     </div>
