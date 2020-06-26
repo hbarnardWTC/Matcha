@@ -41,33 +41,71 @@ con.connect(function(err) {
 		if (err) throw err;
 		if (debug) {console.log(result);}
 		console.log("Found A New Endless Horizon");
-		var conDB = mysql.createConnection(userDB)
-		conDB.connect(function(err) {
-			if (err) { throw err; }
-			console.log("Started A New Endless Loop");
-			var sql = "CREATE TABLE ";
-			var Tablename = "users ";
-			var values = "("+
-			users.userid+","+
-			users.username+","+
-			users.name+","+
-			users.surname+","+
-			users.age+","+
-			users.gender+","+
-			users.email+","+
-			users.password+","+
-			users.sp+","+
-			users.bio+","+
-			users.interests
-			+")";
-			conDB.query(sql+Tablename+values, function (err, result) {
-			  if (err) throw err;
-			  console.log("Completed The New Endless Loop");
-			  return;
-			});
-			return;
-		});
+		createTables();
 		return;
 	})
 	return;
 });
+
+function createTables(){
+	createUserTable();
+	//createImageTable();
+}
+
+function createUserTable(){
+	var conDB = mysql.createConnection(userDB)
+	conDB.connect(function(err) {
+		if (err) { throw err; }
+		console.log("Started A New Endless Loop");
+		var sql = "CREATE TABLE ";
+		var Tablename = "users ";
+		var values = "("+
+		users.userid+","+
+		users.username+","+
+		users.name+","+
+		users.surname+","+
+		users.age+","+
+		users.gender+","+
+		users.email+","+
+		users.password+","+
+		users.sp+","+
+		users.bio+","+
+		users.interests
+		+")";
+		conDB.query(sql+Tablename+values, function (err, result) {
+		  if (err) throw err;
+		  console.log("Completed The New Endless Loop");
+		  return;
+		});
+		return;
+	});
+}
+
+function createImageTable(){
+	var conDB = mysql.createConnection(userDB)
+	conDB.connect(function(err) {
+		if (err) { throw err; }
+		console.log("Started A New Endless Loop");
+		var sql = "CREATE TABLE ";
+		var Tablename = "users ";
+		var values = "("+
+		users.userid+","+
+		users.username+","+
+		users.name+","+
+		users.surname+","+
+		users.age+","+
+		users.gender+","+
+		users.email+","+
+		users.password+","+
+		users.sp+","+
+		users.bio+","+
+		users.interests
+		+")";
+		conDB.query(sql+Tablename+values, function (err, result) {
+		  if (err) throw err;
+		  console.log("Completed The New Endless Loop");
+		  return;
+		});
+		return;
+	});
+}
