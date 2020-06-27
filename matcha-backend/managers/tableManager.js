@@ -1,11 +1,11 @@
 var mysql = require('mysql');
-var config = require('./config.json');
-var users = require('./users.json');
-var images = require('./images.json');
-var status = require('./status.json');
-var location = require('./location.json');
-var chats = require('./chats.json');
-var userManager = require('../userManager.js');
+var config = require('../setup/config.json');
+var users = require('../tables/users.json');
+var images = require('../tables/images.json');
+var status = require('../tables/status.json');
+var location = require('../tables/location.json');
+var chats = require('../tables/chats.json');
+var userManager = require('./userManager.js');
 
 module.exports = {
 	createTables: async function (){

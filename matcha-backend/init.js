@@ -1,6 +1,6 @@
 var mysql = require('mysql');
-var tableManager = require('./tables/tableManager.js');
-var config = require('./tables/config.json');
+var tableManager = require('./managers/tableManager.js');
+var config = require('./setup/config.json');
 
 var con = mysql.createConnection(config.user)
 if (mysql.createConnection(config.userDB)){

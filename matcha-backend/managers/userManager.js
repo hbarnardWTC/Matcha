@@ -1,7 +1,7 @@
 var mysql = require('mysql');
-var config = require('./tables/config.json');
-var PCUsers = require('./tables/preConfigUsers.json');
-var statusManager = require('./managers/statusManager.js');
+var config = require('../setup/config.json');
+var PCUsers = require('../setup/preConfigUsers.json');
+var statusManager = require('./statusManager.js');
 
 module.exports = {
 	addUser: function (username, name, surname, age, gender, email, password, sexualPreference, bio, interests){
@@ -62,7 +62,6 @@ function addUserToImages(givenUsername,givenEmail,givenName){
 		con.query(sql, [givenUsername,givenEmail,givenName], function(err,result) {
 			if (err) throw err;
 			if (config.debug == "true") {console.log(result);}
-			console.log(result);
 			console.log("Created A New Endless Horizon");
 			var sql = "INSERT INTO ";
 			var Tablename = "images";

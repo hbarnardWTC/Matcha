@@ -1,6 +1,6 @@
 var mysql = require('mysql');
-var config = require('../tables/config.json');
-var PCUsers = require('../tables/preConfigUsers.json');
+var config = require('../setup/config.json');
+var PCUsers = require('../setup/preConfigUsers.json');
 
 module.exports = {
 	updateStatus: function (userid, online){
