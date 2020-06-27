@@ -1,6 +1,7 @@
 var mysql = require('mysql');
 var config = require('./tables/config.json');
 var PCUsers = require('./tables/preConfigUsers.json');
+var statusManager = require('./managers/statusManager.js');
 
 module.exports = {
 	addUser: function (username, name, surname, age, gender, email, password, sexualPreference, bio, interests){
@@ -27,6 +28,7 @@ module.exports = {
 				if (err) throw err;
 				if (config.debug == "true") {console.log(result);}
 				console.log("Created A New Endless Horizon");
+				addUserToImages(username,email,name);
 				return;
 			})
 			return;
@@ -50,3 +52,33 @@ module.exports = {
 		});
 	}
   };
+
+function addUserToImages(givenUsername,givenEmail,givenName){
+	var con = mysql.createConnection(config.userDB);
+	con.connect(function(err) {
+		if (err) { throw err; }
+		console.log("Starting The Endless Journey");
+		var sql = sql = 'SELECT userid FROM `users` WHERE username = ? AND email = ? AND name = ?';
+		con.query(sql, [givenUsername,givenEmail,givenName], function(err,result) {
+			if (err) throw err;
+			if (config.debug == "true") {console.log(result);}
+			console.log(result);
+			console.log("Created A New Endless Horizon");
+			var sql = "INSERT INTO ";
+			var Tablename = "images";
+			var options = "(userid)";
+			var values = " VALUES('"+
+			result[0].userid
+			+"')";
+			statusManager.createStatus(result[0].userid);
+			con.query(sql+Tablename+options+values,function(err,result) {
+				if (err) throw err;
+				if (config.debug == "true") {console.log(result);}
+				console.log("Created A New Endless Horizon");
+				return;
+			});
+			return;
+		});
+		return;
+	});
+}
