@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
+import { Navbar,Nav,NavDropdown,Form,FormControl,Button } from 'react-bootstrap';
 
-class navbar extends Component {
-    return() {
+function navbar() {
+    return(
         <div>
         <Navbar bg="light" expand="lg">
         <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
@@ -25,7 +26,7 @@ class navbar extends Component {
         </Navbar.Collapse>
       </Navbar>
       </div>
-    };
+    );
 }
 
 export default navbar;
