@@ -1,0 +1,63 @@
+doctype html
+html
+    body
+        div(className="center-text log-flex")
+            form(className="form-signup" action="/register" method="POST")
+                h1(className="h3 mb-3 font-weight-normal text-center") Account Creation
+                div(className="mb-3")
+                    label(for="name") Name
+                    div(className="input-group")
+                        input(type="text" className="form-control" name="name" placeholder="Name" required)
+                        div(className="invalid-feedback")
+                            Your name is required
+                div(className="mb-3")
+                    label(for="surname") Surname
+                    div(className="input-group")
+                        input(type="text" className="form-control" name="surname" placeholder="Surname" required)
+                        div(className="invalid-feedback")
+                            Your surname is required
+                div(className="mb-3")
+                    label(for="username") Username
+                    div(className="input-group")
+                        input(type="text" className="form-control" name="username" placeholder="Username" required)
+                        div(className="invalid-feedback")
+                            Your username is required
+                div(className="mb-3")
+                    label(for="email") Email
+                    div(className="input-group")
+                        input(type="email" className="form-control" name="email" placeholder="EndlessHorizon@example.com" required)
+                        div(className="invalid-feedback")
+                            Your email is required
+                div(className="mb-3")
+                    label(for="password") Password
+                    div(className="input-group")
+                        input(type="password" className="form-control" name="password" placeholder="Insert Password Senpai" required)
+                        div(className="invalid-feedback")
+                            Your password is required
+                div(className="mb-3")
+                    label(for="passwordconfirm") Password Confirm
+                    div(className="input-group")
+                        input(type="password" className="form-control" name="passwordconfirm" placeholder="Hint Hint *****" required)
+                        div(className="invalid-feedback")
+                            Your password does not match
+                div(className="mb-3")
+                    label(for="address") Address
+                    div(className="input-group")
+                        input(type="text" className="form-control" name="address" placeholder="1 Endless Horizon Avenue" required)
+                        div(className="invalid-feedback")
+                            Your email is required
+                div(className="mb-3")
+                    label(for="dob")
+                    div(className="input-group")
+                        input(type="date" className="form-control" name="dob" placeholder="I is Born!" required)
+                        div(className="invalid-feedback")
+                            Your Date of Birth is required
+                div(className="mb-3")
+                    label(for="gender") Gender
+                    div(className="custom-control radio pad-zero")
+                        label(className="custom-cotrol-label" for="male") Male
+                            input(type="radio" className="" name="male" required)
+                    div(className="custom-control radio pad-zero")
+                        label(className="custom-cotrol-label" for="female") Female
+                            input(type="radio" className="" name="female" required)
+                button(className="btn btn-primary btn-lg btn-block" type="submit") Register

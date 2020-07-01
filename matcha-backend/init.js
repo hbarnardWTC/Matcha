@@ -3,6 +3,17 @@ var tableManager = require('./managers/tableManager.js');
 var config = require('./setup/config.json');
 
 var con = mysql.createConnection(config.user)
+con.connect(function(err) {
+	if (err) { throw err; }
+	var sql = "CREATE DATABASE IF NOT EXISTS matcha_db";
+		con.query(sql,function(err,result) {
+			if (err) throw err;
+			if (config.debug == "true") {console.log(result);}
+			console.log("Created A New Endless Horizon");
+			return;
+		})
+	return;
+});
 if (mysql.createConnection(config.userDB)){
 	con = mysql.createConnection(config.userDB);
 	con.connect(function(err) {
@@ -27,10 +38,10 @@ if (mysql.createConnection(config.userDB)){
 	});
 	con = mysql.createConnection(config.user);
 }
-
+con = mysql.createConnection(config.user);
 con.connect(function(err) {
 	if (err) { throw err; }
-	sql = "CREATE DATABASE matcha_db"
+	var sql = "CREATE DATABASE matcha_db"
 	con.query(sql, function(err,result) {
 		if (err) throw err;
 		if (config.debug == "true") {console.log(result);}
