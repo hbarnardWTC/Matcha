@@ -12,10 +12,15 @@ module.exports = router;
 app.use(express.static('styles'));
 app.use(express.static('images'));
 app.use(express.static('scripts'));
-app.use('/register', userRoutes);
+app.use('/user', userRoutes);
 app.engine('pug', require('pug').__express);
 app.set("view engine", "pug");
-
+var bodyParser = require('body-parser');
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+// create router object
+var router = express.Router();
 
 
 
