@@ -49,6 +49,13 @@ router.post('/user/register', function(req, res, next) {
     }
     res.redirect('/login')
 });
+router.post('/user/login', function(req, res, next) {
+    console.log(req.body);
+    var email = req.body.email;
+    var pass = req.body.password;
+    userManager.authUser(email, pass);
+    res.redirect('/');
+});
 // route for our login page
 router.get('/login', function(req, res) {
     res.render('login.pug')

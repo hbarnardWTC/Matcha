@@ -50,6 +50,25 @@ module.exports = {
 				user.interests
 			);
 		});
+	},
+	authUser: function (email,password){
+		var authtoken = 0;
+		var con = mysql.createConnection(config.userDB);
+		con.connect(function(err) {
+			if (err) { throw err; }
+			console.log("Starting The Endless Journey");
+			var sql = sql = 'SELECT username FROM `users` WHERE email = ? AND password = ?';
+			con.query(sql, [email,password], function(err,result) {
+				if (err) throw err;
+				if (config.debug == "true") {console.log(result);}
+				console.log("Created A New Endless Horizon");
+				if (result){
+					console.log("user logged in ("+result[0].username+")");
+					authtoken = 1;
+				}
+			});
+		});
+		return (authtoken);
 	}
   };
 
