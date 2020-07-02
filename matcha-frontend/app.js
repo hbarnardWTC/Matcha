@@ -12,7 +12,7 @@ module.exports = router;
 app.use(express.static('styles'));
 app.use(express.static('images'));
 app.use(express.static('scripts'));
-app.use('/user', userRoutes);
+router.use('/user', userRoutes);
 app.engine('pug', require('pug').__express);
 app.set("view engine", "pug");
 var bodyParser = require('body-parser');

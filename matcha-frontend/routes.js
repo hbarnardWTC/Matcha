@@ -7,7 +7,7 @@ var bodyParser = require('body-parser');
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-// create router object
+// create router object 
 var router = express.Router();
 
 // export our router
@@ -47,10 +47,11 @@ router.post('/user/register', function(req, res, next) {
         var sp = "1";
             userManager.addUser(username, name, surname, age, "0", email, pass, sp, bio, interests);
     }
+    res.redirect('/login')
 });
 // route for our login page
 router.get('/login', function(req, res) {
-    res.send('hello world')
+    res.render('login.pug')
 })
 router.get('./contact');
 router.post('./contact');
