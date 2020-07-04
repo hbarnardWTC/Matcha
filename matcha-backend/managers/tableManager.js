@@ -25,7 +25,7 @@ module.exports = {
   function createUserTable(){
 	var conDB = mysql.createConnection(config.userDB)
 	conDB.connect(function(err) {
-		if (err) { throw err; }
+		if (err) { { console.log("Endho: ".red+"Error Connecting To DB At createUserTable!! Set Debug To (error) To View Details".magenta); if(config.debug == "error"){console.log("EndHo: ".red+err)}return;} }
 		console.log("EndHo:".green+" Creating The All Mighty (users) Table");
 		var sql = "CREATE TABLE ";
 		var Tablename = "users ";
@@ -43,7 +43,7 @@ module.exports = {
 		users.interests
 		+")";
 		conDB.query(sql+Tablename+values, function (err, result) {
-		  if (err) throw err;
+		  if (err) { console.log("Endho: ".red+"Error Creating User Table!! Set Debug To (error) To View Details".magenta); if(config.debug == "error"){console.log("EndHo: ".red+err)}return;}
 		  console.log("EndHo:".green+" Created The All Mighty (users) Table");
 		  return;
 		});
@@ -54,7 +54,7 @@ module.exports = {
 function createImageTable(){
 	var conDB = mysql.createConnection(config.userDB)
 	conDB.connect(function(err) {
-		if (err) { throw err; }
+		if (err) { { console.log("Endho: ".red+"Error Connecting To DB At createImageTable!! Set Debug To (error) To View Details".magenta); if(config.debug == "error"){console.log("EndHo: ".red+err)}return;} }
 		console.log("EndHo:".green+" Creating The (images) Table");
 		var sql = "CREATE TABLE ";
 		var Tablename = "images ";
@@ -67,7 +67,7 @@ function createImageTable(){
 		images.image5
 		+")";
 		conDB.query(sql+Tablename+values, function (err, result) {
-		  if (err) throw err;
+		  if (err) { console.log("Endho: ".red+"Error creating Image Table!! Set Debug To (error) To View Details".magenta); if(config.debug == "error"){console.log("EndHo: ".red+err)}return;}
 		  console.log("EndHo:".green+" Created The (images) Table");
 		  return;
 		});
@@ -78,7 +78,7 @@ function createImageTable(){
 function createStatusTable(){
 	var conDB = mysql.createConnection(config.userDB)
 	conDB.connect(function(err) {
-		if (err) { throw err; }
+		if (err) { { console.log("Endho: ".red+"Error Connecting To DB At createStatusTable!! Set Debug To (error) To View Details".magenta); if(config.debug == "error"){console.log("EndHo: ".red+err)}return;} }
 		console.log("EndHo:".green+" Creating The (status) Table");
 		var sql = "CREATE TABLE ";
 		var Tablename = "status ";
@@ -87,7 +87,7 @@ function createStatusTable(){
 		status.online
 		+")";
 		conDB.query(sql+Tablename+values, function (err, result) {
-		  if (err) throw err;
+		  if (err) { console.log("Endho: ".red+"Error Creating Status Table!! Set Debug To (error) To View Details".magenta); if(config.debug == "error"){console.log("EndHo: ".red+err)}return;}
 		  console.log("EndHo:".green+" Created The (status) Table");
 		  return;
 		});
@@ -98,7 +98,7 @@ function createStatusTable(){
 function createLocationTable(){
 	var conDB = mysql.createConnection(config.userDB)
 	conDB.connect(function(err) {
-		if (err) { throw err; }
+		if (err) { { console.log("Endho: ".red+"Error Connecting To DB At createLocationTable!! Set Debug To (error) To View Details".magenta); if(config.debug == "error"){console.log("EndHo: ".red+err)}return;} }
 		console.log("EndHo:".green+" Creating The (location) Table");
 		var sql = "CREATE TABLE ";
 		var Tablename = "location ";
@@ -109,7 +109,7 @@ function createLocationTable(){
 		location.apiKey
 		+")";
 		conDB.query(sql+Tablename+values, function (err, result) {
-		  if (err) throw err;
+		  if (err) { console.log("Endho: ".red+"Error Creating Location Table!! Set Debug To (error) To View Details".magenta); if(config.debug == "error"){console.log("EndHo: ".red+err)}return;}
 		  console.log("EndHo:".green+" Created The (location) Table");
 		  return;
 		});
@@ -120,7 +120,7 @@ function createLocationTable(){
 function createChatsTable(){
 	var conDB = mysql.createConnection(config.userDB)
 	conDB.connect(function(err) {
-		if (err) { throw err; }
+		if (err) { { console.log("Endho: ".red+"Error Connecting To DB At createChatsTable!! Set Debug To (error) To View Details".magenta); if(config.debug == "error"){console.log("EndHo: ".red+err)}return;} }
 		console.log("EndHo:".green+" Creating The (chats) Table");
 		var sql = "CREATE TABLE ";
 		var Tablename = "chats ";
@@ -131,7 +131,7 @@ function createChatsTable(){
 		chats.messages_2
 		+")";
 		conDB.query(sql+Tablename+values, function (err, result) {
-		  if (err) throw err;
+		  if (err) { console.log("Endho: ".red+"Error creating Chats Table!! Set Debug To (error) To View Details".magenta); if(config.debug == "error"){console.log("EndHo: ".red+err)}return;}
 		  console.log("EndHo:".green+" Created The (chats) Table");
 		  return;
 		});
