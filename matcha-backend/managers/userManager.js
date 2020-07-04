@@ -2,13 +2,15 @@ var mysql = require('mysql');
 var config = require('../setup/config.json');
 var PCUsers = require('../setup/preConfigUsers.json');
 var statusManager = require('./statusManager.js');
+var chatManager = require('./chatManager.js');
+const colors = require('colors');
 
 module.exports = {
 	addUser: function (username, name, surname, age, gender, email, password, sexualPreference, bio, interests){
 		var con = mysql.createConnection(config.userDB);
 		con.connect(function(err) {
 			if (err) { throw err; }
-			console.log("Starting The Endless Journey");
+			console.log("EndHo:".green+" Request To Add A User ".blue+"("+username+","+name+","+surname+","+age+","+gender+","+email+","+password+","+sexualPreference+","+bio+","+interests+")");
 			var sql = "INSERT INTO ";
 			var Tablename = "users";
 			var options = "(username,name,surname,age,gender,email,password,sexualPreference,bio,interests)";
@@ -27,7 +29,7 @@ module.exports = {
 			con.query(sql+Tablename+options+values,function(err,result) {
 				if (err) throw err;
 				if (config.debug == "true") {console.log(result);}
-				console.log("Created A New Endless Horizon");
+				console.log("EndHo:".green+" Added User ".cyan+"("+username+")");
 				addUserToImages(username,email,name);
 				return;
 			})
@@ -56,14 +58,14 @@ module.exports = {
 		var con = mysql.createConnection(config.userDB);
 		con.connect(function(err) {
 			if (err) { throw err; }
-			console.log("Starting The Endless Journey");
+			console.log("EndHo:".green+" Request To Authenticate User ".blue+"(email:"+email+"|password:"+password+")");
 			var sql = sql = 'SELECT username FROM `users` WHERE email = ? AND password = ?';
 			con.query(sql, [email,password], function(err,result) {
 				if (err) throw err;
 				if (config.debug == "true") {console.log(result);}
 				console.log("Created A New Endless Horizon");
-				if (result){
-					console.log("user logged in ("+result[0].username+")");
+				if (result[0]){
+					console.log("EndHo:".green+" Authenticated User ".cyan+"("+result[0].username+")");
 					authtoken = 1;
 				}
 			});
@@ -76,12 +78,11 @@ function addUserToImages(givenUsername,givenEmail,givenName){
 	var con = mysql.createConnection(config.userDB);
 	con.connect(function(err) {
 		if (err) { throw err; }
-		console.log("Starting The Endless Journey");
+		console.log("EndHo:".green+" Request To Add User ".blue+"("+givenUsername+") "+"To Images Table".blue);
 		var sql = sql = 'SELECT userid FROM `users` WHERE username = ? AND email = ? AND name = ?';
 		con.query(sql, [givenUsername,givenEmail,givenName], function(err,result) {
 			if (err) throw err;
 			if (config.debug == "true") {console.log(result);}
-			console.log("Created A New Endless Horizon");
 			var sql = "INSERT INTO ";
 			var Tablename = "images";
 			var options = "(userid)";
@@ -92,7 +93,7 @@ function addUserToImages(givenUsername,givenEmail,givenName){
 			con.query(sql+Tablename+options+values,function(err,result) {
 				if (err) throw err;
 				if (config.debug == "true") {console.log(result);}
-				console.log("Created A New Endless Horizon");
+				console.log("EndHo:".green+" Added User To Images Table".cyan);
 				return;
 			});
 			return;

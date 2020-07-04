@@ -6,6 +6,7 @@ var status = require('../tables/status.json');
 var location = require('../tables/location.json');
 var chats = require('../tables/chats.json');
 var userManager = require('./userManager.js');
+const colors = require('colors');
 
 module.exports = {
 	createTables: async function (){
@@ -25,7 +26,7 @@ module.exports = {
 	var conDB = mysql.createConnection(config.userDB)
 	conDB.connect(function(err) {
 		if (err) { throw err; }
-		console.log("Started A New Endless Loop");
+		console.log("EndHo:".green+" Creating The All Mighty (users) Table");
 		var sql = "CREATE TABLE ";
 		var Tablename = "users ";
 		var values = "("+
@@ -43,7 +44,7 @@ module.exports = {
 		+")";
 		conDB.query(sql+Tablename+values, function (err, result) {
 		  if (err) throw err;
-		  console.log("Completed The New Endless Loop");
+		  console.log("EndHo:".green+" Created The All Mighty (users) Table");
 		  return;
 		});
 		return;
@@ -54,7 +55,7 @@ function createImageTable(){
 	var conDB = mysql.createConnection(config.userDB)
 	conDB.connect(function(err) {
 		if (err) { throw err; }
-		console.log("Started A New Endless Loop");
+		console.log("EndHo:".green+" Creating The (images) Table");
 		var sql = "CREATE TABLE ";
 		var Tablename = "images ";
 		var values = "("+
@@ -67,7 +68,7 @@ function createImageTable(){
 		+")";
 		conDB.query(sql+Tablename+values, function (err, result) {
 		  if (err) throw err;
-		  console.log("Completed The New Endless Loop");
+		  console.log("EndHo:".green+" Created The (images) Table");
 		  return;
 		});
 		return;
@@ -78,7 +79,7 @@ function createStatusTable(){
 	var conDB = mysql.createConnection(config.userDB)
 	conDB.connect(function(err) {
 		if (err) { throw err; }
-		console.log("Started A New Endless Loop");
+		console.log("EndHo:".green+" Creating The (status) Table");
 		var sql = "CREATE TABLE ";
 		var Tablename = "status ";
 		var values = "("+
@@ -87,7 +88,7 @@ function createStatusTable(){
 		+")";
 		conDB.query(sql+Tablename+values, function (err, result) {
 		  if (err) throw err;
-		  console.log("Completed The New Endless Loop");
+		  console.log("EndHo:".green+" Created The (status) Table");
 		  return;
 		});
 		return;
@@ -98,7 +99,7 @@ function createLocationTable(){
 	var conDB = mysql.createConnection(config.userDB)
 	conDB.connect(function(err) {
 		if (err) { throw err; }
-		console.log("Started A New Endless Loop");
+		console.log("EndHo:".green+" Creating The (location) Table");
 		var sql = "CREATE TABLE ";
 		var Tablename = "location ";
 		var values = "("+
@@ -109,7 +110,7 @@ function createLocationTable(){
 		+")";
 		conDB.query(sql+Tablename+values, function (err, result) {
 		  if (err) throw err;
-		  console.log("Completed The New Endless Loop");
+		  console.log("EndHo:".green+" Created The (location) Table");
 		  return;
 		});
 		return;
@@ -120,7 +121,7 @@ function createChatsTable(){
 	var conDB = mysql.createConnection(config.userDB)
 	conDB.connect(function(err) {
 		if (err) { throw err; }
-		console.log("Started A New Endless Loop");
+		console.log("EndHo:".green+" Creating The (chats) Table");
 		var sql = "CREATE TABLE ";
 		var Tablename = "chats ";
 		var values = "("+
@@ -131,7 +132,7 @@ function createChatsTable(){
 		+")";
 		conDB.query(sql+Tablename+values, function (err, result) {
 		  if (err) throw err;
-		  console.log("Completed The New Endless Loop");
+		  console.log("EndHo:".green+" Created The (chats) Table");
 		  return;
 		});
 		return;
