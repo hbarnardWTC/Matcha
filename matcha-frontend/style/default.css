@@ -28,3 +28,16 @@
 .pad-zero {
     padding-left: 0;
 }
+
+.carousel-caption {
+    position: relative;
+}
+
+.profile-image {
+    width: 1000px;
+    height: 1500px;
+}
+
+.background {
+    background-color: black;
+}
