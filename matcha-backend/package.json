@@ -1,0 +1,17 @@
+{
+  "name": "matcha-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "init.js",
+  "dependencies": {
+    "colors": "^1.4.0",
+    "mysql": "^2.18.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "node init"
+  },
+  "keywords": [],
+  "author": "Endless Horizon",
+  "license": "ISC"
+}
