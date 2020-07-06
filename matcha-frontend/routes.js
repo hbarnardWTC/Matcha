@@ -24,6 +24,7 @@ router.get('/', function(req, res) {
 router.get('/signup', function(req, res) {
     res.render('sign-up.pug');
 })
+
 router.use(bodyParser.urlencoded({ extended: false }));
 router.use(bodyParser.json());
 router.post('/user/register', function(req, res, next) {
@@ -49,6 +50,7 @@ router.post('/user/register', function(req, res, next) {
     }
     res.redirect('/login')
 });
+
 router.post('/user/login', function(req, res, next) {
     console.log(req.body);
     var email = req.body.email;
@@ -56,9 +58,21 @@ router.post('/user/login', function(req, res, next) {
     userManager.authUser(email, pass);
     res.redirect('/');
 });
+
 // route for our login page
 router.get('/login', function(req, res) {
     res.render('login.pug')
 })
+
+// route for our home page
+router.get('/home', function(req, res) {
+    res.render('home.pug')
+})
+
+// route for testing
+router.get('/carousel', function(req, res) {
+    res.render('carousel.pug')
+})
+
 router.get('./contact');
 router.post('./contact');
