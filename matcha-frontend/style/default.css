@@ -34,10 +34,19 @@
 }
 
 .profile-image {
-    width: 1000px;
-    height: 1500px;
+    width: 500px;
+    height: 700px;
+    object-fit: contain;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-.background {
-    background-color: black;
+body {
+    background-color: black !important;
+}
+
+.carousel {
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
 }
