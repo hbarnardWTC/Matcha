@@ -78,3 +78,15 @@ body {
 .cl-grey {
     color: rgb(140, 140, 140);
 }
+
+/* chat css */
+
+.chat-flex {
+    display: flex;
+    justify-content: space-around;
+}
+
+.chatmid-flex {
+    display: flex;
+    align-items: center;
+}

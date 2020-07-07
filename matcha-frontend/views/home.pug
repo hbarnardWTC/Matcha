@@ -9,6 +9,7 @@ html(lang="en")
             include ../style/default.css
         //- link(rel="custom_stylesheet", href="../style/default.css")
         link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css")
+        link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css")
         //- script(src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous")
         //- link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css")
         //- script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js")
@@ -60,6 +61,12 @@ html(lang="en")
               span(class="carousel-control-next-icon" aria-hidden="true")
               span(class="sr-only") Next
           div(class="container text-center" id="profileDetails")
+            p(class="cl-white")
+              i(class="fa fa-heart")
+              i(class="fa fa-exclamation")
+              i(class="fa fa-file")
+              i(class="fa fa-bars")
+              i(class="fa fa-thumbs-down")
             p(class="cl-white margin-zero") Name: Nosy
             p(class="cl-white margin-zero") Surname: Du Pree
             p(class="cl-white margin-zero") Age: 20
@@ -72,23 +79,6 @@ html(lang="en")
         footer(class="container")
            div(class="footer-copyright text-center py-3") © 2020 Copyright: Endless Horizon
 
-    //- div(class="container")
-    //-     h2(style="color:tomato; text-align: center; padding: 5px;") The Carousel
-    //-     div(id="pugCarousel" class="carousel slide" data-ride="carousel")
-    //-         // Carousel Slides
-    //-         div(class="carousel-inner")
-    //-           div(class="item active")
-    //-             img(src="https://i.pinimg.com/736x/5a/e2/a5/5ae2a545eb7bd167984c1dfc792e2776.jpg" alt="First pug wrapped in a blanket" style="width:100%;")
-    //-           div(class="item")
-    //-             img(src="https://www.pngitem.com/pimgs/m/78-782739_stickers-kawaii-anime-gatitos-cute-anime-girls-neko.png" alt="Second pug wrapped in a blanket" style="width:100%;")
-    //-           div(class="item")
-    //-             img(src="https://cdn140.picsart.com/309894446213201.jpg?type=webp&to=min&r=640" alt="Third pug wrapped in a blanket" style="width:100%;")
-    //-         // Carousel Controls
-    //-         a(class="left carousel-control" href="#pugCarousel" data-slide="prev")
-    //-           span(class="glyphicon glyphicon-chevron-left" aria-hidden="true") 
-    //-         a(class="right carousel-control" href="#pugCarousel" data-slide="next")
-    //-           span(class="glyphicon glyphicon-chevron-right" aria-hidden="true")
-    
     script(
       src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.slim.min.js"
       integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g="
