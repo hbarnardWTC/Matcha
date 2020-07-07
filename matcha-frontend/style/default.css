@@ -1,3 +1,11 @@
+body {
+    background-color: black !important;
+    background-image: url("https://steamcdn-a.akamaihd.net/steamcommunity/public/images/items/375200/672c92c870c32250550ff9ee6d1d2aa9fdfd01cb.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center; 
+}
+
 .log-flex {
     display: flex;
 }
@@ -33,6 +41,24 @@
     position: relative;
 }
 
+.carousel {
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.go-right {
+    margin-left: 5px;
+}
+
+.go-away {
+    margin-right: 10px;
+}
+
+.drop-panties {
+    top: 15px;
+}
+
 .profile-image {
     width: 500px;
     height: 700px;
@@ -41,12 +67,10 @@
     margin-right: auto;
 }
 
-body {
-    background-color: black !important;
+.cl-white {
+    color: white;
 }
 
-.carousel {
-    width: 50%;
-    margin-left: auto;
-    margin-right: auto;
+.cl-grey {
+    color: rgb(140, 140, 140);
 }

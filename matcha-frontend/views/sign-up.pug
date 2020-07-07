@@ -8,61 +8,58 @@ html
     body
         div(class="center-text log-flex")
             form(class="form-signup" action="/user/register" method="POST")
-                h1(class="h3 mb-3 font-weight-normal text-center") Account Creation
+                h1(class="h3 mb-3 font-weight-normal text-center cl-white") Account Creation
                 div(class="mb-3")
-                    label(for="name") Name
+                    label(for="name" class="cl-white") Name
                     div(class="input-group")
                         input(type="text" class="form-control" name="name" placeholder="Name" required)
                         div(class="invalid-feedback")
                             Your name is required
                 div(class="mb-3")
-                    label(for="surname") Surname
+                    label(for="surname" class="cl-white") Surname
                     div(class="input-group")
                         input(type="text" class="form-control" name="surname" placeholder="Surname" required)
                         div(class="invalid-feedback")
                             Your surname is required
                 div(class="mb-3")
-                    label(for="username") Username
+                    label(for="username" class="cl-white") Username
                     div(class="input-group")
                         input(type="text" class="form-control" name="username" placeholder="Username" required)
                         div(class="invalid-feedback")
                             Your username is required
                 div(class="mb-3")
-                    label(for="email") Email
+                    label(for="email" class="cl-white") Email
                     div(class="input-group")
                         input(type="email" class="form-control" name="email" placeholder="EndlessHorizon@example.com" required)
                         div(class="invalid-feedback")
                             Your email is required
                 div(class="mb-3")
-                    label(for="password") Password
+                    label(for="password" class="cl-white") Password
                     div(class="input-group")
                         input(type="password" class="form-control" name="password" placeholder="Insert Password Senpai" required)
                         div(class="invalid-feedback")
                             Your password is required
                 div(class="mb-3")
-                    label(for="passwordconfirm") Password Confirm
+                    label(for="passwordconfirm" class="cl-white") Password Confirm
                     div(class="input-group")
                         input(type="password" class="form-control" name="passwordconfirm" placeholder="Hint Hint *****" required)
                         div(class="invalid-feedback")
                             Your password does not match
                 div(class="mb-3")
-                    label(for="address") Address
+                    label(for="address" class="cl-white") Address
                     div(class="input-group")
                         input(type="text" class="form-control" name="address" placeholder="1 Endless Horizon Avenue" required)
                         div(class="invalid-feedback")
                             Your email is required
                 div(class="mb-3")
-                    label(for="dob")
+                    label(for="dob" class="cl-white") Date Of Borth
                     div(class="input-group")
                         input(type="date" class="form-control" name="dob" placeholder="I is Born!" required)
                         div(class="invalid-feedback")
                             Your Date of Birth is required
                 div(class="mb-3")
-                    label(for="gender") Gender
-                    div(class="custom-control radio pad-zero")
-                        label(class="custom-cotrol-label" for="male") Male
-                            input(type="radio" class="" name="male" required)
-                    div(class="custom-control radio pad-zero")
-                        label(class="custom-cotrol-label" for="female") Female
-                            input(type="radio" class="" name="female" required)
-                button(class="btn btn-primary btn-lg btn-block" type="submit") Register
+                    label(for="gender" class="cl-white go-away") Select your Gender
+                    select(name="gender" id="gender")
+                      option(value="Male") Male
+                      option(value="Female") Female
+                button(class="btn btn-secondary btn-lg btn-block" type="submit") Register
