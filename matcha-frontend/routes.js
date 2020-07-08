@@ -74,9 +74,14 @@ router.get('/chats', function(req, res) {
     res.render('chat.pug')
 })
 
+// route for our profile editing
+router.get('/editing', function(req, res) {
+    res.render('edit.pug')
+})
+
 // route for testing
-router.get('/carousel', function(req, res) {
-    res.render('carousel.pug')
+router.get('/test', function(req, res) {
+    res.render('test.pug')
 })
 
 router.get('./contact');
