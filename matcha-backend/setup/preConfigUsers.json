@@ -22,5 +22,17 @@
 		"sexualPreference": "1",
 		"bio": "Hi my name is Pin Chyan i do none of the work here, as per usual.",
 		"interests": "hentai#gaming#coding"
+	},
+	{
+		"username": "RiasG",
+		"name": "Rias",
+		"surname": "Gremory",
+		"age": "20",
+		"gender": "1",
+		"email": "riasG@gmail.com",
+		"password": "testing1234",
+		"sexualPreference": "0",
+		"bio": "Hi my name is RiasG.",
+		"interests": "hentai#gaming#coding#anime"
 	}
 ]
