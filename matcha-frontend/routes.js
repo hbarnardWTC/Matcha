@@ -2,7 +2,7 @@
 var express = require('express');
 var path = require('path');
 var app = express();
-var userManager = require('../matcha-backend/managers/userManager.js');
+var userManager = require('./matcha-backend/managers/userManager.js');
 var bodyParser = require('body-parser');
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
