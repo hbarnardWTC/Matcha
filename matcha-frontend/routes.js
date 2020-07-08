@@ -79,6 +79,11 @@ router.get('/editing', function(req, res) {
     res.render('edit.pug')
 })
 
+// route for our profile editing
+router.get('/search', function(req, res) {
+    res.render('search.pug')
+})
+
 // route for testing
 router.get('/test', function(req, res) {
     res.render('test.pug')

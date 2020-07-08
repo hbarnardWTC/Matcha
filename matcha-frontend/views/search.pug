@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        //- script(src='../node_modules/bootstrap/js/dist/carousel.js')
+        //- link(rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css")
+        style
+            include ../style/default.css
+        //- link(rel="custom_stylesheet", href="../style/default.css")
+        link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css")
+        link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css")
+        //- script(src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous")
+        //- link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css")
+        //- script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js")
+        title Home
+    body
+        //- Navbar construction
+        header
+            nav.navbar.navbar-expand-lg.navbar-dark
+              .container
+                a.navbar-brand(href='#') Container
+                button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarsExample07', aria-controls='navbarsExample07', aria-expanded='false', aria-label='Toggle navigation')
+                  span.navbar-toggler-icon
+                #navbarsExample07.collapse.navbar-collapse
+                  ul.navbar-nav.mr-auto
+                    li.nav-item.active
+                      a.nav-link(href='#')
+                        | Home 
+                        span.sr-only (current)
+                    li.nav-item
+                      a.nav-link(href='#') Link
+                    li.nav-item
+                      a.nav-link.disabled(href='#') Disabled
+                    li.nav-item.dropdown
+                      a#dropdown07.nav-link.dropdown-toggle(href='http://example.com', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Dropdown
+                      .dropdown-menu(aria-labelledby='dropdown07')
+                        a.dropdown-item(href='#') Action
+                        a.dropdown-item(href='#') Another action
+                        a.dropdown-item(href='#') Something else here
+                  form.form-inline.my-2.my-md-0
+                    input.form-control(type='text', placeholder='Search', aria-label='Search')
+
+        main(role="main")
+            div(class="container")
+                div(class="drop-panties")
+                    form(class="search-form-signup" action="/user/register" method="POST")
+                        label(class="my-1 mr-2 cl-white" for="inlineFormCustomSelectPref") Preference
+                        select(class="form-control my-1 mr-sm-2" id="inlineFormCustomSelectPref")
+                            option(selected) Choose ...
+                            option(value="1") One
+                            option(value="2") Two
+                            option(value="3") Three
+                div(class="row drop-panties")
+                    div(class="col-lg-4")
+                        img(class="d-block search-image" src="https://pbs.twimg.com/media/DNkyKjSW4AAdPpW.jpg" alt="First slide")
+                        p(class="cl-white text-center") Name: Liam
+                        p(class="cl-white text-center") Age: 20
+                        p(class="cl-white text-center") Distance: Near You
+                    div(class="col-lg-4")
+                        img(class="d-block search-image" src="https://ih1.redbubble.net/image.449679317.7760/flat,750x1000,075,f.u3.jpg" alt="First slide")
+                        p(class="cl-white text-center") Name: Rias
+                        p(class="cl-white text-center") 3 sizes: B99-W58-H90
+                        p(class="cl-white text-center") Distance: In Japan
+                    div(class="col-lg-4")
+                        img(class="d-block search-image" src="https://lh3.googleusercontent.com/proxy/slqc0Q5bMbfXJT-BhY7Q1EKvAO6Dv_KznTOfSGR6eeQzb6cQMElZJan8uRJj_hf0ktwtgMyG7Hk1NrG8Wg--e_w7EnzxmLIxIup1RFjaAzEyK94C4KaWWteIfq1v_O3cOFwC9ADkXg" alt="First slide")
+                        p(class="cl-white text-center") Name: PC
+                        p(class="cl-white text-center") Age: 21
+                        p(class="cl-white text-center") Distance: Made in China
