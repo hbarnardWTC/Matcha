@@ -60,7 +60,7 @@ module.exports = {
 			con.connect(function(err) {
 				if (err) { { console.log("Endho: ".red+"Error Connecting To DB At authUser!! Set Debug To (error) To View Details".magenta); if(config.debug == "error"){console.log("EndHo: ".red+err)}return;} }
 				console.log("EndHo:".green+" Request To Authenticate User ".blue+"(email:"+email+"|password:"+password+")");
-				var sql = sql = 'SELECT username FROM `users` WHERE email = ? AND password = ?';
+				var sql = sql = 'SELECT username,userid FROM `users` WHERE email = ? AND password = ?';
 				ret(new Promise(data => {
 					con.query(sql, [email,password], function(err,result) {
 						if (err) { console.log("Endho: ".red+"Error Authenticating User!! Set Debug To (error) To View Details".magenta); if(config.debug == "error"){console.log("EndHo: ".red+err)}return;}
@@ -69,8 +69,10 @@ module.exports = {
 						if (result[0]){
 							console.log("EndHo:".green+" Authenticated User ".cyan+"("+result[0].username+")");
 							authtoken = 1;
+							data(result[0].userid);
+						} else {
+							data("error");
 						}
-						data(authtoken);
 					});
 				}))
 			});
@@ -82,9 +84,9 @@ module.exports = {
 			con.connect(function(err) {
 				if (err) { { console.log("Endho: ".red+"Error Connecting To DB At getAllUsers!! Set Debug To (error) To View Details".magenta); if(config.debug == "error"){console.log("EndHo: ".red+err)}return;} }
 				console.log("EndHo:".green+" Request To Get All Users ".blue);
-				var sql = sql = 'SELECT userid,username,name,surname,age,gender,email,sexualPreference,bio,interests FROM `users`';
+				var sql = 'SELECT userid,username,name,surname,age,gender,email,sexualPreference,bio,interests FROM `users`';
 				ret(new Promise(data => {
-					con.query(sql, [email,password], function(err,result) {
+					con.query(sql, function(err,result) {
 						if (err) { console.log("Endho: ".red+"Error Getting All Users!! Set Debug To (error) To View Details".magenta); if(config.debug == "error"){console.log("EndHo: ".red+err)}return;}
 						if (config.debug == "true") {console.log(result);}
 						if (result[0]){
