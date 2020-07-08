@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+
+html(lang="en")
+    
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        style
+            include ../style/default.css
+        title Chat
+    body
+    
+        p(class="cl-white") hello yoooooo this is sick
+        div(id="chat-flex")
+            div(className="mb-3")
+                    label(for="leftpanel") --leftpanel which needs to chill
+                    div(className="mb-3")
+                        label(for="username1") username1
+                        p username1 goes here
+                    div(className="mb-3")
+                        label(for="username2") username2
+                        p username2 goes here
+            div(id="chatmid-flex")
+                label(for="middlepanel") --middlepanel which needs to align mid
+                div(className="mb-3")
+                    label(for="usernamecurrent") usernamecurrent
+                    p the username of your chat partner goes here
+                div(className="mb-3")
+                    label(for="chatscreen") -chatscreen which needs to actually contain messages in some kind of format
+                    p the messages will show here
+                div(className="mb-3")
+                    label(for="inputarea") -input area which needs to chill at a fixed position
+                    div(className="mb-3")
+                        label(for="textfield") textfield
+                        input(type="text" placeholder="Type your message here")
+                    div(className="mb-3")
+                        label(for="sendbutton") -send button which needs to sit next to text field
+                        button(type="submit") SEND
+        

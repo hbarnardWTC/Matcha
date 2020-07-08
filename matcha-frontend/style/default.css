@@ -56,7 +56,11 @@ body {
 }
 
 .drop-panties {
-    top: 15px;
+    margin-top: 15px;
+}
+
+.margin-zero {
+    margin: 0;
 }
 
 .profile-image {
@@ -73,4 +77,16 @@ body {
 
 .cl-grey {
     color: rgb(140, 140, 140);
+}
+
+/* chat css */
+
+.chat-flex {
+    display: flex;
+    justify-content: space-around;
+}
+
+.chatmid-flex {
+    display: flex;
+    align-items: center;
 }

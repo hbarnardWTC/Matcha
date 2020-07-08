@@ -69,6 +69,11 @@ router.get('/home', function(req, res) {
     res.render('home.pug')
 })
 
+// route for our chats
+router.get('/chats', function(req, res) {
+    res.render('chat.pug')
+})
+
 // route for testing
 router.get('/carousel', function(req, res) {
     res.render('carousel.pug')
