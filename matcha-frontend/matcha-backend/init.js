@@ -91,12 +91,14 @@ setTimeout(function(){
  var userManager = require('./managers/userManager.js');
  setTimeout(function(){
 	userManager.getMatchedUsers(18,24,0,["coding","gaming"],1).then((value) => {
-		userManager.getUserById(value).then(user => {
-			console.log("EndHo: ".green+user.name);
-		});
-		tableManager.getValues(`users`,["username","password"],value).then(results => {
-			results.forEach(res => {
-				console.log("EndHo: ".green+res.username+"|"+res.password);
+		value.forEach(user => {
+			userManager.getUserById(user).then(user => {
+				console.log("EndHo: ".green+user.name);
+			});
+			tableManager.getValues(`users`,["username","password"],user).then(results => {
+				results.forEach(res => {
+					console.log("EndHo: ".green+res.username+"|"+res.password);
+				});
 			});
 		});
 	});
