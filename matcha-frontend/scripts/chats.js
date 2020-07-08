@@ -24,9 +24,7 @@ function matchedUsers(){
     dataType: "json",
     success: function(data) {
       data.forEach(row => {
-        if (row.userid_1 == 1){
-          getMatchedUser(row.userid_2);
-        }
+          getMatchedUser(row);
       });
     }
   });

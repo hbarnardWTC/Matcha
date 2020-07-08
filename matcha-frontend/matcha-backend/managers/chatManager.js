@@ -82,7 +82,7 @@ module.exports = {
 										}
 										ret3(messages);
 					        		} else {
-										console.log("EndHo:".red+" no messages".magenta);
+										console.log("EndHo:".red+" no messages between (".magenta+user_1+"|"+user_2+")");
 										ret3("error");
         	    	        	    }
 								});

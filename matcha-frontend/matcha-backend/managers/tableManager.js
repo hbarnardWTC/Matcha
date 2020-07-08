@@ -78,7 +78,7 @@ module.exports = {
 							if (err) { console.log("Endho: ".red+"Error getting Values!! Set Debug To (error) To View Details".magenta); if(config.debug == "error"){console.log("EndHo: ".red+err)}return;}
 							if (config.debug == "true") {console.log(result);}
 							if (result[0]){
-								console.log("EndHo:".green+" Got The Values of".cyan+"("+userid+")");
+								console.log("EndHo:".green+" Got The Values".cyan);
 								data(result);
 							} else {
 								console.log("EndHo: ".red+"No Matches".magenta);

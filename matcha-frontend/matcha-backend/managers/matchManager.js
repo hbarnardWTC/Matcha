@@ -37,6 +37,12 @@ module.exports = {
 				console.log("EndHo:".green+" Created a Match for".cyan+"("+userid_1+")");
 				return;
 			})
+			con.query(sql+Tablename+options+values,[userid_2,userid_1],function(err,result) {
+				if (err) { console.log("Endho: ".red+"Error Creating A Match!! Set Debug To (error) To View Details".magenta); if(config.debug == "error"){console.log("EndHo: ".red+err)}return;}
+				if (config.debug == "true") {console.log(result);}
+				console.log("EndHo:".green+" Created a Match for".cyan+"("+userid_1+")");
+				return;
+			})
 			return;
 		});
 	}

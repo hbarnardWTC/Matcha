@@ -1,5 +1,6 @@
 // require express
 var express = require('express');
+var session = require('express-session');
 var path = require('path');
 var app = express();
 var userManager = require('./matcha-backend/managers/userManager.js');
@@ -12,7 +13,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 // create router object 
 var router = express.Router();
-
+var ssn;
+router.use(session({secret:'XASDASDA'}));
+app.use(session({secret:'XASDASDA'}));
 // export our router
 module.exports = router;
 app.set('views', __dirname + './');
@@ -20,6 +23,10 @@ app.engine('pug', require('pug').__express);
 app.set("view engine", "pug");
 // route for our home page
 router.get('/', function(req, res) {
+    ssn = req.session;
+    if (!ssn.userid || ssn.userid == null){
+        res.redirect('/login')
+    }
     res.sendFile(path.join(__dirname, './index.html'));
 })
 
@@ -54,17 +61,33 @@ router.post('/user/register', function(req, res, next) {
     res.redirect('/login')
 });
 router.post('/user/getAllUsers', function(req, res, next) {
-    tableManager.getValues("matches",["userid_1","userid_2"]).then(vals => {
-        res.send(vals);
-    });
+    ssn = req.session;
+    if (!ssn.userid || ssn.userid == null){
+        res.redirect('/login')
+    } else {
+        tableManager.getValues("matches",["userid_1","userid_2"]).then(vals => {
+            var users= new Array();
+            vals.forEach(row => {
+                if (row.userid_1 == ssn.userid){
+                  users.push(row.userid_2);
+                }
+              });
+              console.log(users);   
+              res.send(users);
+        });
+    }
 });
 router.get('/user/getMatchedUser', function(req, res, next) {
+    ssn = req.session;
+    if (!ssn.userid || ssn.userid == null){
+        res.redirect('/login')
+    }
     var returnV = {
         "username": "",
         "userid": req.query.userid,
         "latestMessage": ""
     };
-    chatManager.getMessages(1,req.query.userid).then(messages =>{
+    chatManager.getMessages(ssn.userid,req.query.userid).then(messages =>{
         var counter = 0;
         var counter2 = 0;
         var GM = JSON.parse(messages[1]);
@@ -84,12 +107,20 @@ router.get('/user/getMatchedUser', function(req, res, next) {
     })
 });
 router.get('/message/send', function(req, res, next) {
-    chatManager.addMessage(1,2,req.query.message).then(res => {
+    ssn = req.session;
+    if (!ssn.userid || ssn.userid == null){
+        res.redirect('/login')
+    }
+    chatManager.addMessage(ssn.userid,2,req.query.message).then(res => {
         res.send("");
     });
 });
 router.get('/message/getMessages', function(req, res, next) {
-    chatManager.getMessages(req.query.userid_1,req.query.userid_2).then(ret => {
+    ssn = req.session;
+    if (!ssn.userid || ssn.userid == null){
+        res.redirect('/login')
+    }
+    chatManager.getMessages(ssn.userid,req.query.userid_2).then(ret => {
         res.send(ret);
     });
 });
@@ -97,8 +128,15 @@ router.get('/message/getMessages', function(req, res, next) {
 router.post('/user/login', function(req, res, next) {
     var email = req.body.email;
     var pass = req.body.password;
-    userManager.authUser(email, pass);
-    res.redirect('/');
+    ssn = req.session;
+    userManager.authUser(email, pass).then(userid =>{
+        if (userid != "error"){
+            ssn.userid = userid;
+            res.redirect('/')
+        } else {
+            res.redirect('/login')
+        }
+    })
 });
 
 // route for our login page
@@ -108,11 +146,19 @@ router.get('/login', function(req, res) {
 
 // route for our home page
 router.get('/home', function(req, res) {
+    ssn = req.session;
+    if (!ssn.userid || ssn.userid == null){
+        res.redirect('/login')
+    }
     res.render('home.pug')
 })
 
 // route for our chats
 router.get('/chats', function(req, res) {
+    ssn = req.session;
+    if (!ssn.userid || ssn.userid == null){
+        res.redirect('/login')
+    }
     res.render('chat.pug')
 })
 
