@@ -5,6 +5,7 @@ var images = require('../tables/images.json');
 var status = require('../tables/status.json');
 var location = require('../tables/location.json');
 var chats = require('../tables/chats.json');
+var matches = require('../tables/matches.json');
 var userManager = require('./userManager.js');
 const colors = require('colors');
 
@@ -15,6 +16,7 @@ module.exports = {
 		await createStatusTable();
 		await createLocationTable();
 		await createChatsTable();
+		await createMatchesTable();
 		await userManager.generateUsers();
 	},
 	updateValue: function (table,value,userid,newValue){
@@ -34,29 +36,58 @@ module.exports = {
 		});
 	},
 	getValues: function (table,values,userid){
-		var con = mysql.createConnection(config.userDB);
-		return new Promise(ret => {
-			con.connect(function(err) {
-				if (err) { { console.log("Endho: ".red+"Error Connecting To DB At updateValue!! Set Debug To (error) To View Details".magenta); if(config.debug == "error"){console.log("EndHo: ".red+err)}return;} }
-				console.log("EndHo:".green+" Request To get Values: ".blue+values);
-				var sql = "SELECT ";
-				values.forEach(val => {
-					sql = sql+val+", ";
+		if (userid)
+		{
+			var con = mysql.createConnection(config.userDB);
+			return new Promise(ret => {
+				con.connect(function(err) {
+					if (err) { { console.log("Endho: ".red+"Error Connecting To DB At updateValue!! Set Debug To (error) To View Details".magenta); if(config.debug == "error"){console.log("EndHo: ".red+err)}return;} }
+					console.log("EndHo:".green+" Request To get Values: ".blue+values);
+					var sql = "SELECT ";
+					values.forEach(val => {
+						sql = sql+val+", ";
+					});
+					sql = sql.slice(0, -2);
+					var options = " FROM `"+table+"` WHERE userid = ?";
+					ret(new Promise(data => {
+						con.query(sql+options, [userid],function(err,result) {
+							if (err) { console.log("Endho: ".red+"Error getting Values!! Set Debug To (error) To View Details".magenta); if(config.debug == "error"){console.log("EndHo: ".red+err)}return;}
+							if (config.debug == "true") {console.log(result);}
+							if (result[0]){
+								console.log("EndHo:".green+" Got The Values of".cyan+"("+userid+")");
+								data(result);
+							}
+						})
+					}))
 				});
-				sql = sql.slice(0, -2);
-				var options = " FROM `"+table+"` WHERE userid = ?";
-				ret(new Promise(data => {
-					con.query(sql+options, [userid],function(err,result) {
-						if (err) { console.log("Endho: ".red+"Error getting Values!! Set Debug To (error) To View Details".magenta); if(config.debug == "error"){console.log("EndHo: ".red+err)}return;}
-						if (config.debug == "true") {console.log(result);}
-						if (result[0]){
-							console.log("EndHo:".green+" Got The Values of".cyan+"("+userid+")");
-							data(result);
-						}
-					})
-				}))
 			});
-		});
+		} else {
+			var con = mysql.createConnection(config.userDB);
+			return new Promise(ret => {
+				con.connect(function(err) {
+					if (err) { { console.log("Endho: ".red+"Error Connecting To DB At updateValue!! Set Debug To (error) To View Details".magenta); if(config.debug == "error"){console.log("EndHo: ".red+err)}return;} }
+					console.log("EndHo:".green+" Request To get Values: ".blue+values);
+					var sql = "SELECT ";
+					values.forEach(val => {
+						sql = sql+val+", ";
+					});
+					sql = sql.slice(0, -2);
+					var options = " FROM `"+table;
+					ret(new Promise(data => {
+						con.query(sql+options, [userid],function(err,result) {
+							if (err) { console.log("Endho: ".red+"Error getting Values!! Set Debug To (error) To View Details".magenta); if(config.debug == "error"){console.log("EndHo: ".red+err)}return;}
+							if (config.debug == "true") {console.log(result);}
+							if (result[0]){
+								console.log("EndHo:".green+" Got The Values of".cyan+"("+userid+")");
+								data(result);
+							} else {
+								console.log("EndHo: ".red+"No Matches".magenta);
+							}
+						})
+					}))
+				});
+			});
+		}
 	}
   };
 
@@ -171,6 +202,25 @@ function createChatsTable(){
 		conDB.query(sql+Tablename+values, function (err, result) {
 		  if (err) { console.log("Endho: ".red+"Error creating Chats Table!! Set Debug To (error) To View Details".magenta); if(config.debug == "error"){console.log("EndHo: ".red+err)}return;}
 		  console.log("EndHo:".green+" Created The (chats) Table");
+		  return;
+		});
+		return;
+	});
+}
+function createMatchesTable(){
+	var conDB = mysql.createConnection(config.userDB)
+	conDB.connect(function(err) {
+		if (err) { { console.log("Endho: ".red+"Error Connecting To DB At createMatchesTable!! Set Debug To (error) To View Details".magenta); if(config.debug == "error"){console.log("EndHo: ".red+err)}return;} }
+		console.log("EndHo:".green+" Creating The (matches) Table");
+		var sql = "CREATE TABLE ";
+		var Tablename = "matches ";
+		var values = "("+
+		matches.userid_1+","+
+		matches.userid_2
+		+")";
+		conDB.query(sql+Tablename+values, function (err, result) {
+		  if (err) { console.log("Endho: ".red+"Error Creating matches Table!! Set Debug To (error) To View Details".magenta); if(config.debug == "error"){console.log("EndHo: ".red+err)}return;}
+		  console.log("EndHo:".green+" Created The (matches) Table");
 		  return;
 		});
 		return;

@@ -3,7 +3,10 @@ var express = require('express');
 var path = require('path');
 var app = express();
 var userManager = require('./matcha-backend/managers/userManager.js');
+var tableManager = require('./matcha-backend/managers/tableManager.js');
+var chatManager = require('./matcha-backend/managers/chatManager.js');
 var bodyParser = require('body-parser');
+const { table } = require('console');
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -50,9 +53,48 @@ router.post('/user/register', function(req, res, next) {
     }
     res.redirect('/login')
 });
+router.post('/user/getAllUsers', function(req, res, next) {
+    tableManager.getValues("matches",["userid_1","userid_2"]).then(vals => {
+        res.send(vals);
+    });
+});
+router.get('/user/getMatchedUser', function(req, res, next) {
+    var returnV = {
+        "username": "",
+        "userid": req.query.userid,
+        "latestMessage": ""
+    };
+    chatManager.getMessages(1,req.query.userid).then(messages =>{
+        var counter = 0;
+        var counter2 = 0;
+        var GM = JSON.parse(messages[1]);
+        GM.forEach(message => {
+            counter++;
+        });
+        GM.forEach(message => {
+            if (counter2 == counter-1){
+                returnV.latestMessage = message.message;
+            }
+            counter2++;
+        });
+        tableManager.getValues("users",["username"],req.query.userid).then(val => {
+            returnV.username = val[0].username;
+            res.send(returnV);
+        })
+    })
+});
+router.get('/message/send', function(req, res, next) {
+    chatManager.addMessage(1,2,req.query.message).then(res => {
+        res.send("");
+    });
+});
+router.get('/message/getMessages', function(req, res, next) {
+    chatManager.getMessages(req.query.userid_1,req.query.userid_2).then(ret => {
+        res.send(ret);
+    });
+});
 
 router.post('/user/login', function(req, res, next) {
-    console.log(req.body);
     var email = req.body.email;
     var pass = req.body.password;
     userManager.authUser(email, pass);

@@ -82,9 +82,9 @@ module.exports = {
 			con.connect(function(err) {
 				if (err) { { console.log("Endho: ".red+"Error Connecting To DB At getAllUsers!! Set Debug To (error) To View Details".magenta); if(config.debug == "error"){console.log("EndHo: ".red+err)}return;} }
 				console.log("EndHo:".green+" Request To Get All Users ".blue);
-				var sql = sql = 'SELECT userid,username,name,surname,age,gender,email,sexualPreference,bio,interests FROM `users`';
+				var sql = 'SELECT userid,username,name,surname,age,gender,email,sexualPreference,bio,interests FROM `users`';
 				ret(new Promise(data => {
-					con.query(sql, [email,password], function(err,result) {
+					con.query(sql, function(err,result) {
 						if (err) { console.log("Endho: ".red+"Error Getting All Users!! Set Debug To (error) To View Details".magenta); if(config.debug == "error"){console.log("EndHo: ".red+err)}return;}
 						if (config.debug == "true") {console.log(result);}
 						if (result[0]){

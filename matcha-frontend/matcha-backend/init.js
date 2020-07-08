@@ -34,6 +34,7 @@ con.connect(function(err) {
 });
 
 var chatManager = require('./managers/chatManager.js');
+var matchManager = require('./managers/matchManager.js');
 setTimeout(function(){
 	chatManager.addMessage(1,2,"hello");
 	setTimeout(function(){
@@ -45,13 +46,16 @@ setTimeout(function(){
 				setTimeout(function(){
 					chatManager.addMessage(1,2,"how u doin?");
 					setTimeout(function(){
-						chatManager.getMessages(1,2);
+						chatManager.getMessages(1,2).then(chats => {
+							console.log(chats);
+						})
 					 }, 1000);
 				 }, 1000);
 			 }, 2000);
 		 }, 2000);
 	 }, 5000);
- }, 5000);
+	 matchManager.createMatch(1,2);
+ }, 7000);
 
  var imageManager = require('./managers/imageManager.js');
  setTimeout(function(){
@@ -74,7 +78,7 @@ setTimeout(function(){
 			 }, 1000);
 		 }, 1000);
 	 }, 1000);
- }, 6000);
+ }, 7000);
 
  var locationManager = require('./managers/locationManager.js');
  setTimeout(function(){
@@ -82,7 +86,7 @@ setTimeout(function(){
 	setTimeout(function(){
 		locationManager.getLocation(1);
 	 }, 1000);
- }, 6000);
+ }, 7000);
 
  var userManager = require('./managers/userManager.js');
  setTimeout(function(){
@@ -96,4 +100,4 @@ setTimeout(function(){
 			});
 		});
 	});
- }, 6000);
+ }, 7000);
