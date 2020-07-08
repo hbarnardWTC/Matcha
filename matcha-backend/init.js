@@ -74,7 +74,7 @@ setTimeout(function(){
 			 }, 1000);
 		 }, 1000);
 	 }, 1000);
- }, 5000);
+ }, 6000);
 
  var locationManager = require('./managers/locationManager.js');
  setTimeout(function(){
@@ -82,4 +82,13 @@ setTimeout(function(){
 	setTimeout(function(){
 		locationManager.getLocation(1);
 	 }, 1000);
- }, 5000);
+ }, 6000);
+
+ var userManager = require('./managers/userManager.js');
+ setTimeout(function(){
+	userManager.getMatchedUsers(18,24,0,["coding","gaming"],1).then((value) => {
+		userManager.getUserById(value).then(user => {
+			console.log(user);
+		});
+	});
+ }, 6000);

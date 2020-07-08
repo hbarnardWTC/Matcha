@@ -39,19 +39,22 @@ module.exports = {
 	},
 	getLocation: function (userid){
 		var con = mysql.createConnection(config.userDB);
-		con.connect(function(err) {
-            if (err) { { console.log("Endho: ".red+"Error Connecting To DB At getLocation!! Set Debug To (error) To View Details".magenta); if(config.debug == "error"){console.log("EndHo: ".red+err)}return;} }
-		console.log("EndHo:".green+" Request To Get Location for ID".blue+"("+userid+")");
-		var sql = "SELECT area FROM ";
-		var Tablename = "location";
-		var options = " WHERE userid = ?";
-		con.query(sql+Tablename+options, [userid],function(err,result) {
-			if (err) { console.log("Endho: ".red+"Error Selecting area From Location!! Set Debug To (error) To View Details".magenta); if(config.debug == "error"){console.log("EndHo: ".red+err)}return;}
-			if (config.debug == "true") {console.log(result);}
-			console.log("EndHo:".green+" Got Location for".cyan+"("+userid+"|at|"+result[0].area+")");
-			return (result[0].area);
-		})
-		return;
+		return new Promise(ret => {
+			con.connect(function(err) {
+        	    if (err) { { console.log("Endho: ".red+"Error Connecting To DB At getLocation!! Set Debug To (error) To View Details".magenta); if(config.debug == "error"){console.log("EndHo: ".red+err)}return;} }
+				console.log("EndHo:".green+" Request To Get Location for ID".blue+"("+userid+")");
+				var sql = "SELECT area FROM ";
+				var Tablename = "location";
+				var options = " WHERE userid = ?";
+				ret(new Promise(data => {
+					con.query(sql+Tablename+options, [userid],function(err,result) {
+						if (err) { console.log("Endho: ".red+"Error Selecting area From Location!! Set Debug To (error) To View Details".magenta); if(config.debug == "error"){console.log("EndHo: ".red+err)}return;}
+						if (config.debug == "true") {console.log(result);}
+						console.log("EndHo:".green+" Got Location for".cyan+"("+userid+"|at|"+result[0].area+")");
+						data(result[0].area);
+					})
+				}))
+			});
 		});
 	}
   };

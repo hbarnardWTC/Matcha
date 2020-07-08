@@ -38,44 +38,50 @@ module.exports = {
 	},
 	getMessages: function (user_1, user_2){
 		var con = mysql.createConnection(config.userDB);
-		con.connect(function(err) {
-            if (err) { { console.log("Endho: ".red+"Error Connecting To DB At getMessages!! Set Debug To (error) To View Details".magenta); if(config.debug == "error"){console.log("EndHo: ".red+err)}return;} }
-            console.log("EndHo:".green+" Checking if messages between users exists".blue);
-			var sql = 'SELECT messages_1, messages_2 FROM `chats` WHERE userid_1 = ? AND userid_2 = ?';
-			con.query(sql, [user_1,user_2], function(err,result) {
-				if (err) { console.log("Endho: ".red+"Error Selecting Messages From Chats!! Set Debug To (error) To View Details".magenta); if(config.debug == "error"){console.log("EndHo: ".red+err)}return;}
-				if (config.debug == "true") {console.log(result);}
-				if (result[0]){
-					console.log("EndHo:".green+" messages exist".cyan);
-					var messages = [result[0].messages_1,result[0].messages_2];
-					if (config.debug == "basic") {
-						console.log("EndHo: ".green+"messages from userid_1".bgBlue);
-						console.log("EndHo: ".green+"L ".bold.bgBlue+result[0].messages_1);
-						console.log("EndHo: ".green+"messages from userid_2".bgRed);
-						console.log("EndHo: ".green+"L ".bold.bgRed+result[0].messages_2);
-					}
-					return (messages);
-				} else {
-                    var sql = 'SELECT messages_1, messages_2 FROM `chats` WHERE userid_1 = ? AND userid_2 = ?';
-			        con.query(sql, [user_2,user_1], function(err,result) {
-			        	if (err) { console.log("Endho: ".red+"Error Selecting Messages From Chats!! Set Debug To (error) To View Details".magenta); if(config.debug == "error"){console.log("EndHo: ".red+err)}return;}
-			        	if (config.debug == "true") {console.log(result);}
-			        	if (result[0]){
+		return new Promise(ret => {
+			con.connect(function(err) {
+        	    if (err) { { console.log("Endho: ".red+"Error Connecting To DB At getMessages!! Set Debug To (error) To View Details".magenta); if(config.debug == "error"){console.log("EndHo: ".red+err)}return;} }
+        	    console.log("EndHo:".green+" Checking if messages between users exists".blue);
+				var sql = 'SELECT messages_1, messages_2 FROM `chats` WHERE userid_1 = ? AND userid_2 = ?';
+				ret(new Promise(ret2 => {
+					con.query(sql, [user_1,user_2], function(err,result) {
+						if (err) { console.log("Endho: ".red+"Error Selecting Messages From Chats!! Set Debug To (error) To View Details".magenta); if(config.debug == "error"){console.log("EndHo: ".red+err)}return;}
+						if (config.debug == "true") {console.log(result);}
+						if (result[0]){
 							console.log("EndHo:".green+" messages exist".cyan);
-							var messages = [result[0].messages_2,result[0].messages_1];
+							var messages = [result[0].messages_1,result[0].messages_2];
 							if (config.debug == "basic") {
 								console.log("EndHo: ".green+"messages from userid_1".bgBlue);
-								console.log("EndHo: ".green+"L ".bold.bgBlue+result[0].messages_2);
+								console.log("EndHo: ".green+"L ".bold.bgBlue+result[0].messages_1);
 								console.log("EndHo: ".green+"messages from userid_2".bgRed);
-								console.log("EndHo: ".green+"L ".bold.bgRed+result[0].messages_1);
+								console.log("EndHo: ".green+"L ".bold.bgRed+result[0].messages_2);
 							}
-							return (messages);
-			        	} else {
-							console.log("EndHo:".red+" no messages".magenta);
-							return ("error");
-                        }
-			        });
-                }
+							ret2(messages);
+						} else {
+							var sql = 'SELECT messages_1, messages_2 FROM `chats` WHERE userid_1 = ? AND userid_2 = ?';
+							ret2(new Promise(ret3 => {
+					        	con.query(sql, [user_2,user_1], function(err,result) {
+					        		if (err) { console.log("Endho: ".red+"Error Selecting Messages From Chats!! Set Debug To (error) To View Details".magenta); if(config.debug == "error"){console.log("EndHo: ".red+err)}return;}
+					        		if (config.debug == "true") {console.log(result);}
+					        		if (result[0]){
+										console.log("EndHo:".green+" messages exist".cyan);
+										var messages = [result[0].messages_2,result[0].messages_1];
+										if (config.debug == "basic") {
+											console.log("EndHo: ".green+"messages from userid_1".bgBlue);
+											console.log("EndHo: ".green+"L ".bold.bgBlue+result[0].messages_2);
+											console.log("EndHo: ".green+"messages from userid_2".bgRed);
+											console.log("EndHo: ".green+"L ".bold.bgRed+result[0].messages_1);
+										}
+										ret3(messages);
+					        		} else {
+										console.log("EndHo:".red+" no messages".magenta);
+										ret3("error");
+        	    	        	    }
+								});
+							}))
+        	    	    }
+					});
+				}))
 			});
 		});
 	}

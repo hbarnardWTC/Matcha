@@ -45,19 +45,22 @@ module.exports = {
 	},
 	getStatus: function (userid){
 		var con = mysql.createConnection(config.userDB);
-		con.connect(function(err) {
-			if (err) { { console.log("Endho: ".red+"Error Connecting To DB At getStatus!! Set Debug To (error) To View Details".magenta); if(config.debug == "error"){console.log("EndHo: ".red+err)}return;} }
-			console.log("EndHo:".green+" Request To Get Status for ID".blue+"("+userid+")");
-			var sql = "SELECT online FROM ";
-			var Tablename = "status";
-			var options = " WHERE userid = ?";
-			con.query(sql+Tablename+options, [userid],function(err,result) {
-				if (err) { console.log("Endho: ".red+"Error Selecting Online From Status!! Set Debug To (error) To View Details".magenta); if(config.debug == "error"){console.log("EndHo: ".red+err)}return;}
-				if (config.debug == "true") {console.log(result);}
-				console.log("EndHo:".green+" Got Status for".cyan+"("+userid+")");
-				return (result[0].online);
-			})
-			return;
+		return new Promise(ret => {
+			con.connect(function(err) {
+				if (err) { { console.log("Endho: ".red+"Error Connecting To DB At getStatus!! Set Debug To (error) To View Details".magenta); if(config.debug == "error"){console.log("EndHo: ".red+err)}return;} }
+				console.log("EndHo:".green+" Request To Get Status for ID".blue+"("+userid+")");
+				var sql = "SELECT online FROM ";
+				var Tablename = "status";
+				var options = " WHERE userid = ?";
+				ret(new Promise(data => {
+					con.query(sql+Tablename+options, [userid],function(err,result) {
+						if (err) { console.log("Endho: ".red+"Error Selecting Online From Status!! Set Debug To (error) To View Details".magenta); if(config.debug == "error"){console.log("EndHo: ".red+err)}return;}
+						if (config.debug == "true") {console.log(result);}
+						console.log("EndHo:".green+" Got Status for".cyan+"("+userid+")");
+						data(result[0].online)
+					})
+				}))
+			});
 		});
 	}
   };
