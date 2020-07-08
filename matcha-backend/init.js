@@ -88,7 +88,12 @@ setTimeout(function(){
  setTimeout(function(){
 	userManager.getMatchedUsers(18,24,0,["coding","gaming"],1).then((value) => {
 		userManager.getUserById(value).then(user => {
-			console.log(user);
+			console.log("EndHo: ".green+user.name);
+		});
+		tableManager.getValues(`users`,["username","password"],value).then(results => {
+			results.forEach(res => {
+				console.log("EndHo: ".green+res.username+"|"+res.password);
+			});
 		});
 	});
  }, 6000);

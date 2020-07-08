@@ -111,7 +111,7 @@ async function getUserById(userid){
 					if (config.debug == "true") {console.log(result);}
 					if (result[0]){
 						console.log("EndHo:".green+" Got User ".cyan);
-						console.log("EndHo: ".green+result[0]);
+						console.log("EndHo: ".green+result[0].username);
 						data(result[0]);
 					} else {
 						console.log("EndHo:".red+" No User with id: ".magenta+userid);
