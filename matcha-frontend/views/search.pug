@@ -14,7 +14,7 @@ html(lang="en")
         //- link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css")
         //- script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js")
         title Home
-    body
+    body.recommendback
         //- Navbar construction
         header
             nav.navbar.navbar-expand-lg.navbar-dark
@@ -40,30 +40,123 @@ html(lang="en")
                         a.dropdown-item(href='#') Something else here
                   form.form-inline.my-2.my-md-0
                     input.form-control(type='text', placeholder='Search', aria-label='Search')
+                    
+        .container.text-center
+            h1.mt-white.text-center.mt-5.display-3#heading.cl-white So Sexy
 
-        main(role="main")
-            div(class="container")
-                div(class="drop-panties")
-                    form(class="search-form-signup" action="/user/register" method="POST")
-                        label(class="my-1 mr-2 cl-white" for="inlineFormCustomSelectPref") Preference
-                        select(class="form-control my-1 mr-sm-2" id="inlineFormCustomSelectPref")
-                            option(selected) Choose ...
-                            option(value="1") One
-                            option(value="2") Two
-                            option(value="3") Three
-                div(class="row drop-panties")
-                    div(class="col-lg-4")
-                        img(class="d-block search-image" src="https://pbs.twimg.com/media/DNkyKjSW4AAdPpW.jpg" alt="First slide")
-                        p(class="cl-white text-center") Name: Liam
-                        p(class="cl-white text-center") Age: 20
-                        p(class="cl-white text-center") Distance: Near You
-                    div(class="col-lg-4")
-                        img(class="d-block search-image" src="https://ih1.redbubble.net/image.449679317.7760/flat,750x1000,075,f.u3.jpg" alt="First slide")
-                        p(class="cl-white text-center") Name: Rias
-                        p(class="cl-white text-center") 3 sizes: B99-W58-H90
-                        p(class="cl-white text-center") Distance: In Japan
-                    div(class="col-lg-4")
-                        img(class="d-block search-image" src="https://lh3.googleusercontent.com/proxy/slqc0Q5bMbfXJT-BhY7Q1EKvAO6Dv_KznTOfSGR6eeQzb6cQMElZJan8uRJj_hf0ktwtgMyG7Hk1NrG8Wg--e_w7EnzxmLIxIup1RFjaAzEyK94C4KaWWteIfq1v_O3cOFwC9ADkXg" alt="First slide")
-                        p(class="cl-white text-center") Name: PC
-                        p(class="cl-white text-center") Age: 21
-                        p(class="cl-white text-center") Distance: Made in China
+        .container.my-3.mx-auto(style="max-width:750px")
+            button#SortFilter.btn.btn-info.btn-block.w-40(type='button', data-toggle="collapse", data-target=".multi-collapse", aria-expanded="false", aria-controls="Filter Sort") Sort/Filter
+            .row
+                .col-sm-11.py-2.mx-auto
+                    #Sort.collapse.multi-collapse
+                        .card.card-body.cont.recommend-card.text-center(style='max-width: 750px;')
+                            h6(style="color: black !important") Sort By:
+                            hr
+                            #radio.funkyradio
+                                .form-group
+                                    .funkyradio-success
+                                        input#AgeUp(type='radio', name='radio', value="AgeUp")
+                                        label(for='AgeUp' style="color: black !important") Age, ascending
+                                    .funkyradio-success
+                                        input#AgeDown(type='radio', name='radio', value="AgeDown")
+                                        label(for='AgeDown' style="color: black !important") Age, descending
+                                .form-group
+                                    .funkyradio-success
+                                        input#FameUp(type='radio', name='radio', value="FameUp")
+                                        label(for='FameUp' style="color: black !important") Popularity, ascending
+                                    .funkyradio-success
+                                        input#FameDown(type='radio', name='radio', value="FameDown")
+                                        label(for='FameDown' style="color: black !important") Popularity, descending
+                                .form-group
+                                    .funkyradio-success
+                                        input#Close(type='radio', name='radio', value="Closer")
+                                        label(for='Close' style="color: black !important") Closest
+                                    .funkyradio-success
+                                        input#Far(type='radio', name='radio', value="Further")
+                                        label(for='Far' style="color: black !important") Furthest        
+                .col-sm-11.py-2.mx-auto
+                    #Filter.collapse.multi-collapse
+                        .card.card-body.cont.recommend-card.text-center(style='max-width: 750px;')
+                            .container
+                                h6(style="color: black !important") Filter By:
+                                h           
+                                input#minPop.form-control(type='text', placeholder='Minimum Popularity', name='fameMin')
+                                small#fameHelpBlock.form-text.text-muted(style="color: black !important")
+                                    | Minimum Popularity level, 
+                                b           
+                                input#ageDiff.form-control(type='text', placeholder='Age Range', name='ageDiff')
+                                small#ageHelpBlock.form-text.text-muted(style="color: black !important")
+                                    | A maximum age range, to display x years above and below your age.
+                                b           
+                                input#DistanceDiff.form-control(type='text', placeholder='Max Distance', name='DistanceDiff')
+                                small#distanceHelpBlock.form-text.text-muted(style="color: black !important")
+                                    | The Maximum distance from you that you're willing to view people.
+                                input#userInterests.form-control(type='text' placeholder='Interest' name='userInterests')
+                                small#interestHelpBlock.form-text.text-muted(style="color: black !important")
+                                    | Only one interest. Example: #food
+                        br
+                        button#Submit.btn.btn-success.btn-block.btn-lg(type='button', onclick='sendParams();', name='filterSort') Apply
+                            //end of filt           
+            .container(style="max-width:750px")
+                .grid
+                    if arrayExists
+                        each val in userArray
+                            if maxDistEntered
+                                if (val.distance < maxDist)
+                                    .grid-item
+                                        .card.recommend-card
+                                            a(href="/user/profile/"+val.username) 
+                                                img.card-img-top.img-fluid(src=val.userImage, alt='User Profile Image')
+                                            .card-body.mbg-light-grey
+                                                h5.card-title.text-capitalize #{val.FirstName} #{val.LastName}
+                                                if val.distance == 9999
+                                                    p Distance from you : unknown
+                                                else	
+                                                    p Distance from you : #{val.distance}km
+                                                p Popularity : #{val.fame}
+                                                p Age : #{val.userAge}
+                                                .row.mx-auto
+                            else
+                                .grid-item
+                                    .card.text-black
+                                    .text-center
+                                        a(href="/user/profile/"+val.username) 
+                                            img.card-img-top.img-fluid(src=val.userImage, alt='User Profile Image')
+                                        .card-body.recommend-card
+                                            h4.card-title.text-capitalize #{val.userFirstName} #{val.userLastName}
+                                            p
+                                                i.fa.fa-birthday-cake.mx-2.pink
+                                                |  Age : #{val.userAge}
+                                            if val.distance == 9999
+                                                p
+                                                    i.fa.fa-map-marker.mx-2.red
+                                                    |  Distance from you : unknown
+                                            else	
+                                                p
+                                                    i.fa.fa-compass.mx-2.red
+                                                    |  Distance from you : #{val.distance}km
+                                                p
+                                                    i.fa.fa-trophy.mx-2.yellow
+                                                    |  Likes : #{val.fame}
+        div(class="container")
+            div(class="row drop-panties")
+                div(class="col-lg-4")
+                    img(class="d-block search-image" src="https://pbs.twimg.com/media/DNkyKjSW4AAdPpW.jpg" alt="First slide")
+                    p(class="cl-white text-center margin-zero") Name: Liam
+                    p(class="cl-white text-center margin-zero") Age: 20
+                    p(class="cl-white text-center margin-zero") Distance: Near You
+                div(class="col-lg-4")
+                    img(class="d-block search-image" src="https://ih1.redbubble.net/image.449679317.7760/flat,750x1000,075,f.u3.jpg" alt="First slide")
+                    p(class="cl-white text-center margin-zero") Name: Rias
+                    p(class="cl-white text-center margin-zero") 3 sizes: B99-W58-H90
+                    p(class="cl-white text-center margin-zero") Distance: In Japan
+                div(class="col-lg-4")
+                    img(class="d-block search-image" src="https://lh3.googleusercontent.com/proxy/JHLxlNW4pe-ERsPg-d8PScQqkU3Ie_270C1zepjof7dIkUdI84rRIslCgnZ4ZAzsgmaEBPef7CPXOBS7aa1F4_FsLDFSpP9l65fWSwDPcL82IBE9IAgijTTiH42LEJHSxMO75_EyhXfazB1C1Du2kg" alt="First slide")
+                    p(class="cl-white text-center margin-zero") Name: PC
+                    p(class="cl-white text-center margin-zero") Age: 21
+                    p(class="cl-white text-center margin-zero") Distance: Nya
+
+
+    script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js")
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js")
+    script(src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js")

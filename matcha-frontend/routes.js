@@ -181,19 +181,19 @@ router.get('/login', function(req, res) {
 
 // route for our home page
 router.get('/home', function(req, res) {
-    ssn = req.session;
-    if (!ssn.userid || ssn.userid == null){
-        res.redirect('/login')
-    }
+    // ssn = req.session;
+    // if (!ssn.userid || ssn.userid == null){
+    //     res.redirect('/login')
+    // }
     res.render('home.pug')
 })
 
 // route for our chats
 router.get('/chats', function(req, res) {
-    ssn = req.session;
-    if (!ssn.userid || ssn.userid == null){
-        res.redirect('/login')
-    }
+    // ssn = req.session;
+    // if (!ssn.userid || ssn.userid == null){
+    //     res.redirect('/login')
+    // }
     res.render('chat.pug')
 })
 
@@ -209,7 +209,7 @@ router.get('/search', function(req, res) {
 
 // route for testing
 router.get('/test', function(req, res) {
-    res.render('test.pug')
+    res.render('tests.pug')
 })
 
 router.get('./contact');
