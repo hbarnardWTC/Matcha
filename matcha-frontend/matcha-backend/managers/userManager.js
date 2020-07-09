@@ -2,6 +2,7 @@ var mysql = require('mysql');
 var config = require('../setup/config.json');
 var PCUsers = require('../setup/preConfigUsers.json');
 var statusManager = require('./statusManager.js');
+var passwordHash = require('password-hash');
 var chatManager = require('./chatManager.js');
 const colors = require('colors');
 
@@ -22,7 +23,7 @@ module.exports = {
 				age+"','"+
 				gender+"','"+
 				email.toLowerCase()+"','"+
-				password+"','"+
+				passwordHash.generate(password)+"','"+
 				sexualPreference+"','"+
 				bio+"','"+
 				interests
@@ -76,16 +77,26 @@ module.exports = {
 			con.connect(function(err) {
 				if (err) { { console.log("Endho: ".red+"Error Connecting To DB At authUser!! Set Debug To (error) To View Details".magenta); if(config.debug == "error"){console.log("EndHo: ".red+err)}return;} }
 				console.log("EndHo:".green+" Request To Authenticate User ".blue+"(email:"+email.toLowerCase()+"|password:"+password+")");
-				var sql = sql = 'SELECT username,userid FROM `users` WHERE email = ? AND password = ?';
+				var sql = sql = 'SELECT username,userid,password FROM `users` WHERE email = ?';
 				ret(new Promise(data => {
 					con.query(sql, [email.toLowerCase(),password], function(err,result) {
 						if (err) { console.log("Endho: ".red+"Error Authenticating User!! Set Debug To (error) To View Details".magenta); if(config.debug == "error"){console.log("EndHo: ".red+err)}return;}
 						if (config.debug == "true") {console.log(result);}
 						console.log("Created A New Endless Horizon");
 						if (result[0]){
-							console.log("EndHo:".green+" Authenticated User ".cyan+"("+result[0].username+")");
-							authtoken = 1;
-							data(result[0].userid);
+							var i = 0;
+							var f = 0;
+							while(result[i] && f == 0){
+								if (passwordHash.verify(password, result[i].password)){
+									console.log("EndHo:".green+" Authenticated User ".cyan+"("+result[i].username+")");
+									authtoken = 1;
+									f = 1;
+									data(result[i].userid);
+								} else {
+									data("Wrong Pass");
+								}
+								i++;
+							}
 						} else {
 							data("Error");
 						}
