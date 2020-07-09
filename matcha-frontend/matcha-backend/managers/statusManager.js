@@ -34,7 +34,7 @@ module.exports = {
 		return new Promise(ret => {
 			con.connect(function(err) {
 				if (err) { { console.log("Endho: ".red+"Error Connecting To DB At createStatus!! Set Debug To (error) To View Details".magenta); if(config.debug == "error"){console.log("EndHo: ".red+err)}return;} }
-				console.log("EndHo:".green+" Creating a Status for ID".blue+"("+userid+")");
+				if (config.userMessage == "true"){console.log("EndHo:".green+" Creating a Status for ID".blue+"("+userid+")");}
 				var sql = "INSERT INTO ";
 				var Tablename = "status";
 				var options = "(userid,online)";
@@ -47,10 +47,12 @@ module.exports = {
 						if (err) { console.log("Endho: ".red+"Error Creating A Status!! Set Debug To (error) To View Details".magenta); if(config.debug == "error"){console.log("EndHo: ".red+err)}return;}
 						if (config.debug == "true") {console.log(result);}
 						if (result.affectedRows == 1){
-							console.log("EndHo:".green+" Created a Status for".cyan+"("+userid+")");
+							if (config.userMessage == "true"){console.log("EndHo:".green+" Created a Status for".cyan+"("+userid+")");}
 							ret2("Success");
+							con.end();
 						} else {
 							ret2("Error");
+							con.end();
 						}
 					})
 				}));

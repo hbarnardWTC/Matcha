@@ -11,7 +11,7 @@ module.exports = {
 		return new Promise(ret => {
 			con.connect(function(err) {
 				if (err) { { console.log("Endho: ".red+"Error Connecting To DB At addUser!! Set Debug To (error) To View Details".magenta); if(config.debug == "error"){console.log("EndHo: ".red+err)}return;} }
-				console.log("EndHo:".green+" Request To Add A User ".blue+"("+username+","+name+","+surname+","+age+","+gender+","+email+","+password+","+sexualPreference+","+bio+","+interests+")");
+				if (config.userMessage == "true"){console.log("EndHo:".green+" Request To Add A User ".blue+"("+username+","+name+","+surname+","+age+","+gender+","+email+","+password+","+sexualPreference+","+bio+","+interests+")");}
 				var sql = "INSERT INTO ";
 				var Tablename = "users";
 				var options = "(username,name,surname,age,gender,email,password,sexualPreference,bio,interests)";
@@ -35,6 +35,7 @@ module.exports = {
 							console.log("EndHo:".green+" Added User ".cyan+"("+username+")");
 							addUserToImages(username,email,name).then(value => {
 								ret2(value);
+								con.end();
 							});
 						} else if (result.affectedRows > 1){
 							ret2("Error added too amny times");
@@ -203,7 +204,7 @@ function addUserToImages(givenUsername,givenEmail,givenName){
 	return new Promise(data => {
 		con.connect(function(err) {
 			if (err) { { console.log("Endho: ".red+"Error Connecting To DB At addUserToImages!! Set Debug To (error) To View Details".magenta); if(config.debug == "error"){console.log("EndHo: ".red+err)}return;} }
-			console.log("EndHo:".green+" Request To Add User ".blue+"("+givenUsername+") "+"To Images Table".blue);
+			if (config.userMessage == "true"){console.log("EndHo:".green+" Request To Add User ".blue+"("+givenUsername+") "+"To Images Table".blue);}
 			var sql = sql = 'SELECT userid FROM `users` WHERE username = ? AND email = ? AND name = ?';
 			data(new Promise(data2 => {
 				con.query(sql, [givenUsername,givenEmail,givenName], function(err,result) {
@@ -223,10 +224,12 @@ function addUserToImages(givenUsername,givenEmail,givenName){
 							}
 							if (config.debug == "true") {console.log(result);}
 							if (result.affectedRows == 1) {
-								console.log("EndHo:".green+" Added User To Images Table".cyan);
+								if (config.userMessage == "true"){console.log("EndHo:".green+" Added User To Images Table".cyan);}
 								data3("Success");
+								con.end();
 							} else {
 								data3("Error");
+								con.end();
 							}
 						});
 					}));
