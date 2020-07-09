@@ -19,25 +19,21 @@ html(lang="en")
         header
             nav.navbar.navbar-expand-lg.navbar-dark
               .container
-                a.navbar-brand(href='#') Container
+                a.navbar-brand(href='/home') Endless Horizon
                 button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarsExample07', aria-controls='navbarsExample07', aria-expanded='false', aria-label='Toggle navigation')
                   span.navbar-toggler-icon
                 #navbarsExample07.collapse.navbar-collapse
                   ul.navbar-nav.mr-auto
                     li.nav-item.active
-                      a.nav-link(href='#')
+                      a.nav-link(href='/home')
                         | Home 
                         span.sr-only (current)
                     li.nav-item
-                      a.nav-link(href='#') Link
+                      a.nav-link(href='/chats') Chats
                     li.nav-item
-                      a.nav-link.disabled(href='#') Disabled
-                    li.nav-item.dropdown
-                      a#dropdown07.nav-link.dropdown-toggle(href='http://example.com', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Dropdown
-                      .dropdown-menu(aria-labelledby='dropdown07')
-                        a.dropdown-item(href='#') Action
-                        a.dropdown-item(href='#') Another action
-                        a.dropdown-item(href='#') Something else here
+                      a.nav-link(href='/editing') Profile Edit
+                    li.nav-item
+                      a.nav-link(href='/logout') Log Out
                   form.form-inline.my-2.my-md-0
                     input.form-control(type='text', placeholder='Search', aria-label='Search')
 
