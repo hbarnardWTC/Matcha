@@ -24,7 +24,7 @@ module.exports = {
 		return new Promise(ret => {
 			con.connect(function(err) {
 				if (err) { { console.log("Endho: ".red+"Error Connecting To DB At updateValue!! Set Debug To (error) To View Details".magenta); if(config.debug == "error"){console.log("EndHo: ".red+err)}return;} }
-				console.log("EndHo:".green+" Request To Update Value ".blue+"(VAL:"+value+"|NVAL:"+newValue+")");
+				console.log("EndHo:".green+" Request To Update Value ".blue+"(VAL:"+value+"|NVAL:"+")");
 				var sql = "UPDATE ";
 				var Tablename = table;
 				var options = " SET "+value+" = ? WHERE userid = ?";

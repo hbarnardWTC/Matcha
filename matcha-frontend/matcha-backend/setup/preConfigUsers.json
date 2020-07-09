@@ -28,11 +28,11 @@
 		"name": "Rias",
 		"surname": "Gremory",
 		"age": "20",
-		"gender": "1",
+		"gender": "2",
 		"email": "riasG@gmail.com",
 		"password": "testing1234",
 		"sexualPreference": "0",
-		"bio": "Hi my name is RiasG.",
+		"bio": "Hi my name is RiasG. <br> test",
 		"interests": "hentai#gaming#coding#anime"
 	},
 	{

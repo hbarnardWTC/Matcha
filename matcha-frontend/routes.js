@@ -77,6 +77,41 @@ router.post('/user/getAllUsers', function(req, res, next) {
         });
     }
 });
+router.get('/user/getRandomUser', async function(req, res, next) {
+    ssn = req.session;
+    if (!ssn.userid || ssn.userid == null){
+        res.redirect('/login')
+    } else {
+        var newId = ssn.userid;
+        await tableManager.getValues("users",["userid"]).then(vals => {
+            var max = 0;
+            while (vals[max]){
+                max++;
+            }
+            console.log(max);
+            while (newId == ssn.userid){
+                newId = getRndInteger(1, max);
+            }
+
+        });
+        await userManager.getUserById(newId).then(user => {
+            res.send(user);
+        });
+    }
+});
+router.get('/user/getUserImages', async function(req, res, next) {
+    ssn = req.session;
+    if (!ssn.userid || ssn.userid == null){
+        res.redirect('/login')
+    } else {
+        await tableManager.getValues("images",["image1","image2","image3","image4","image5"],ssn.userid).then(vals => {
+            res.send(vals);
+        });
+    }
+});
+function getRndInteger(min, max) {
+    return Math.floor(Math.random() * (max - min + 1) ) + min;
+  }
 router.get('/user/getMatchedUser', function(req, res, next) {
     ssn = req.session;
     if (!ssn.userid || ssn.userid == null){

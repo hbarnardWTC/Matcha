@@ -48,19 +48,23 @@ async function tests(){
 	matchManager.createMatch(1,2);
 
 	var imageManager = require('./managers/imageManager.js');
-	await imageManager.addImage(1, "test");
-	await imageManager.addImage(1, "wfe");
-	await imageManager.addImage(1, "dfb");
-	await imageManager.addImage(1, "fng");
-	await imageManager.addImage(1, "her");
-	await imageManager.addImage(1, "sge");
-	await imageManager.addImageById(1, "fht", 5);
+	var images = require('./setup/defaultImages.json');
 
 	var locationManager = require('./managers/locationManager.js');
 	await locationManager.updateLocation(1, "capetown", "192.168.0.1", "none");
 	await locationManager.getLocation(1);
 
 	var userManager = require('./managers/userManager.js');
+	await userManager.getAllUsers().then(async (users) => {
+		await users.forEach(async (user) => {
+			console.log(user);
+			await tableManager.updateValue("images","image1" ,user.userid, images.img1);
+			await tableManager.updateValue("images","image2" ,user.userid, images.img2);
+			await tableManager.updateValue("images","image3" ,user.userid, images.img3);
+			await tableManager.updateValue("images","image4" ,user.userid, images.img4);
+			await tableManager.updateValue("images","image5" ,user.userid, images.img5);
+		})
+	})
 	await userManager.getMatchedUsers(18,24,0,["coding","gaming"],1).then(async (value) => {
 		await new Promise(ret => {
 			ret(value.forEach(async (user) => {
@@ -82,5 +86,5 @@ async function tests(){
 	setTimeout(() => {
 		console.log("EndHo: ".green+"Successfully Created Endless Horizon Database".rainbow);
 		process.exit();
-	}, 2000);
+	}, 5000);
 }
