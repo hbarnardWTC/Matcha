@@ -1,5 +1,5 @@
 {
-	"debug": "error",
+	"debug": "false",
 	"user": {
 		"host": "localhost",
 		"port": "3306",

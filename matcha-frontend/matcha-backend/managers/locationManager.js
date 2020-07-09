@@ -7,34 +7,47 @@ const colors = require('colors');
 module.exports = {
 	updateLocation: function (userid, area,ip,apiKey){
 		var con = mysql.createConnection(config.userDB);
-		con.connect(function(err) {
-			if (err) { { console.log("Endho: ".red+"Error Connecting To DB At updateLocation!! Set Debug To (error) To View Details".magenta); if(config.debug == "error"){console.log("EndHo: ".red+err)}return;} }
-            console.log("EndHo:".green+" Updating Location of".blue+"("+userid+")");
-            var sql = "SELECT * FROM ";
-		    var Tablename = "location";
-		    var options = " WHERE userid = ?";
-		    con.query(sql+Tablename+options, [userid],function(err,result) {
-		    	if (err) { console.log("Endho: ".red+"Error Selecting * From location!! Set Debug To (error) To View Details".magenta); if(config.debug == "error"){console.log("EndHo: ".red+err)}return;}
-                if (config.debug == "true") {console.log(result);}
-                if (result[0]){
-                    if (result[0].userid = userid){
-                        var sql = "UPDATE ";
-			            var Tablename = "location";
-			            var options = " SET area = ?, ip = ?, apiKey = ? WHERE userid = ?";
-			            con.query(sql+Tablename+options, [area,ip,apiKey,userid],function(err,result) {
-			            	if (err) { console.log("Endho: ".red+"Error Updating Location!! Set Debug To (error) To View Details".magenta); if(config.debug == "error"){console.log("EndHo: ".red+err)}return;}
-			            	if (config.debug == "true") {console.log(result);}
-			            	console.log("EndHo:".green+" Updated The Location of".cyan+"("+userid+")");
-			            	return;
-			            })
-                    } else {
-                        createLocation(userid,area,ip,apiKey);
-                    }
-                } else {
-                    createLocation(userid,area,ip,apiKey);
-                }
-		    })
-			return;
+		return new Promise(ret => {
+			con.connect(function(err) {
+				if (err) { { console.log("Endho: ".red+"Error Connecting To DB At updateLocation!! Set Debug To (error) To View Details".magenta); if(config.debug == "error"){console.log("EndHo: ".red+err)}return;} }
+        	    console.log("EndHo:".green+" Updating Location of".blue+"("+userid+")");
+        	    var sql = "SELECT * FROM ";
+			    var Tablename = "location";
+				var options = " WHERE userid = ?";
+				ret(new Promise(ret2 => {
+			    	con.query(sql+Tablename+options, [userid],async function(err,result) {
+			    		if (err) { console.log("Endho: ".red+"Error Selecting * From location!! Set Debug To (error) To View Details".magenta); if(config.debug == "error"){console.log("EndHo: ".red+err)}return;}
+        	    	    if (config.debug == "true") {console.log(result);}
+        	    	    if (result[0]){
+        	    	        if (result[0].userid = userid){
+        	    	            var sql = "UPDATE ";
+					            var Tablename = "location";
+								var options = " SET area = ?, ip = ?, apiKey = ? WHERE userid = ?";
+								ret2(new Promise(ret3 => {
+					            	con.query(sql+Tablename+options, [area,ip,apiKey,userid],function(err,result) {
+					            		if (err) { console.log("Endho: ".red+"Error Updating Location!! Set Debug To (error) To View Details".magenta); if(config.debug == "error"){console.log("EndHo: ".red+err)}return;}
+										if (config.debug == "true") {console.log(result);}
+										if (result.affectedRows == 1){
+											console.log("EndHo:".green+" Updated The Location of".cyan+"("+userid+")");
+											ret3("Success");
+										} else {
+											ret3("Error");
+										}
+									})
+								}));
+        	    	        } else {
+        	    	            await createLocation(userid,area,ip,apiKey).then(val => {
+									ret2(val);
+								});
+        	    	        }
+        	    	    } else {
+        	    	        await createLocation(userid,area,ip,apiKey).then(val => {
+								ret2(val);
+							});
+        	    	    }
+			    	})
+				}));
+			});
 		});
 	},
 	getLocation: function (userid){
@@ -61,20 +74,27 @@ module.exports = {
 
   function createLocation(userid,area,ip,apiKey){
     console.log("EndHo:".green+" No Location Entry Was Found".cyan);
-    var con = mysql.createConnection(config.userDB);
-    con.connect(function(err) {
-        if (err) { { console.log("Endho: ".red+"Error Connecting To DB At createLocation!! Set Debug To (error) To View Details".magenta); if(config.debug == "error"){console.log("EndHo: ".red+err)}return;} }
-        console.log("EndHo:".green+" Creating a Location Entry for ID".blue+"("+userid+")");
-        var sql = "INSERT INTO ";
-        var Tablename = "location";
-        var options = "(userid,area,ip,apiKey)";
-        var values = " VALUES(?,?,?,?)"
-        con.query(sql+Tablename+options+values,[userid,area,ip,apiKey],function(err,result) {
-            if (err) { console.log("Endho: ".red+"Error Creating A New Location!! Set Debug To (error) To View Details".magenta); if(config.debug == "error"){console.log("EndHo: ".red+err)}return;}
-            if (config.debug == "true") {console.log(result);}
-            console.log("EndHo:".green+" Created a Location Entry for".cyan+"("+userid+")");
-            return;
-        })
-        return;
-    });
+	var con = mysql.createConnection(config.userDB);
+	return new Promise(ret => {
+    	con.connect(function(err) {
+    	    if (err) { { console.log("Endho: ".red+"Error Connecting To DB At createLocation!! Set Debug To (error) To View Details".magenta); if(config.debug == "error"){console.log("EndHo: ".red+err)}return;} }
+    	    console.log("EndHo:".green+" Creating a Location Entry for ID".blue+"("+userid+")");
+    	    var sql = "INSERT INTO ";
+    	    var Tablename = "location";
+    	    var options = "(userid,area,ip,apiKey)";
+			var values = " VALUES(?,?,?,?)"
+			ret(new Promise(ret2 => {
+    	    	con.query(sql+Tablename+options+values,[userid,area,ip,apiKey],function(err,result) {
+    	    	    if (err) { console.log("Endho: ".red+"Error Creating A New Location!! Set Debug To (error) To View Details".magenta); if(config.debug == "error"){console.log("EndHo: ".red+err)}return;}
+    	    	    if (config.debug == "true") {console.log(result);}
+					if (result.affectedRows == 1){
+						console.log("EndHo:".green+" Created a Location Entry for".cyan+"("+userid+")");
+						ret2("Success");
+					} else {
+						ret2("Error");
+					}
+				})
+			}));
+		});
+	});
   }
