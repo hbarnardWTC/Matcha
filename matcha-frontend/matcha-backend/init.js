@@ -97,13 +97,13 @@ async function addNewUsers(){
 		var int = getRndInteger(0,si);
 		var age = getRndInteger(18,120);
 		var sp = getRndInteger(0,2);
-		userManager.addUser(namesF[si]+"69",namesF[si],surnames[int],age,1,namesF[si]+"@gmail.com","testing",sp,"I am Fake","anime#coding");
+		userManager.addUser(namesF[si]+"69",namesF[si],surnames[int],age,1,namesF[si]+"@EndHo.EndHo","testing",sp,"I am Fake","anime#coding");
 		count++;
 	
 		var int = getRndInteger(0,si);
 		var age = getRndInteger(18,120);
 		var sp = getRndInteger(0,2);
-		userManager.addUser(namesM[si]+"69",namesM[si],surnames[int],age,0,namesM[si]+"@gmail.com","testing",sp,"I am Fake","anime#coding");
+		userManager.addUser(namesM[si]+"69",namesM[si],surnames[int],age,0,namesM[si]+"@EndHo.EndHo","testing",sp,"I am Fake","anime#coding");
 		count++;
 		console.log("EndHo: Added (".rainbow+count+") users".rainbow);
 	}

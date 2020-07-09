@@ -4,7 +4,16 @@ var PCUsers = require('../setup/preConfigUsers.json');
 var statusManager = require('./statusManager.js');
 var passwordHash = require('password-hash');
 var chatManager = require('./chatManager.js');
+var nodemailer = require('nodemailer');
 const colors = require('colors');
+
+var transporter = nodemailer.createTransport({
+	service: 'gmail',
+	auth: {
+	  user: 'EndlessHorizonZA@gmail.com',
+	  pass: 'CallMeSenpai'
+	}
+  });
 
 module.exports = {
 	addUser: function (username, name, surname, age, gender, email, password, sexualPreference, bio, interests){
@@ -240,6 +249,10 @@ function addUserToImages(givenUsername,givenEmail,givenName){
 					result[0].userid
 					+"')";
 					statusManager.createStatus(result[0].userid);
+					var domain = givenEmail.toLowerCase().split("@");
+					if (domain[1] == "endho.endho"){} else {
+						sendVerifyEmail(result[0].userid,givenEmail);
+					}
 					data2(new Promise(data3 => {
 						con.query(sql+Tablename+options+values,function(err,result) {
 							if (err) {
@@ -260,4 +273,22 @@ function addUserToImages(givenUsername,givenEmail,givenName){
 			}));
 		});
 	});
+}
+
+function sendVerifyEmail(userid,email){
+	  var mailOptions = {
+		from: 'EndlessHorizonZA@gmail.com',
+		to: email,
+		subject: 'Please Verify Your Account',
+		text: 'link to verify here for user '+userid
+	  };
+
+	  transporter.sendMail(mailOptions, function(error, info){
+		if (error) {
+		  console.log("EndHo: ".red+"Error Mailing ".magenta+email+" Set Debug To (error) To View Details");
+		  if (config.debug == "error") {console.log(error);}
+		} else {
+		  console.log("Endho: ".green+'Email sent to '.cyan + email);
+		}
+	  });
 }
