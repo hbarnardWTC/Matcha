@@ -2,6 +2,7 @@ var mysql = require('mysql');
 var config = require('../setup/config.json');
 var PCUsers = require('../setup/preConfigUsers.json');
 var statusManager = require('./statusManager.js');
+var passwordHash = require('password-hash');
 var chatManager = require('./chatManager.js');
 const colors = require('colors');
 
@@ -11,7 +12,7 @@ module.exports = {
 		return new Promise(ret => {
 			con.connect(function(err) {
 				if (err) { { console.log("Endho: ".red+"Error Connecting To DB At addUser!! Set Debug To (error) To View Details".magenta); if(config.debug == "error"){console.log("EndHo: ".red+err)}return;} }
-				console.log("EndHo:".green+" Request To Add A User ".blue+"("+username+","+name+","+surname+","+age+","+gender+","+email+","+password+","+sexualPreference+","+bio+","+interests+")");
+				if (config.userMessage == "true"){console.log("EndHo:".green+" Request To Add A User ".blue+"("+username+","+name+","+surname+","+age+","+gender+","+email+","+password+","+sexualPreference+","+bio+","+interests+")");}
 				var sql = "INSERT INTO ";
 				var Tablename = "users";
 				var options = "(username,name,surname,age,gender,email,password,sexualPreference,bio,interests)";
@@ -22,7 +23,7 @@ module.exports = {
 				age+"','"+
 				gender+"','"+
 				email.toLowerCase()+"','"+
-				password+"','"+
+				passwordHash.generate(password)+"','"+
 				sexualPreference+"','"+
 				bio+"','"+
 				interests
@@ -35,6 +36,7 @@ module.exports = {
 							console.log("EndHo:".green+" Added User ".cyan+"("+username+")");
 							addUserToImages(username,email,name).then(value => {
 								ret2(value);
+								con.end();
 							});
 						} else if (result.affectedRows > 1){
 							ret2("Error added too amny times");
@@ -75,16 +77,26 @@ module.exports = {
 			con.connect(function(err) {
 				if (err) { { console.log("Endho: ".red+"Error Connecting To DB At authUser!! Set Debug To (error) To View Details".magenta); if(config.debug == "error"){console.log("EndHo: ".red+err)}return;} }
 				console.log("EndHo:".green+" Request To Authenticate User ".blue+"(email:"+email.toLowerCase()+"|password:"+password+")");
-				var sql = sql = 'SELECT username,userid FROM `users` WHERE email = ? AND password = ?';
+				var sql = sql = 'SELECT username,userid,password FROM `users` WHERE email = ?';
 				ret(new Promise(data => {
 					con.query(sql, [email.toLowerCase(),password], function(err,result) {
 						if (err) { console.log("Endho: ".red+"Error Authenticating User!! Set Debug To (error) To View Details".magenta); if(config.debug == "error"){console.log("EndHo: ".red+err)}return;}
 						if (config.debug == "true") {console.log(result);}
 						console.log("Created A New Endless Horizon");
 						if (result[0]){
-							console.log("EndHo:".green+" Authenticated User ".cyan+"("+result[0].username+")");
-							authtoken = 1;
-							data(result[0].userid);
+							var i = 0;
+							var f = 0;
+							while(result[i] && f == 0){
+								if (passwordHash.verify(password, result[i].password)){
+									console.log("EndHo:".green+" Authenticated User ".cyan+"("+result[i].username+")");
+									authtoken = 1;
+									f = 1;
+									data(result[i].userid);
+								} else {
+									data("Wrong Pass");
+								}
+								i++;
+							}
 						} else {
 							data("Error");
 						}
@@ -203,7 +215,7 @@ function addUserToImages(givenUsername,givenEmail,givenName){
 	return new Promise(data => {
 		con.connect(function(err) {
 			if (err) { { console.log("Endho: ".red+"Error Connecting To DB At addUserToImages!! Set Debug To (error) To View Details".magenta); if(config.debug == "error"){console.log("EndHo: ".red+err)}return;} }
-			console.log("EndHo:".green+" Request To Add User ".blue+"("+givenUsername+") "+"To Images Table".blue);
+			if (config.userMessage == "true"){console.log("EndHo:".green+" Request To Add User ".blue+"("+givenUsername+") "+"To Images Table".blue);}
 			var sql = sql = 'SELECT userid FROM `users` WHERE username = ? AND email = ? AND name = ?';
 			data(new Promise(data2 => {
 				con.query(sql, [givenUsername,givenEmail,givenName], function(err,result) {
@@ -223,10 +235,12 @@ function addUserToImages(givenUsername,givenEmail,givenName){
 							}
 							if (config.debug == "true") {console.log(result);}
 							if (result.affectedRows == 1) {
-								console.log("EndHo:".green+" Added User To Images Table".cyan);
+								if (config.userMessage == "true"){console.log("EndHo:".green+" Added User To Images Table".cyan);}
 								data3("Success");
+								con.end();
 							} else {
 								data3("Error");
+								con.end();
 							}
 						});
 					}));

@@ -34,6 +34,72 @@ con.connect(function(err) {
 		})
 	return;
 });
+
+function getRndInteger(min, max) {
+    return Math.floor(Math.random() * (max - min + 1) ) + min;
+}
+
+function getUserCount(){
+	var con = mysql.createConnection(config.userDB);
+		return new Promise(ret => {
+			con.connect(function(err) {
+				if (err) { { console.log("Endho: ".red+"Error Connecting To DB At getStatus!! Set Debug To (error) To View Details".magenta); if(config.debug == "error"){console.log("EndHo: ".red+err)}return;} }
+				var sql = "SELECT * FROM ";
+				var Tablename = "users";
+				ret(new Promise(data => {
+					con.query(sql+Tablename,function(err,result) {
+						if (err) { console.log("Endho: ".red+"Error Selecting Online From Status!! Set Debug To (error) To View Details".magenta); if(config.debug == "error"){console.log("EndHo: ".red+err)}return;}
+						if (config.debug == "true") {console.log(result);}
+						var rows = 0;
+						while(result[rows]){
+							rows++;
+						}
+						data(rows);
+						con.end();
+					})
+				}))
+			});
+		});
+}
+
+var count = 0;
+var msg = 0;
+function addNewUsers(){
+	if (count >= (config.userCount-5) && msg == 0){
+		getUserCount().then(val => {
+			console.log("EndHo: ".green+"Added (".rainbow+val+") Users".rainbow);
+			console.log("EndHo: ".green+"Successfully Created Endless Horizon Database".rainbow);
+			process.exit(0);
+		})
+		msg++;
+	} else {
+		var userManager = require('./managers/userManager.js');
+		var namesM = require('./setup/NamesM.json');
+		var namesF = require('./setup/NamesM.json');
+		var surnames = require('./setup/surnames.json');
+		
+		var i = 0;
+		config.userMessage = "false";
+		while (surnames[i]){
+			i++;
+		}
+		var si = getRndInteger(0, i);
+		var int = getRndInteger(0,si);
+		var age = getRndInteger(18,120);
+		var sp = getRndInteger(0,2);
+		userManager.addUser(namesF[si]+"69",namesF[si],surnames[int],age,1,namesF[si]+"@gmail.com","testing",sp,"I am Fake","anime#coding");
+		count++;
+	
+		var int = getRndInteger(0,si);
+		var age = getRndInteger(18,120);
+		var sp = getRndInteger(0,2);
+		userManager.addUser(namesM[si]+"69",namesM[si],surnames[int],age,0,namesM[si]+"@gmail.com","testing",sp,"I am Fake","anime#coding");
+		count++;
+		console.log("EndHo: Added (".rainbow+count+") users".rainbow);
+	}
+	return (1);
+}
+
 async function tests(){
 	var chatManager = require('./managers/chatManager.js');
 	var matchManager = require('./managers/matchManager.js');
@@ -46,15 +112,18 @@ async function tests(){
 		console.log(chats);
 	})
 	matchManager.createMatch(1,2);
-
+	var userManager = require('./managers/userManager.js');
 	var imageManager = require('./managers/imageManager.js');
 	var images = require('./setup/defaultImages.json');
+	var namesM = require('./setup/NamesM.json');
+	var namesF = require('./setup/NamesM.json');
+	var surnames = require('./setup/surnames.json');
 
-	var locationManager = require('./managers/locationManager.js');
-	await locationManager.updateLocation(1, "capetown", "192.168.0.1", "none");
-	await locationManager.getLocation(1);
-
-	var userManager = require('./managers/userManager.js');
+	var si = 0;
+	while (surnames[si]){
+		si++;
+	}
+	console.log(si);
 	await userManager.getAllUsers().then(async (users) => {
 		await users.forEach(async (user) => {
 			console.log(user);
@@ -65,6 +134,13 @@ async function tests(){
 			await tableManager.updateValue("images","image5" ,user.userid, images.img5);
 		})
 	})
+	if (count <= 500){
+		var myVar = setInterval(addNewUsers, 250);
+	}
+	var locationManager = require('./managers/locationManager.js');
+	await locationManager.updateLocation(1, "capetown", "192.168.0.1", "none");
+	await locationManager.getLocation(1);
+
 	await userManager.getMatchedUsers(18,24,0,["coding","gaming"],1).then(async (value) => {
 		await new Promise(ret => {
 			ret(value.forEach(async (user) => {
@@ -83,8 +159,4 @@ async function tests(){
 			}));
 		});
 	});
-	setTimeout(() => {
-		console.log("EndHo: ".green+"Successfully Created Endless Horizon Database".rainbow);
-		process.exit();
-	}, 5000);
 }
