@@ -125,16 +125,19 @@ router.get('/user/getMatchedUser', function(req, res, next) {
     chatManager.getMessages(ssn.userid,req.query.userid).then(messages =>{
         var counter = 0;
         var counter2 = 0;
-        var GM = JSON.parse(messages[1]);
-        GM.forEach(message => {
-            counter++;
-        });
-        GM.forEach(message => {
-            if (counter2 == counter-1){
-                returnV.latestMessage = message.message;
-            }
-            counter2++;
-        });
+        console.log(messages);
+        if (messages != "Error"){
+            var GM = JSON.parse(messages[1]);
+            GM.forEach(message => {
+                counter++;
+            });
+            GM.forEach(message => {
+                if (counter2 == counter-1){
+                    returnV.latestMessage = message.message;
+                }
+                counter2++;
+            });
+        }
         tableManager.getValues("users",["username"],req.query.userid).then(val => {
             returnV.username = val[0].username;
             res.send(returnV);
@@ -146,8 +149,8 @@ router.get('/message/send', function(req, res, next) {
     if (!ssn.userid || ssn.userid == null){
         res.redirect('/login')
     }
-    chatManager.addMessage(ssn.userid,2,req.query.message).then(res => {
-        res.send("");
+    chatManager.addMessage(ssn.userid,req.query.userid2,req.query.message).then(ret => {
+        res.redirect('/chats')
     });
 });
 router.get('/message/getMessages', function(req, res, next) {
@@ -190,10 +193,10 @@ router.get('/home', function(req, res) {
 
 // route for our chats
 router.get('/chats', function(req, res) {
-    // ssn = req.session;
-    // if (!ssn.userid || ssn.userid == null){
-    //     res.redirect('/login')
-    // }
+    ssn = req.session;
+    if (!ssn.userid || ssn.userid == null){
+        res.redirect('/login')
+    }
     res.render('chat.pug')
 })
 

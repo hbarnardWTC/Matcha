@@ -35,8 +35,10 @@ module.exports = {
 						if (result.affectedRows == 1){
 							console.log("EndHo:".green+" Updated The Value of".cyan+"("+value+")");
 							ret2("Success");
+							con.end();
 						} else {
 							ret2("Error");
+							con.end();
 						}
 					})
 				}));
@@ -64,6 +66,9 @@ module.exports = {
 							if (result[0]){
 								console.log("EndHo:".green+" Got The Values of".cyan+"("+userid+")");
 								data(result);
+								con.end();
+							} else {
+								con.end();
 							}
 						})
 					}))
@@ -88,8 +93,10 @@ module.exports = {
 							if (result[0]){
 								console.log("EndHo:".green+" Got The Values".cyan);
 								data(result);
+								con.end();
 							} else {
 								console.log("EndHo: ".red+"No Matches".magenta);
+								con.end();
 							}
 						})
 					}))
@@ -126,8 +133,10 @@ module.exports = {
 					if (result){
 						console.log("EndHo:".green+" Created The All Mighty (users) Table");
 						ret2("Success");
+						conDB.end();
 					} else {
 						ret2("Error");
+						conDB.end();
 					}
 				});
 			}));
@@ -157,8 +166,10 @@ function createImageTable(){
 					if(result){
 						console.log("EndHo:".green+" Created The (images) Table");
 						ret2("Success");
+						conDB.end();
 					}  else {
 						ret2("Error");
+						conDB.end();
 					}
 				});
 			}));
@@ -184,8 +195,10 @@ function createStatusTable(){
 					if (result){
 						console.log("EndHo:".green+" Created The (status) Table");
 						ret2("Success");
+						conDB.end();
 					} else {
 						ret2("Error");
+						conDB.end();
 					}
 				});
 			}));
@@ -213,8 +226,10 @@ function createLocationTable(){
 				  	if (result){
 						console.log("EndHo:".green+" Created The (location) Table");
 						ret2("Success");
+						conDB.end();
 				  	}  else {
 						  ret2("Error");
+						  conDB.end();
 					}
 				});
 			}));
@@ -242,8 +257,10 @@ function createChatsTable(){
 				  	if (result){
 						console.log("EndHo:".green+" Created The (chats) Table");
 						ret2("Success");
+						conDB.end();
 					} else {
 						ret2("Error");
+						conDB.end();
 					}
 				});
 			}));
@@ -268,8 +285,10 @@ function createMatchesTable(){
 				  	if (result){
 						console.log("EndHo:".green+" Created The (matches) Table");
 						ret2("Success");
+						conDB.end();
 					} else {
 						ret2("Error");
+						conDB.end();
 					}
 				});
 			}));

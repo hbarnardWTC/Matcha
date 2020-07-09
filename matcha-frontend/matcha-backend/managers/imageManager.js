@@ -22,24 +22,31 @@ module.exports = {
         	    	    	if (result[0].image1 == null){
 								await addImageAtId(userid,image,1);
 								ret2("Success");
+								con.end();
         	    	    	} else if (result[0].image2 == null){
         	    	    	    await addImageAtId(userid,image,2);
 								ret2("Success");
+								con.end();
         	    	    	} else if (result[0].image3 == null){
         	    	    	    await addImageAtId(userid,image,3);
 								ret2("Success");
+								con.end();
         	    	    	} else if (result[0].image4 == null){
         	    	    	    await addImageAtId(userid,image,4);
 								ret2("Success");
+								con.end();
         	    	    	} else if (result[0].image5 == null){
         	    	    	    await addImageAtId(userid,image,5);
 								ret2("Success");
+								con.end();
         	    	    	} else {
         	    	    	    console.log("EndHo: ".red+"Max Number Of Images Reached For ID".magenta+"("+userid+")");
         	    	    	    ret2("error_max");
+								con.end();
 							}
 						} else {
 							ret2("Error");
+							con.end();
 						}
 					})
 				}));
@@ -61,8 +68,10 @@ module.exports = {
 						if (result.affectedRows == 1){
 							console.log("EndHo:".green+" Added The Image".cyan);
 							ret2("Success");
+							con.end();
 						} else {
 							ret2("Error");
+							con.end();
 						}
 					})
 				}));
@@ -87,8 +96,10 @@ module.exports = {
 					if (result.affectedRows == 1){
 						console.log("EndHo:".green+" Added The Image".cyan);
 						ret2("Success");
+						con.end();
 					} else {
 						ret2("Error");
+						con.end();
 					}
 				})
 			}));

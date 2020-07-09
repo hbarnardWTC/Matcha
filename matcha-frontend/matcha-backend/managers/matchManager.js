@@ -21,8 +21,10 @@ module.exports = {
 						if (result.affectedRows == 1){
 							console.log("EndHo:".green+" Updated Status of".cyan+"("+userid+"|to|"+online+")");
 							ret2("Success");
+							con.end();
 						} else {
 							ret2("Error");
+							con.end();
 						}
 					})
 				}));
@@ -52,13 +54,16 @@ module.exports = {
 									if (result.affectedRows == 1){
 										console.log("EndHo:".green+" Created a Match for".cyan+"("+userid_1+")");
 										ret3("Success");
+										con.end();
 									} else {
 										ret3("Error");
+										con.end();
 									}
 								})
 							}));
 						} else {
 							ret2("Error");
+							con.end();
 						}
 					})
 				}));

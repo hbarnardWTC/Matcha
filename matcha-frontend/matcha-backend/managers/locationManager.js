@@ -30,19 +30,23 @@ module.exports = {
 										if (result.affectedRows == 1){
 											console.log("EndHo:".green+" Updated The Location of".cyan+"("+userid+")");
 											ret3("Success");
+											con.end();
 										} else {
 											ret3("Error");
+											con.end();
 										}
 									})
 								}));
         	    	        } else {
         	    	            await createLocation(userid,area,ip,apiKey).then(val => {
 									ret2(val);
+									con.end();
 								});
         	    	        }
         	    	    } else {
         	    	        await createLocation(userid,area,ip,apiKey).then(val => {
 								ret2(val);
+								con.end();
 							});
         	    	    }
 			    	})
@@ -65,6 +69,7 @@ module.exports = {
 						if (config.debug == "true") {console.log(result);}
 						console.log("EndHo:".green+" Got Location for".cyan+"("+userid+"|at|"+result[0].area+")");
 						data(result[0].area);
+						con.end();
 					})
 				}))
 			});
@@ -90,8 +95,10 @@ module.exports = {
 					if (result.affectedRows == 1){
 						console.log("EndHo:".green+" Created a Location Entry for".cyan+"("+userid+")");
 						ret2("Success");
+						con.end();
 					} else {
 						ret2("Error");
+						con.end();
 					}
 				})
 			}));

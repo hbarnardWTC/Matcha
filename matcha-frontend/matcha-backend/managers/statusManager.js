@@ -21,8 +21,10 @@ module.exports = {
 						if (result.affectedRows == 1){
 							console.log("EndHo:".green+" Updated Status of".cyan+"("+userid+"|to|"+online+")");
 							ret2("Success");
+							con.end();
 						} else {
 							ret2("Error");
+							con.end();
 						}
 					})
 				}));
@@ -74,6 +76,7 @@ module.exports = {
 						if (config.debug == "true") {console.log(result);}
 						console.log("EndHo:".green+" Got Status for".cyan+"("+userid+")");
 						data(result[0].online)
+						con.end();
 					})
 				}))
 			});

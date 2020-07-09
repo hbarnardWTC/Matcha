@@ -20,6 +20,7 @@ module.exports = {
 						if (result[0]){
 							if (config.debug == "basic") {console.log("EndHo:".green+" messages exist ("+result[0].messages_1+"|"+result[0].messages_2+")")}
 							ret2(new Promise(ret3 => {ret3(updateChat1(user_1,user_2,message))}));
+							con.end();
 						} else {
 							var sql = 'SELECT userid_1, userid_2, messages_1, messages_2 FROM `chats` WHERE userid_1 = ? AND userid_2 = ?';
 							ret2(new Promise(ret3 => {
@@ -29,9 +30,11 @@ module.exports = {
 					        		if (result[0]){
 										if (config.debug == "basic") {console.log("EndHo:".green+" messages exist ("+result[0].messages_1+"|"+result[0].messages_2+")")}
 										ret3(new Promise(ret4 => {ret4(updateChat2(user_1,user_2,message))}));
+										con.end();
 					        		} else {
 										console.log("EndHo:".red+" no messages".magenta);
 										ret3(new Promise(ret4 => {ret4(createChat(user_1,user_2,message))}));
+										con.end();
         	    	        	    }
 								});
 							}))
@@ -62,6 +65,7 @@ module.exports = {
 								console.log("EndHo: ".green+"L ".bold.bgRed+result[0].messages_2);
 							}
 							ret2(messages);
+							con.end();
 						} else {
 							var sql = 'SELECT messages_1, messages_2 FROM `chats` WHERE userid_1 = ? AND userid_2 = ?';
 							ret2(new Promise(ret3 => {
@@ -78,9 +82,11 @@ module.exports = {
 											console.log("EndHo: ".green+"L ".bold.bgRed+result[0].messages_1);
 										}
 										ret3(messages);
+										con.end();
 					        		} else {
 										console.log("EndHo:".red+" no messages between (".magenta+user_1+"|"+user_2+")");
 										ret3("Error");
+										con.end();
         	    	        	    }
 								});
 							}))
@@ -120,8 +126,10 @@ module.exports = {
 					if (result){
 						console.log("EndHo:".green+" Created A New chat".cyan);
 						ret2("Success");
+						con.end();
 					} else {
 						ret2("Error");
+						con.end();
 					}
 				})
 			}));
@@ -167,8 +175,10 @@ module.exports = {
 									if (result.affectedRows == 1){
 										console.log("EndHo:".green+" Updated The Chat".cyan);
 										ret4("Success");
+										con.end();
 									} else {
 										ret4("Error");
+										con.end();
 									}
 								})
 							}));
@@ -217,8 +227,10 @@ module.exports = {
 									if (result.affectedRows == 1){
 										console.log("EndHo:".green+" Updated The Chat".cyan);
 										ret4("Success");
+										con.end();
 									} else {
 										ret4("Error");
+										con.end();
 									}
 								})
 							}));

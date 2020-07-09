@@ -65,7 +65,7 @@ function getUserCount(){
 var count = 0;
 var msg = 0;
 function addNewUsers(){
-	if (count >= (config.userCount-5) && msg == 0){
+	if (count >= ((config.userCount-5)-1) && msg == 0){
 		getUserCount().then(val => {
 			console.log("EndHo: ".green+"Added (".rainbow+val+") Users".rainbow);
 			console.log("EndHo: ".green+"Successfully Created Endless Horizon Database".rainbow);

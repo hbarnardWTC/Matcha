@@ -40,8 +40,10 @@ module.exports = {
 							});
 						} else if (result.affectedRows > 1){
 							ret2("Error added too amny times");
+							con.end();
 						} else if (result.affectedRows < 1){
 							ret2("Error adding user");
+							con.end();
 						}
 					})
 				}));
@@ -92,13 +94,16 @@ module.exports = {
 									authtoken = 1;
 									f = 1;
 									data(result[i].userid);
+									con.end();
 								} else {
 									data("Wrong Pass");
+									con.end();
 								}
 								i++;
 							}
 						} else {
 							data("Error");
+							con.end();
 						}
 					});
 				}))
@@ -119,8 +124,10 @@ module.exports = {
 						if (result[0]){
 							console.log("EndHo:".green+" Got All Users ".cyan);
 							data(result);
+							con.end();
 						} else {
 							data("Error");
+							con.end();
 						}
 					});
 				}))
@@ -144,9 +151,11 @@ async function getUserById(userid){
 						console.log("EndHo:".green+" Got User ".cyan);
 						console.log("EndHo: ".green+result[0].username);
 						data(result[0]);
+						con.end();
 					} else {
 						console.log("EndHo:".red+" No User with id: ".magenta+userid);
 						data("No Such User");
+						con.end();
 					}
 				});
 			}))
@@ -164,6 +173,7 @@ async function getMatchedUsers(ageMin,ageMax,gends,interests,sp){
 			if (err) { { console.log("Endho: ".red+"Error Connecting To DB At getMatchedUsers!! Set Debug To (error) To View Details".magenta); if(config.debug == "error"){console.log("EndHo: ".red+err)}return;} }
 			console.log("EndHo:".green+" Request To Get Matched Users ".blue);
 			ret(new Promise(async (ret2) => { ret2(await getMU(ageMin,ageMax,gender,interests,sp))}));
+			con.end();
 		});
 	});
 }
@@ -199,8 +209,10 @@ function getMU(ageMin,ageMax,gender,interests,sp){
 				console.log("EndHo:".green+" Got Matched Users ".cyan);
 				console.log("EndHo: ".green+matchedUsers);
 				data(matchedUsers);
+				con.end();
 			} else {
 				data("No Matched Users");
+				con.end();
 			}
 		});
 	});
