@@ -5,6 +5,7 @@ var path = require('path');
 var app = express();
 var userManager = require('./matcha-backend/managers/userManager.js');
 var tableManager = require('./matcha-backend/managers/tableManager.js');
+var locationManager = require('./matcha-backend/managers/locationManager.js');
 var chatManager = require('./matcha-backend/managers/chatManager.js');
 var bodyParser = require('body-parser');
 const { table } = require('console');
@@ -153,6 +154,31 @@ router.get('/message/send', function(req, res, next) {
         res.redirect('/chats')
     });
 });
+router.get('/user/updateLocation', function(req, res, next) {
+    ssn = req.session;
+    if (!ssn.userid || ssn.userid == null){
+        res.redirect('/login')
+    }
+    locationManager.updateLocation(ssn.userid,req.query.area,req.query.ip,req.query.apiKey).then(val => {
+        res.send("");
+    })
+});
+router.get('/user/getLocation', function(req, res, next) {
+    ssn = req.session;
+    if (!ssn.userid || ssn.userid == null){
+        res.redirect('/login')
+    }
+    console.log(req.query.userid);
+    if (req.query.userid == "logged"){
+        locationManager.getLocation(ssn.userid).then(val => {
+            res.send(val);
+        })
+    } else if (req.query.userid) {
+        locationManager.getLocation(req.query.userid).then(val => {
+            res.send(val);
+        })
+    }
+});
 router.get('/message/getMessages', function(req, res, next) {
     ssn = req.session;
     if (!ssn.userid || ssn.userid == null){
@@ -184,10 +210,10 @@ router.get('/login', function(req, res) {
 
 // route for our home page
 router.get('/home', function(req, res) {
-    // ssn = req.session;
-    // if (!ssn.userid || ssn.userid == null){
-    //     res.redirect('/login')
-    // }
+    ssn = req.session;
+    if (!ssn.userid || ssn.userid == null){
+        res.redirect('/login')
+    }
     res.render('home.pug')
 })
 

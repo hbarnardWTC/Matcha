@@ -64,15 +64,25 @@ function getUserCount(){
 
 var count = 0;
 var msg = 0;
-function addNewUsers(){
+async function addNewUsers(){
+	var userManager = require('./managers/userManager.js');
+	var locationManager = require('./managers/locationManager.js');
 	if (count >= ((config.userCount-5)-1) && msg == 0){
-		getUserCount().then(val => {
-			console.log("EndHo: ".green+"Added (".rainbow+val+") Users".rainbow);
-			console.log("EndHo: ".green+"Successfully Created Endless Horizon Database".rainbow);
-			process.exit(0);
-		})
 		msg++;
-	} else {
+		await userManager.getAllUsers().then(async (users) => {
+			await users.forEach(async (user) => {
+				await locationManager.updateLocation(user.userid, "bellville", "capetown", "AIzaSyDCdn8N23XLWZNYKKfnG0uENNsTJQiGsnA");
+			})
+		})
+		setTimeout(() => {
+			getUserCount().then(val => {
+				console.log("EndHo: ".green+"Added (".rainbow+val+") Users".rainbow);
+				console.log("EndHo: ".green+"Successfully Created Endless Horizon Database".rainbow);
+				process.exit(0);
+			})
+		}, 3000);
+		msg++;
+	} else if (count < ((config.userCount-5))) {
 		var userManager = require('./managers/userManager.js');
 		var namesM = require('./setup/NamesM.json');
 		var namesF = require('./setup/NamesM.json');
