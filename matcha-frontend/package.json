@@ -15,7 +15,7 @@
   },
   "scripts": {
     "start": "nodemon server.js",
-    "build": "cd matcha-backend && npm install && npm run start"
+    "build": "npm install && (cd matcha-backend && npm install && npm run start)"
   },
   "browserslist": {
     "production": [
