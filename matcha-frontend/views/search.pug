@@ -36,7 +36,7 @@ html(lang="en")
                                 a.nav-link(href='/search') Finder
                         ul.navbar-nav.navbar-right
                             li.nav-item.dropdown
-                                a#dropdown07.nav-link.dropdown-toggle(href='http://example.com', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Notification
+                                a#dropdown07.nav-link.dropdown-toggle(href='#', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Notification
                                 .dropdown-menu.not-size(aria-labelledby='dropdown07')
                                     p.dropdown-item.size.break User1 has viewed your profile
                                     p.dropdown-item.size.break User2 has liked your profile
@@ -79,12 +79,12 @@ html(lang="en")
                                         option(value="descending") Descending
                                         option(value="descending") Descending
                                 .form-group
-                                    label.go-away(for="sexualpref") Sexuality:
-                                    select(name="socailDistancing" id="socailDistancing")
+                                    label.go-away(for="sexualpref") Sexual Preference:
+                                    select(name="sp" id="sP")
                                         option(value="none") Select your homo (no homo / homo)
-                                        option(value="female") Female
-                                        option(value="male") Male
-                                        option(value="bisexual") Bisexual
+                                        option(value="0") Male
+                                        option(value="1") Female
+                                        option(value="2") Bisexual
                 .col-sm-11.py-2.mx-auto
                     #Filter.collapse.multi-collapse
                         .card.card-body.cont.recommend-card.text-center(style='max-width: 750px;')
@@ -151,7 +151,7 @@ html(lang="en")
                                                     i.fa.fa-trophy.mx-2.yellow
                                                     |  Likes : #{val.fame}
         div(class="container")
-            div(class="row drop-panties justify-content-center")
+            div(class="row drop-panties justify-content-center" id="matchesList")
                 div(class="col-lg-4")
                     img(class="d-block search-image" src="https://pbs.twimg.com/media/DNkyKjSW4AAdPpW.jpg" alt="First slide")
                     p(class="cl-white text-center margin-zero") Name: Liam
@@ -185,3 +185,5 @@ html(lang="en")
         script(type='text/javascript', src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@2.1.7/dist/loadingoverlay.min.js")
         script
             include ../scripts/search.js
+
+            //- https://i.chzbgr.com/full/8378017280/hA258D43C/aww-cmere  // gif for no results found //

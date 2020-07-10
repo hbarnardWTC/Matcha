@@ -25,7 +25,7 @@ module.exports = {
 				if (config.userMessage == "true"){console.log("EndHo:".green+" Request To Add A User ".blue+"("+username+","+name+","+surname+","+age+","+gender+","+email+","+password+","+sexualPreference+","+bio+","+interests+")");}
 				var sql = "INSERT INTO ";
 				var Tablename = "users";
-				var options = "(username,name,surname,age,gender,email,password,sexualPreference,bio,interests)";
+				var options = "(username,name,surname,age,gender,email,password,sexualPreference,bio,interests,verified)";
 				var values = " VALUES('"+
 				username+"','"+
 				name+"','"+
@@ -36,7 +36,8 @@ module.exports = {
 				passwordHash.generate(password)+"','"+
 				sexualPreference+"','"+
 				bio+"','"+
-				interests
+				interests+"','"+
+				'false'
 				+"')";
 				ret(new Promise(ret2 => {
 					con.query(sql+Tablename+options+values,function(err,result) {
@@ -194,6 +195,67 @@ async function getUserById(userid){
 	});
 }
 
+
+// email
+async function verifyEmail(userid, vtoken){
+	var con = mysql.createConnection(config.userDB);
+	return new Promise(ret => {
+		con.connect(async function(err) {
+			if (err) { { console.log("Endho: ".red+"Error Connecting To DB At getUserById!! Set Debug To (error) To View Details".magenta); if(config.debug == "error"){console.log("EndHo: ".red+err)}return;} }
+			console.log("EndHo:".green+" Request To Get User ID: ".blue+userid);
+			var sql = sql = 'SELECT userid, verified, vtoken FROM `users` WHERE userid = ?';
+			ret(new Promise(data => {
+				con.query(sql, [userid], function(err,result) {
+					if (err) { console.log("Endho: ".red+"Error Getting User!! Set Debug To (error) To View Details".magenta); if(config.debug == "error"){console.log("EndHo: ".red+err)}return;}
+					if (config.debug == "true") {console.log(result);}
+					if (result[0]){
+						if (passwordHash.verify(vtoken, result[0].vtoken)){
+							setToken(userid).then(val => {
+								data(val);
+							})
+						} else {
+							data('Error');
+						}
+						console.log("EndHo:".green+" Got User ".cyan);
+						con.end();
+					} else {
+						console.log("EndHo:".red+" No User with id: ".magenta+userid);
+						data('Error');
+						con.end();
+					}
+				});
+			}))
+		});
+	});
+}
+
+
+async function setToken(userid){
+	var con = mysql.createConnection(config.userDB);
+	return new Promise(ret => {
+		con.connect(function(err) {
+			if (err) { { console.log("Endho: ".red+"Error Connecting To DB At updateStatus!! Set Debug To (error) To View Details".magenta); if(config.debug == "error"){console.log("EndHo: ".red+err)}return;} }
+			var sql = "UPDATE ";
+			var Tablename = "users";
+			var options = " SET verified = ? WHERE userid = ?"
+			ret(new Promise(ret2 => {
+				con.query(sql+Tablename+options, ['true',userid],function(err,result) {
+					if (err) { console.log("Endho: ".red+"Error Updating Status!! Set Debug To (error) To View Details".magenta); if(config.debug == "error"){console.log("EndHo: ".red+err)}return;}
+					if (config.debug == "true") {console.log(result);}
+					console.log(result);
+					if (result.affectedRows == 1){
+            			ret2("Success");
+						con.end();
+					} else {
+						ret2("Error");
+						con.end();
+					}
+				})
+			}));
+		});
+	});
+}
+
 //Get matched users
 //
 async function getMatchedUsers(ageMin,ageMax,gender,interests,sp){
@@ -250,6 +312,7 @@ function getMU(ageMin,ageMax,gender,interests,sp){
 }
 module.exports.getUserById = getUserById;
 module.exports.getMatchedUsers = getMatchedUsers;
+module.exports.verifyEmail = verifyEmail;
 
 
 

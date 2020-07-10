@@ -296,6 +296,18 @@ router.get('/user/getCurrentUser', async function(req, res, next) {
     }
 });
 
+router.get('/user/verifyEmail', async function(req, res, next) {
+    await userManager.verifyEmail(req.query.userid, req.query.email).then(status => {
+        console.log(status);
+        if (status == 'Success') {
+            res.redirect('/validate')
+        } else {
+            res.redirect('/failure')
+        }
+    });
+});
+
+
 // route for our login page
 router.get('/login', function(req, res) {
     res.render('login.pug')
@@ -324,9 +336,14 @@ router.get('/editing', function(req, res) {
     res.render('edit.pug')
 })
 
-// route for invitation
+// route for validated
 router.get('/validate', function(req, res) {
     res.render('validated.pug')
+})
+
+// route for fail to validate
+router.get('/failure', function(req, res) {
+    res.render('failure.pug')
 })
 
 // route for sent email
