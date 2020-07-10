@@ -28,6 +28,7 @@ function applyFilters(){
           "interests": interests
         },
         success: function(data) {
+          console.log(data);
           updateUsers(data);
         },
         error: function(xhr) {

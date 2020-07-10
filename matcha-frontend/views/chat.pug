@@ -14,35 +14,37 @@ html(lang="en")
         script(type='text/javascript', src="https://code.jquery.com/jquery-3.5.1.js")
     body
         header
-            nav.navbar.navbar-expand-lg.navbar-dark
+        //- Navbar construction
+        header
+          nav.navbar.navbar-expand-lg.navbar-dark
               .container
-                a.navbar-brand(href='/home') Endless Horizon
-                button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarsExample07', aria-controls='navbarsExample07', aria-expanded='false', aria-label='Toggle navigation')
-                  span.navbar-toggler-icon
-                #navbarsExample07.collapse.navbar-collapse
-                  ul.navbar-nav.mr-auto
-                    li.nav-item.active
-                      a.nav-link(href='/home')
-                        | Home 
-                        span.sr-only (current)
-                    li.nav-item
-                      a.nav-link(href='/chats') Chats
-                    li.nav-item
-                      a.nav-link(href='/editing') Profile Edit
-                    li.nav-item
-                      a.nav-link(href='/search') Finder
-                  ul.navbar-nav.navbar-right
-                    li.nav-item.dropdown
-                      a#dropdown07.nav-link.dropdown-toggle(href='http://example.com', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Notification
-                      .dropdown-menu.not-size(aria-labelledby='dropdown07')
-                        p.dropdown-item.size.break User1 has viewed your profile
-                        p.dropdown-item.size.break User2 has liked your profile
-                        p.dropdown-item.size.break User3 has blocked your profile
-                        p.dropdown-item.size.break User2 has liked your profile
-                        p.dropdown-item.size.break User3 has blocked your profile
-                        p.dropdown-item.size.break use2143258435u34290242u24 has viewed your profile
-                    li.nav-item
-                      a.nav-link(href='/logout') Log Out
+                  a.navbar-brand(href='/home') Endless Horizon
+                  button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarsExample07', aria-controls='navbarsExample07', aria-expanded='false', aria-label='Toggle navigation')
+                      span.navbar-toggler-icon
+                  #navbarsExample07.collapse.navbar-collapse
+                      ul.navbar-nav.mr-auto
+                          li.nav-item.active
+                              a.nav-link(href='/home')
+                                  | Home 
+                                  span.sr-only (current)
+                          li.nav-item
+                              a.nav-link(href='/chats') Chats
+                          li.nav-item
+                              a.nav-link(href='/editing') Profile Edit
+                          li.nav-item
+                              a.nav-link(href='/search') Finder
+                      ul.navbar-nav.navbar-right
+                          li.nav-item.dropdown
+                              a#dropdown07.nav-link.dropdown-toggle(href='#', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Notification
+                              .dropdown-menu.not-size(aria-labelledby='dropdown07')
+                                  p.dropdown-item.size.break User1 has viewed your profile
+                                  p.dropdown-item.size.break User2 has liked your profile
+                                  p.dropdown-item.size.break User3 has blocked your profile
+                                  p.dropdown-item.size.break User2 has liked your profile
+                                  p.dropdown-item.size.break User3 has blocked your profile
+                                  p.dropdown-item.size.break use2143258435u34290242u24 has viewed your profile
+                          li.nav-item
+                              a.nav-link(href='/logout') Log Out
 
         div(class="container py-5 px-4")
             div(class="row rounded-lg overflow-hidden shadow")
@@ -200,5 +202,18 @@ html(lang="en")
             i.fa.fa-twitter.w3-hover-opacity.cl-white
             i.fa.fa-linkedin.w3-hover-opacity.cl-white
 
-            script
-                  include ../scripts/chats.js
+    script(
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.slim.min.js"
+      integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g="
+      crossorigin="anonymous"
+    )
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.13.0/umd/popper.min.js" integrity="sha256-pS96pU17yq+gVu4KBQJi38VpSuKN7otMrDQprzf/DWY=" crossorigin="anonymous")
+    script(
+      src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/js/bootstrap.min.js"
+      integrity="sha256-DiWJXXyq81WlPRnDfGmgYZj2aOVCKyEdJ1l+2TmDuAs="
+      crossorigin="anonymous"
+    )
+    script(type='text/javascript', src="https://code.jquery.com/jquery-3.5.1.js")
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.all.min.js")
+    script
+      include ../scripts/chats.js

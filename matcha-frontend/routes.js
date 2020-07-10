@@ -162,7 +162,7 @@ router.get('/user/getMatchingUsers', async function(req, res, next) {
                                         await userManager.getUserById(id).then(user => {
                                             usersL.users.push(user);
                                             usersL.dist.push(dist);
-                                            console.log(usersL.length);
+                                            console.log(usersL.users.length);
                                             console.log(userids.length);
                                         })
                                     }
@@ -279,6 +279,18 @@ router.get('/user/getCurrentUser', async function(req, res, next) {
        });
     }
 });
+
+router.get('/user/verifyEmail', async function(req, res, next) {
+    await userManager.verifyEmail(req.query.userid, req.query.email).then(status => {
+        console.log(status);
+        if (status == 'Success') {
+            res.redirect('/validate')
+        } else {
+            res.redirect('/failure')
+        }
+    });
+});
+
 
 // route for our login page
 router.get('/login', function(req, res) {
