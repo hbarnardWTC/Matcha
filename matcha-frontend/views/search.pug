@@ -18,25 +18,35 @@ html(lang="en")
         //- Navbar construction
         header
             nav.navbar.navbar-expand-lg.navbar-dark
-              .container
-                a.navbar-brand(href='/home') Endless Horizon
-                button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarsExample07', aria-controls='navbarsExample07', aria-expanded='false', aria-label='Toggle navigation')
-                  span.navbar-toggler-icon
-                #navbarsExample07.collapse.navbar-collapse
-                  ul.navbar-nav.mr-auto
-                    li.nav-item.active
-                      a.nav-link(href='/home')
-                        | Home 
-                        span.sr-only (current)
-                    li.nav-item
-                      a.nav-link(href='/chats') Chats
-                    li.nav-item
-                      a.nav-link(href='/editing') Profile Edit
-                    li.nav-item
-                      a.nav-link(href='/logout') Log Out
-                  form.form-inline.my-2.my-md-0
-                    input.form-control(type='text', placeholder='Search', aria-label='Search')
-                    
+                .container
+                    a.navbar-brand(href='/home') Endless Horizon
+                    button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarsExample07', aria-controls='navbarsExample07', aria-expanded='false', aria-label='Toggle navigation')
+                        span.navbar-toggler-icon
+                    #navbarsExample07.collapse.navbar-collapse
+                        ul.navbar-nav.mr-auto
+                            li.nav-item.active
+                                a.nav-link(href='/home')
+                                    | Home 
+                                    span.sr-only (current)
+                            li.nav-item
+                                a.nav-link(href='/chats') Chats
+                            li.nav-item
+                                a.nav-link(href='/editing') Profile Edit
+                            li.nav-item
+                                a.nav-link(href='/search') Finder
+                        ul.navbar-nav.navbar-right
+                            li.nav-item.dropdown
+                                a#dropdown07.nav-link.dropdown-toggle(href='http://example.com', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Notification
+                                .dropdown-menu.not-size(aria-labelledby='dropdown07')
+                                    p.dropdown-item.size.break User1 has viewed your profile
+                                    p.dropdown-item.size.break User2 has liked your profile
+                                    p.dropdown-item.size.break User3 has blocked your profile
+                                    p.dropdown-item.size.break User2 has liked your profile
+                                    p.dropdown-item.size.break User3 has blocked your profile
+                                    p.dropdown-item.size.break use2143258435u34290242u24 has viewed your profile
+                            li.nav-item
+                                a.nav-link(href='/logout') Log Out
+
         .container.text-center
             h1.mt-white.text-center.mt-5.display-3#heading.cl-white So Sexy
 
@@ -50,36 +60,36 @@ html(lang="en")
                             hr
                             #radio.funkyradio
                                 .form-group
-                                    .funkyradio-success
-                                        input#AgeUp(type='radio', name='radio', value="AgeUp")
-                                        label(for='AgeUp' style="color: black !important") Age, ascending
-                                    .funkyradio-success
-                                        input#AgeDown(type='radio', name='radio', value="AgeDown")
-                                        label(for='AgeDown' style="color: black !important") Age, descending
+                                    label.go-away(for="AgeGape") Age:
+                                    select(name="AgeGape" id="AgeGape")
+                                        option(value="none") Age Gape?
+                                        option(value="ascending") Ascending
+                                        option(value="descending") Descending
                                 .form-group
-                                    .funkyradio-success
-                                        input#FameUp(type='radio', name='radio', value="FameUp")
-                                        label(for='FameUp' style="color: black !important") Popularity, ascending
-                                    .funkyradio-success
-                                        input#FameDown(type='radio', name='radio', value="FameDown")
-                                        label(for='FameDown' style="color: black !important") Popularity, descending
+                                    label.go-away(for="popularity") Popularity:
+                                    select(name="popularity" id="popularity")
+                                        option(value="none") Sluttitiness Factors
+                                        option(value="ascending") Ascending
+                                        option(value="descending") Descending
                                 .form-group
-                                    .funkyradio-success
-                                        input#Close(type='radio', name='radio', value="Closer")
-                                        label(for='Close' style="color: black !important") Closest
-                                    .funkyradio-success
-                                        input#Far(type='radio', name='radio', value="Further")
-                                        label(for='Far' style="color: black !important") Furthest        
+                                    label.go-away(for="socailDistancing") Distance:
+                                    select(name="socailDistancing" id="socailDistancing")          
+                                        option(value="none") Milfs in your area
+                                        option(value="ascending") Ascending
+                                        option(value="descending") Descending
+                                        option(value="descending") Descending
+                                .form-group
+                                    label.go-away(for="sexualpref") Sexuality:
+                                    select(name="socailDistancing" id="socailDistancing")
+                                        option(value="none") Select your homo (no homo / homo)
+                                        option(value="female") Female
+                                        option(value="male") Male
+                                        option(value="bisexual") Bisexual
                 .col-sm-11.py-2.mx-auto
                     #Filter.collapse.multi-collapse
                         .card.card-body.cont.recommend-card.text-center(style='max-width: 750px;')
                             .container
                                 h6(style="color: black !important") Filter By:
-                                h
-                                select(id="sP" class="spSelect")
-                                    option(value="0" class="spSelectItem") Male
-                                    option(value="1" class="spSelectItem") Female
-                                    option(value="2" class="spSelectItem") Bisexual
                                 br
                                 input#minPop.form-control(type='text', placeholder='Minimum Popularity', name='fameMin')
                                 small#fameHelpBlock.form-text.text-muted(style="color: black !important")
@@ -141,24 +151,25 @@ html(lang="en")
                                                     i.fa.fa-trophy.mx-2.yellow
                                                     |  Likes : #{val.fame}
         div(class="container")
-            div(class="row drop-panties")
-                div(class="col-lg-4" id="matchesList")
-                    div(class="col-lg-4")
-                        img(class="d-block search-image" src="https://pbs.twimg.com/media/DNkyKjSW4AAdPpW.jpg" alt="First slide")
-                        p(class="cl-white text-center margin-zero") Name: Liam
-                        p(class="cl-white text-center margin-zero") Age: 20
-                        p(class="cl-white text-center margin-zero") Distance: Near You
-                    div(class="col-lg-4")
-                        img(class="d-block search-image" src="https://ih1.redbubble.net/image.449679317.7760/flat,750x1000,075,f.u3.jpg" alt="First slide")
-                        p(class="cl-white text-center margin-zero") Name: Rias
-                        p(class="cl-white text-center margin-zero") 3 sizes: B99-W58-H90
-                        p(class="cl-white text-center margin-zero") Distance: In Japan
-                    div(class="col-lg-4")
-                        img(class="d-block search-image" src="https://lh3.googleusercontent.com/proxy/JHLxlNW4pe-ERsPg-d8PScQqkU3Ie_270C1zepjof7dIkUdI84rRIslCgnZ4ZAzsgmaEBPef7CPXOBS7aa1F4_FsLDFSpP9l65fWSwDPcL82IBE9IAgijTTiH42LEJHSxMO75_EyhXfazB1C1Du2kg" alt="First slide")
-                        p(class="cl-white text-center margin-zero") Name: PC
-                        p(class="cl-white text-center margin-zero") Age: 21
-                        p(class="cl-white text-center margin-zero") Distance: Nya
+            div(class="row drop-panties justify-content-center")
+                div(class="col-lg-4")
+                    img(class="d-block search-image" src="https://pbs.twimg.com/media/DNkyKjSW4AAdPpW.jpg" alt="First slide")
+                    p(class="cl-white text-center margin-zero") Name: Liam
+                    p(class="cl-white text-center margin-zero") Age: 20
+                    p(class="cl-white text-center margin-zero") Distance: Near You
+                div(class="col-lg-4")
+                    img(class="d-block search-image" src="https://ih1.redbubble.net/image.449679317.7760/flat,750x1000,075,f.u3.jpg" alt="First slide")
+                    p(class="cl-white text-center margin-zero") Name: Rias
+                    p(class="cl-white text-center margin-zero") 3 sizes: B99-W58-H90
+                    p(class="cl-white text-center margin-zero") Distance: In Japan
+                div(class="col-lg-4")
+                    img(class="d-block search-image" src="https://i.pinimg.com/236x/c0/58/00/c05800b8cd0beb2448328c510d3307b4.jpg" alt="First slide")
+                    p(class="cl-white text-center margin-zero") Name: PC
+                    p(class="cl-white text-center margin-zero") Age: 21
+                    p(class="cl-white text-center margin-zero") Distance: Nya
 
+        footer(class="container")
+           div(class="footer-copyright text-center py-3 cl-white") © 2020 Copyright: Endless Horizon
 
         script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js")
         script(src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js")

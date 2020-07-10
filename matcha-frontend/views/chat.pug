@@ -13,25 +13,36 @@ html(lang="en")
         title Chat
         script(type='text/javascript', src="https://code.jquery.com/jquery-3.5.1.js")
     body
-        nav.navbar.navbar-expand-lg.navbar-dark
-            .container
+        header
+            nav.navbar.navbar-expand-lg.navbar-dark
+              .container
                 a.navbar-brand(href='/home') Endless Horizon
                 button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarsExample07', aria-controls='navbarsExample07', aria-expanded='false', aria-label='Toggle navigation')
-                    span.navbar-toggler-icon
+                  span.navbar-toggler-icon
                 #navbarsExample07.collapse.navbar-collapse
-                    ul.navbar-nav.mr-auto
-                        li.nav-item.active
-                            a.nav-link(href='/home')
-                                | Home 
-                                span.sr-only (current)
-                        li.nav-item
-                            a.nav-link(href='/chats') Chats
-                        li.nav-item
-                            a.nav-link(href='/editing') Profile Edit
-                        li.nav-item
-                            a.nav-link(href='/logout') Log Out
-                    form.form-inline.my-2.my-md-0
-                        input.form-control(type='text', placeholder='Search', aria-label='Search')
+                  ul.navbar-nav.mr-auto
+                    li.nav-item.active
+                      a.nav-link(href='/home')
+                        | Home 
+                        span.sr-only (current)
+                    li.nav-item
+                      a.nav-link(href='/chats') Chats
+                    li.nav-item
+                      a.nav-link(href='/editing') Profile Edit
+                    li.nav-item
+                      a.nav-link(href='/search') Finder
+                  ul.navbar-nav.navbar-right
+                    li.nav-item.dropdown
+                      a#dropdown07.nav-link.dropdown-toggle(href='http://example.com', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Notification
+                      .dropdown-menu.not-size(aria-labelledby='dropdown07')
+                        p.dropdown-item.size.break User1 has viewed your profile
+                        p.dropdown-item.size.break User2 has liked your profile
+                        p.dropdown-item.size.break User3 has blocked your profile
+                        p.dropdown-item.size.break User2 has liked your profile
+                        p.dropdown-item.size.break User3 has blocked your profile
+                        p.dropdown-item.size.break use2143258435u34290242u24 has viewed your profile
+                    li.nav-item
+                      a.nav-link(href='/logout') Log Out
 
         div(class="container py-5 px-4")
             div(class="row rounded-lg overflow-hidden shadow")
@@ -178,6 +189,10 @@ html(lang="en")
             //-         form(id="chatMessage" class="chatForm")
             //-             input(id="chatInput" type="text" class="chatInput" required)
             //-             button(id="chatSubmit" type="submit" class="chatSubmit") Send
+            
+        footer(class="container")
+           div(class="footer-copyright text-center py-3 cl-white") © 2020 Copyright: Endless Horizon
+
             script
                   include ../scripts/chats.js
 

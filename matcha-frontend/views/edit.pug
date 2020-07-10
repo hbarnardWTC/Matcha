@@ -33,9 +33,21 @@ html(lang="en")
                     li.nav-item
                       a.nav-link(href='/editing') Profile Edit
                     li.nav-item
+                      a.nav-link(href='/search') Finder
+                  ul.navbar-nav.navbar-right
+                    li.nav-item.dropdown
+                      a#dropdown07.nav-link.dropdown-toggle(href='http://example.com', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Notification
+                      .dropdown-menu.not-size(aria-labelledby='dropdown07')
+                        p.dropdown-item.size.break User1 has viewed your profile
+                        p.dropdown-item.size.break User2 has liked your profile
+                        p.dropdown-item.size.break User3 has blocked your profile
+                        p.dropdown-item.size.break User2 has liked your profile
+                        p.dropdown-item.size.break User3 has blocked your profile
+                        p.dropdown-item.size.break use2143258435u34290242u24 has viewed your profile
+                    li.nav-item
                       a.nav-link(href='/logout') Log Out
-                  form.form-inline.my-2.my-md-0
-                    input.form-control(type='text', placeholder='Search', aria-label='Search')
+                  //- form.form-inline.my-2.my-md-0
+                  //-   input.form-control(type='text', placeholder='Search', aria-label='Search')
 
         main(role="main")
           div(class="center-text log-flex container")
@@ -106,7 +118,7 @@ html(lang="en")
               button(class="btn btn-secondary btn-lg btn-block" type="submit") Change Info
 
         footer(class="container")
-           div(class="footer-copyright text-center py-3") © 2020 Copyright: Endless Horizon
+           div(class="footer-copyright text-center py-3 cl-white") © 2020 Copyright: Endless Horizon
 
     script(
       src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.slim.min.js"
