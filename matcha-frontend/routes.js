@@ -9,6 +9,7 @@ var locationManager = require('./matcha-backend/managers/locationManager.js');
 var chatManager = require('./matcha-backend/managers/chatManager.js');
 var viewManager = require('./matcha-backend/managers/viewManager.js');
 var matchManager = require('./matcha-backend/managers/matchManager.js');
+var notificationManager = require('./matcha-backend/managers/notificationManager.js');
 var bodyParser = require('body-parser');
 const { table } = require('console');
 // parse application/x-www-form-urlencoded
@@ -64,21 +65,24 @@ router.post('/user/register', function(req, res, next) {
     }
     res.redirect('/login')
 });
+router.get('/user/getNotifications', async function(req, res, next) {
+    ssn = req.session;
+    if (!ssn.userid || ssn.userid == null){
+        res.redirect('/login')
+    } else {
+        await notificationManager.getNotifications(ssn.userid).then(val => {
+            res.send(val);
+        })
+    }
+});
 router.post('/user/getAllUsers', function(req, res, next) {
     ssn = req.session;
     if (!ssn.userid || ssn.userid == null){
         res.redirect('/login')
     } else {
-        tableManager.getValues("matches",["userid_1","userid_2"]).then(vals => {
-            var users= new Array();
-            vals.forEach(row => {
-                if (row.userid_1 == ssn.userid){
-                  users.push(row.userid_2);
-                }
-              });
-              console.log(users);   
-              res.send(users);
-        });
+        matchManager.getMatchedUsersTrue(ssn.userid).then(users => {
+            res.send(users);
+        })
     }
 });
 router.get('/user/getRandomUser', async function(req, res, next) {
@@ -111,6 +115,16 @@ router.get('/user/createMatch', async function(req, res, next) {
     } else {
        matchManager.createMatch(ssn.userid,req.query.userid);
        res.send("");
+    }
+});
+router.get('/user/addLikeYes', async function(req, res, next) {
+    ssn = req.session;
+    if (!ssn.userid || ssn.userid == null){
+        res.redirect('/login')
+    } else {
+       matchManager.addLike(ssn.userid,req.query.userid).then(val => {
+           res.send(val);
+       })
     }
 });
 router.get('/user/getUserById', async function(req, res, next) {
@@ -323,6 +337,15 @@ router.get('/user/verifyEmail', async function(req, res, next) {
 // route for our login page
 router.get('/login', function(req, res) {
     res.render('login.pug')
+})
+router.get('/logout', function(req, res) {
+    ssn = req.session;
+    if(ssn.userid) {
+        delete ssn.userid;
+        res.redirect('/login');
+    } else {
+        res.redirect('/login');
+    } 
 })
 
 // route for our home page

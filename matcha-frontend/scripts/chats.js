@@ -31,6 +31,7 @@ function matchedUsers(){
     contentType: "application/json;charset=UTF-8",
     dataType: "json",
     success: function(data) {
+      console.log(data);
       data.forEach(row => {
           getMatchedUser(row);
       });

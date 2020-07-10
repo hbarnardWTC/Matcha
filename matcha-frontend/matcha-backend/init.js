@@ -67,22 +67,21 @@ var msg = 0;
 async function addNewUsers(){
 	var userManager = require('./managers/userManager.js');
 	var locationManager = require('./managers/locationManager.js');
-	if (count >= ((config.userCount-5)-1) && msg == 0){
+	if (count > ((config.userCount-5)) && msg == 0){
 		msg++;
 		setTimeout(async () => {
 			await userManager.getAllUsers().then(async (users) => {
-				await users.forEach(async (user) => {
-					console.log(user.userid);
-					await locationManager.updateLocation(user.userid, "bellville", "capetown", "AIzaSyDCdn8N23XLWZNYKKfnG0uENNsTJQiGsnA");
-				})
+				(async() => {
+					for (let user of users){
+						await locationManager.updateLocation(user.userid, "bellville", "capetown", "AIzaSyDCdn8N23XLWZNYKKfnG0uENNsTJQiGsnA").then(val => {})
+					};
+					getUserCount().then(val => {
+						console.log("EndHo: ".green+"Added (".rainbow+val+") Users".rainbow);
+						console.log("EndHo: ".green+"Successfully Created Endless Horizon Database".rainbow);
+						process.exit(0);
+					})
+				})();
 			})
-			setTimeout(() => {
-				getUserCount().then(val => {
-					console.log("EndHo: ".green+"Added (".rainbow+val+") Users".rainbow);
-					console.log("EndHo: ".green+"Successfully Created Endless Horizon Database".rainbow);
-					process.exit(0);
-				})
-			}, 4000);
 		}, 2000);
 	} else if (count < ((config.userCount-5))) {
 		var userManager = require('./managers/userManager.js');
@@ -155,7 +154,7 @@ async function tests(){
 
 	await userManager.getMatchedUsers(18,24,0,["coding","gaming"],1).then(async (value) => {
 		(async() => {
-			for (let user of vakue){
+			for (let user of value){
 				await new Promise(ret => {
 					ret(userManager.getUserById(user).then(user => {
 						console.log("EndHo: ".green+user.name);

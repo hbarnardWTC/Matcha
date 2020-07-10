@@ -7,6 +7,7 @@ var location = require('../tables/location.json');
 var chats = require('../tables/chats.json');
 var matches = require('../tables/matches.json');
 var views = require('../tables/views.json');
+var notifications = require('../tables/notifications.json');
 var userManager = require('./userManager.js');
 const colors = require('colors');
 
@@ -20,6 +21,7 @@ module.exports = {
 		await createMatchesTable();
 		await createAllViewsTable();
 		await createNewViewsTable();
+		await createNotificationsTable();
 		await userManager.generateUsers();
 	},
 	updateValue: function (table,value,userid,newValue){
@@ -340,6 +342,36 @@ function createAllViewsTable(){
 			var values = "("+
 			views.viewer+","+
 			views.viewed
+			+")";
+			ret(new Promise(ret2 => {
+				conDB.query(sql+Tablename+values, function (err, result) {
+				  	if (err) { console.log("Endho: ".red+"Error Creating allViews Table!! Set Debug To (error) To View Details".magenta); if(config.debug == "error"){console.log("EndHo: ".red+err)}return;}
+					if (result){
+						console.log("EndHo:".green+" Created The (allviews) Table");
+						ret2("Success");
+						conDB.end();
+					} else {
+						ret2("Error");
+						conDB.end();
+					}
+				});
+			}));
+		});
+	});
+}
+function createNotificationsTable(){
+	var conDB = mysql.createConnection(config.userDB)
+	return new Promise(ret => {
+		conDB.connect(function(err) {
+			if (err) { { console.log("Endho: ".red+"Error Connecting To DB At createAllViewsTable!! Set Debug To (error) To View Details".magenta); if(config.debug == "error"){console.log("EndHo: ".red+err)}return;} }
+			console.log("EndHo:".green+" Creating The (allviews) Table");
+			var sql = "CREATE TABLE ";
+			var Tablename = "notifications ";
+			var values = "("+
+			notifications.noteid+","+
+			notifications.notify+","+
+			notifications.user+","+
+			notifications.action
 			+")";
 			ret(new Promise(ret2 => {
 				conDB.query(sql+Tablename+values, function (err, result) {

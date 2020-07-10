@@ -2,6 +2,7 @@ var mysql = require('mysql');
 var config = require('../setup/config.json');
 var PCUsers = require('../setup/preConfigUsers.json');
 const { on } = require('process');
+var notificationManager = require('./notificationManager');
 const colors = require('colors');
 
 module.exports = {
@@ -76,7 +77,7 @@ module.exports = {
 			con.connect(function(err) {
 				if (err) { { console.log("Endho: ".red+"Error Connecting To DB At adwwad!! Set Debug To (error) To View Details".magenta); if(config.debug == "error"){console.log("EndHo: ".red+err)}return;} }
 				console.log("EndHo:".green+" Request To Get awddwa for ID".blue+"("+userid+")");
-				var sql = "SELECT userid_1 FROM ";
+				var sql = "SELECT userid_1, userid_2 FROM ";
 				var Tablename = "matches";
 				var options = " WHERE userid_2 = ?";
 				ret(new Promise(data => {
@@ -94,6 +95,106 @@ module.exports = {
 							data("0");
 						}
 						con.end();
+					})
+				}))
+			});
+		});
+	},
+	getMatchedUsersTrue: function (userid){
+		var con = mysql.createConnection(config.userDB);
+		var usersLikedByMe = new Array();
+		var usersLikedMe = new Array();
+		var matches = new Array();
+		return new Promise(ret => {
+			con.connect(function(err) {
+				if (err) { { console.log("Endho: ".red+"Error Connecting To DB At adwwad!! Set Debug To (error) To View Details".magenta); if(config.debug == "error"){console.log("EndHo: ".red+err)}return;} }
+				console.log("EndHo:".green+" Request To Get awddwa for ID".blue+"("+userid+")");
+				var sql = "SELECT userid_2 FROM ";
+				var Tablename = "matches";
+				var options = " WHERE userid_1 = ?";
+				ret(new Promise(data => {
+					con.query(sql+Tablename+options, [userid],function(err,result) {
+						if (err) { console.log("Endho: ".red+"Error Selecting Online From Staawdwatus!! Set Debug To (error) To View Details".magenta); if(config.debug == "error"){console.log("EndHo: ".red+err)}return;}
+						if (config.debug == "true") {console.log(result);}
+						console.log("EndHo:".green+" Got awdawd for".cyan+"("+userid+")");
+						if (result.length >= 0){
+							result.forEach(val => {
+								usersLikedByMe.push(val.userid_2);
+							})
+							console.log(result);
+							var sql = "SELECT userid_1 FROM ";
+							var Tablename = "matches";
+							var options = " WHERE userid_2 = ?";
+							data(new Promise(data2 => {
+								con.query(sql+Tablename+options, [userid],function(err,result) {
+									if (err) { console.log("Endho: ".red+"Error Selecting Online From Staawdwatus!! Set Debug To (error) To View Details".magenta); if(config.debug == "error"){console.log("EndHo: ".red+err)}return;}
+									if (config.debug == "true") {console.log(result);}
+									console.log("EndHo:".green+" Got awdawd for".cyan+"("+userid+")");
+									if (result.length >= 0){
+										result.forEach(val => {
+											usersLikedMe.push(val.userid_1);
+										})
+										console.log(result);
+										usersLikedByMe.forEach(iLike => {
+											usersLikedMe.forEach(liked => {
+												if (iLike == liked){
+													matches.push(liked);
+												}
+											})
+										})
+										console.log(usersLikedByMe);
+										console.log(usersLikedMe);
+										console.log(matches);
+										data2(matches);
+									} else {
+										data2("error");
+									}
+								})
+							}))
+						} else {
+							data("error");
+						}
+					})
+				}))
+			});
+		});
+	},
+	addLike: function (liker,liked){
+		var con = mysql.createConnection(config.userDB);
+		return new Promise(ret => {
+			con.connect(function(err) {
+				if (err) { { console.log("Endho: ".red+"Error Connecting To DB At adwwad!! Set Debug To (error) To View Details".magenta); if(config.debug == "error"){console.log("EndHo: ".red+err)}return;} }
+				console.log("EndHo:".green+" Request To Get awddwa for ID".blue+"("+")");
+				var sql = "SELECT userid_1, userid_2 FROM ";
+				var Tablename = "matches";
+				var options = " WHERE userid_1 = ? AND userid_2 = ?";
+				ret(new Promise(data => {
+					con.query(sql+Tablename+options, [liker,liked],function(err,result) {
+						if (err) { console.log("Endho: ".red+"Error Selecting Online From Staawdwatus!! Set Debug To (error) To View Details".magenta); if(config.debug == "error"){console.log("EndHo: ".red+err)}return;}
+						if (config.debug == "true") {console.log(result);}
+						console.log("EndHo:".green+" Got awdawd for".cyan+"("+")");
+						if (result.length == 0){
+							var sql = "INSERT INTO ";
+							var Tablename = "matches";
+							var options = " (userid_1,userid_2) VALUES (?,?)";
+							data(new Promise(data2 => {
+								con.query(sql+Tablename+options, [liker,liked],function(err,result) {
+									if (err) { console.log("Endho: ".red+"Error Selecting Online From Staawdwatus!! Set Debug To (error) To View Details".magenta); if(config.debug == "error"){console.log("EndHo: ".red+err)}return;}
+									if (config.debug == "true") {console.log(result);}
+									console.log("EndHo:".green+" Got awdawd for".cyan+"("+")");
+									if (result.affectedRows >= 1){
+										notificationManager.addNotification(liked,liker," Liked You!");
+										data2("Success");
+									} else {
+										data2("0");
+									}
+									con.end();
+								})
+							}))
+						} else {
+							data("Exists");
+							con.end();
+						}
 					})
 				}))
 			});

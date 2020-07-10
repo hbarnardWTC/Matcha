@@ -126,17 +126,31 @@ function updateLikeBtn(userid){
 }
 function addLike(userid){
   $.ajax({
-    url: '/user/createMatch',
+    url: '/user/addLikeYes',
     type: "GET",
     data: {
       "userid": userid
     },
     success: function(data) {
-      swal(
-        'Matched!',
-        'Successfully Liked, Go Send Them A Message!',
-        'success'
-      )
+      if (data == "Success"){
+        swal(
+          'Liked!',
+          'Successfully Liked, Good Luck!',
+          'success'
+        )
+      } else if (data == "Exists") {
+        swal(
+          'Already Liked!',
+          'Cheeky Bugger You Already Liked Them!',
+          'error'
+        )
+      } else {
+        swal(
+          'Error!',
+          'Error Adding Like!',
+          'error'
+        )
+      }
       updateUser();
     },
     error: function(xhr) {

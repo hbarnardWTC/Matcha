@@ -1,0 +1,6 @@
+{
+	"noteid": "noteid INT AUTO_INCREMENT PRIMARY KEY",
+	"notify": "notify VARCHAR(255)",
+	"user": "user VARCHAR(255)",
+	"action": "action VARCHAR(255)"
+}

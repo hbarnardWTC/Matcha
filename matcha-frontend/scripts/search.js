@@ -139,21 +139,35 @@ function generateUserDiv(userid,name,age,distance,bio){
     div1.append(p1);
 }
 function addLike(userid){
-    $.ajax({
-      url: '/user/createMatch',
-      type: "GET",
-      data: {
-        "userid": userid
-      },
-      success: function(data) {
+  $.ajax({
+    url: '/user/addLikeYes',
+    type: "GET",
+    data: {
+      "userid": userid
+    },
+    success: function(data) {
+      if (data == "Success"){
         swal(
-            'Matched!',
-            'Successfully Liked, Go Send Them A Message!',
-            'success'
+          'Liked!',
+          'Successfully Liked, Good Luck!',
+          'success'
         )
-      },
-      error: function(xhr) {
-        console.log(xhr);
+      } else if (data == "Exists") {
+        swal(
+          'Already Liked!',
+          'Cheeky Bugger You Already Liked Them!',
+          'error'
+        )
+      } else {
+        swal(
+          'Error!',
+          'Error Adding Like!',
+          'error'
+        )
       }
-    });
-  }
+    },
+    error: function(xhr) {
+      console.log(xhr);
+    }
+  });
+}

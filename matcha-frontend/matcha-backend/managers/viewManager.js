@@ -3,6 +3,7 @@ var config = require('../setup/config.json');
 var PCUsers = require('../setup/preConfigUsers.json');
 const { on } = require('process');
 var mailManager = require('./mailManager.js');
+var notificationManager = require('./notificationManager');
 const colors = require('colors');
 
 
@@ -25,7 +26,8 @@ module.exports = {
 						if (err) { console.log("Endho: ".red+"Error Creating A Status!! Set Debug To (error) To View Details".magenta); if(config.debug == "error"){console.log("EndHo: ".red+err)}return;}
 						if (config.debug == "true") {console.log(result);}
 						if (result.affectedRows == 1){
-                            if (config.userMessage == "true"){console.log("EndHo:".green+" Created a Status for".cyan+"("+")");}
+							if (config.userMessage == "true"){console.log("EndHo:".green+" Created a Status for".cyan+"("+")");}
+							notificationManager.addNotification(viewed,viewer," Looked At Your Profile!");
                             addToAllViews(viewer,viewed);
 							ret2("Success");
 							con.end();
