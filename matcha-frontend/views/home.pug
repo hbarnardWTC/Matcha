@@ -63,12 +63,11 @@ html(lang="en")
               span(class="carousel-control-next-icon" aria-hidden="true")
               span(class="sr-only") Next
           div(class="container text-center" id="profileDetails")
-            div(class="cl-white margin-zero drop-panties")
+            div(class="cl-white margin-zero drop-panties" id="btnsDiv")
               button(type="button" id="likeBtn" class="btn btn-primary")
                 i(class="fa fa-heart")
-              button(type="button" class="btn btn-warning")
-                i(class="fa fa-star")
-              button(type="button" id="dislikeBtn" class="btn btn-light")
+              button(type="button" id="fame" class="btn btn-warning") 0
+              button(type="button" id="dislikeBtn" class="btn btn-light" onclick="updateUser()")
                 i(class="fa fa-thumbs-down")
               button(type="button" id="blockBtn" class="btn btn-danger")
                 i(class="fa fa-ban")
@@ -96,6 +95,7 @@ html(lang="en")
           crossorigin="anonymous"
         )
         script(type='text/javascript', src="https://code.jquery.com/jquery-3.5.1.js")
+        script(src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.all.min.js")
         script
             include ../scripts/home.js
     

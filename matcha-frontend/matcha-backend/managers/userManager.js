@@ -6,6 +6,7 @@ var passwordHash = require('password-hash');
 var chatManager = require('./chatManager.js');
 var nodemailer = require('nodemailer');
 const colors = require('colors');
+const mailManager = require('./mailManager');
 
 var transporter = nodemailer.createTransport({
 	service: 'gmail',
@@ -142,6 +143,27 @@ module.exports = {
 				}))
 			});
 		});
+	},
+	getAG: function (userid){
+		var con = mysql.createConnection(config.userDB);
+		return new Promise(ret => {
+			con.connect(function(err) {
+        	    if (err) { { console.log("Endho: ".red+"Error Connecting To DB At getLocation!! Set Debug To (error) To View Details".magenta); if(config.debug == "error"){console.log("EndHo: ".red+err)}return;} }
+				console.log("EndHo:".green+" Request To Get Location for ID".blue+"("+userid+")");
+				var sql = "SELECT age, gender FROM ";
+				var Tablename = "users";
+				var options = " WHERE userid = ?";
+				ret(new Promise(data => {
+					con.query(sql+Tablename+options, [userid],async function(err,result) {
+						if (err) { console.log("Endho: ".red+"Error Selecting area From Location!! Set Debug To (error) To View Details".magenta); if(config.debug == "error"){console.log("EndHo: ".red+err)}return;}
+						if (config.debug == "true") {console.log(result);}
+						console.log("EndHo:".green+" Got Location for".cyan+"("+userid+"|at|"+result[0].area+")");
+						data(result[0]);
+						con.end();
+					})
+				}))
+			});
+		});
 	}
 };
 
@@ -174,9 +196,8 @@ async function getUserById(userid){
 
 //Get matched users
 //
-async function getMatchedUsers(ageMin,ageMax,gends,interests,sp){
+async function getMatchedUsers(ageMin,ageMax,gender,interests,sp){
 	var con = mysql.createConnection(config.userDB);
-	var gender = new Array(gends);
 	return new Promise(ret => {
 		con.connect(function(err) {
 			if (err) { { console.log("Endho: ".red+"Error Connecting To DB At getMatchedUsers!! Set Debug To (error) To View Details".magenta); if(config.debug == "error"){console.log("EndHo: ".red+err)}return;} }
@@ -201,6 +222,7 @@ function getMU(ageMin,ageMax,gender,interests,sp){
 					var spM = 0;
 					var ints = res.interests.split("#");
 					ints.forEach(int => {
+						console.log("array"+interests);
 						interests.forEach(gInt => {
 							if(gInt == int){
 								intM++;
@@ -251,7 +273,7 @@ function addUserToImages(givenUsername,givenEmail,givenName){
 					statusManager.createStatus(result[0].userid);
 					var domain = givenEmail.toLowerCase().split("@");
 					if (domain[1] == "endho.endho"){} else {
-						sendVerifyEmail(result[0].userid,givenEmail);
+						mailManager.sendEmail(result[0].userid,givenEmail,"verify");
 					}
 					data2(new Promise(data3 => {
 						con.query(sql+Tablename+options+values,function(err,result) {
@@ -273,22 +295,4 @@ function addUserToImages(givenUsername,givenEmail,givenName){
 			}));
 		});
 	});
-}
-
-function sendVerifyEmail(userid,email){
-	  var mailOptions = {
-		from: 'EndlessHorizonZA@gmail.com',
-		to: email,
-		subject: 'Please Verify Your Account',
-		text: 'link to verify here for user '+userid
-	  };
-
-	  transporter.sendMail(mailOptions, function(error, info){
-		if (error) {
-		  console.log("EndHo: ".red+"Error Mailing ".magenta+email+" Set Debug To (error) To View Details");
-		  if (config.debug == "error") {console.log(error);}
-		} else {
-		  console.log("Endho: ".green+'Email sent to '.cyan + email);
-		}
-	  });
 }

@@ -7,6 +7,8 @@ var userManager = require('./matcha-backend/managers/userManager.js');
 var tableManager = require('./matcha-backend/managers/tableManager.js');
 var locationManager = require('./matcha-backend/managers/locationManager.js');
 var chatManager = require('./matcha-backend/managers/chatManager.js');
+var viewManager = require('./matcha-backend/managers/viewManager.js');
+var matchManager = require('./matcha-backend/managers/matchManager.js');
 var bodyParser = require('body-parser');
 const { table } = require('console');
 // parse application/x-www-form-urlencoded
@@ -96,8 +98,28 @@ router.get('/user/getRandomUser', async function(req, res, next) {
 
         });
         await userManager.getUserById(newId).then(user => {
+            viewManager.addView(ssn.userid,user.userid);
             res.send(user);
         });
+    }
+});
+router.get('/user/createMatch', async function(req, res, next) {
+    ssn = req.session;
+    if (!ssn.userid || ssn.userid == null){
+        res.redirect('/login')
+    } else {
+       matchManager.createMatch(ssn.userid,req.query.userid);
+       res.send("");
+    }
+});
+router.get('/user/getLikes', async function(req, res, next) {
+    ssn = req.session;
+    if (!ssn.userid || ssn.userid == null){
+        res.redirect('/login')
+    } else {
+       matchManager.getLikes(req.query.userid).then(val => {
+        res.send(val);
+       })
     }
 });
 router.get('/user/getUserImages', async function(req, res, next) {
@@ -105,9 +127,53 @@ router.get('/user/getUserImages', async function(req, res, next) {
     if (!ssn.userid || ssn.userid == null){
         res.redirect('/login')
     } else {
-        await tableManager.getValues("images",["image1","image2","image3","image4","image5"],ssn.userid).then(vals => {
+        await tableManager.getValues("images",["image1","image2","image3","image4","image5"],req.query.userid).then(vals => {
             res.send(vals);
         });
+    }
+});
+router.get('/user/getMatchedUsers', async function(req, res, next) {
+    ssn = req.session;
+    if (!ssn.userid || ssn.userid == null){
+        res.redirect('/login')
+    } else {
+        await userManager.getMatchedUsers()
+    }
+});
+router.get('/user/getMatchingUsers', async function(req, res, next) {
+    ssn = req.session;
+    if (!ssn.userid || ssn.userid == null){
+        res.redirect('/login')
+    } else {
+        var usersL = {
+            "users": new Array(),
+            "dist": new Array()
+        }
+        await userManager.getAG(ssn.userid).then(async ret => {
+            await userManager.getMatchedUsers((ret.age-req.query.maxAgeRange),(ret.age+req.query.maxAgeRange),ret.gender,req.query.interests,req.query.sp).then(async userids => {
+                (async() => {
+                    for (let id of userids) {
+                        await matchManager.getLikes(id).then(async likes => {
+                            if (likes > req.query.minLikes){
+                                await locationManager.getDistance(ssn.userid,id).then(async dist => {
+                                    console.log(dist);
+                                    console.log(req.query.maxDist);
+                                    if (dist < req.query.maxDist){
+                                        await userManager.getUserById(id).then(user => {
+                                            usersL.users.push(user);
+                                            usersL.dist.push(dist);
+                                            console.log(usersL.length);
+                                            console.log(userids.length);
+                                        })
+                                    }
+                                })
+                            }
+                        })
+                    }
+                    res.send(usersL);
+                  })();
+            })
+        })
     }
 });
 function getRndInteger(min, max) {
@@ -233,6 +299,10 @@ router.get('/editing', function(req, res) {
 
 // route for our profile editing
 router.get('/search', function(req, res) {
+    ssn = req.session;
+    if (!ssn.userid || ssn.userid == null){
+        res.redirect('/login')
+    }
     res.render('search.pug')
 })
 

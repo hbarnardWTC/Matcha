@@ -75,7 +75,12 @@ html(lang="en")
                         .card.card-body.cont.recommend-card.text-center(style='max-width: 750px;')
                             .container
                                 h6(style="color: black !important") Filter By:
-                                h           
+                                h
+                                select(id="sP" class="spSelect")
+                                    option(value="0" class="spSelectItem") Male
+                                    option(value="1" class="spSelectItem") Female
+                                    option(value="2" class="spSelectItem") Bisexual
+                                br
                                 input#minPop.form-control(type='text', placeholder='Minimum Popularity', name='fameMin')
                                 small#fameHelpBlock.form-text.text-muted(style="color: black !important")
                                     | Minimum Popularity level, 
@@ -87,11 +92,12 @@ html(lang="en")
                                 input#DistanceDiff.form-control(type='text', placeholder='Max Distance', name='DistanceDiff')
                                 small#distanceHelpBlock.form-text.text-muted(style="color: black !important")
                                     | The Maximum distance from you that you're willing to view people.
-                                input#userInterests.form-control(type='text' placeholder='Interest' name='userInterests')
+                                div#userInterests(onkeyup="updateInts()" class="IntDiv")
+                                    p(id="contentInt" contenteditable="true" class="intInput" onclick="clearp()") Interests
                                 small#interestHelpBlock.form-text.text-muted(style="color: black !important")
-                                    | Only one interest. Example: #food
+                                    | Interests seperated by commas. Example: food, coding, gaming
                         br
-                        button#Submit.btn.btn-success.btn-block.btn-lg(type='button', onclick='sendParams();', name='filterSort') Apply
+                        button#Submit.btn.btn-success.btn-block.btn-lg(type='button', onclick='applyFilters()', name='filterSort') Apply
                             //end of filt           
             .container(style="max-width:750px")
                 .grid
@@ -136,23 +142,28 @@ html(lang="en")
                                                     |  Likes : #{val.fame}
         div(class="container")
             div(class="row drop-panties")
-                div(class="col-lg-4")
-                    img(class="d-block search-image" src="https://pbs.twimg.com/media/DNkyKjSW4AAdPpW.jpg" alt="First slide")
-                    p(class="cl-white text-center margin-zero") Name: Liam
-                    p(class="cl-white text-center margin-zero") Age: 20
-                    p(class="cl-white text-center margin-zero") Distance: Near You
-                div(class="col-lg-4")
-                    img(class="d-block search-image" src="https://ih1.redbubble.net/image.449679317.7760/flat,750x1000,075,f.u3.jpg" alt="First slide")
-                    p(class="cl-white text-center margin-zero") Name: Rias
-                    p(class="cl-white text-center margin-zero") 3 sizes: B99-W58-H90
-                    p(class="cl-white text-center margin-zero") Distance: In Japan
-                div(class="col-lg-4")
-                    img(class="d-block search-image" src="https://lh3.googleusercontent.com/proxy/JHLxlNW4pe-ERsPg-d8PScQqkU3Ie_270C1zepjof7dIkUdI84rRIslCgnZ4ZAzsgmaEBPef7CPXOBS7aa1F4_FsLDFSpP9l65fWSwDPcL82IBE9IAgijTTiH42LEJHSxMO75_EyhXfazB1C1Du2kg" alt="First slide")
-                    p(class="cl-white text-center margin-zero") Name: PC
-                    p(class="cl-white text-center margin-zero") Age: 21
-                    p(class="cl-white text-center margin-zero") Distance: Nya
+                div(class="col-lg-4" id="matchesList")
+                    div(class="col-lg-4")
+                        img(class="d-block search-image" src="https://pbs.twimg.com/media/DNkyKjSW4AAdPpW.jpg" alt="First slide")
+                        p(class="cl-white text-center margin-zero") Name: Liam
+                        p(class="cl-white text-center margin-zero") Age: 20
+                        p(class="cl-white text-center margin-zero") Distance: Near You
+                    div(class="col-lg-4")
+                        img(class="d-block search-image" src="https://ih1.redbubble.net/image.449679317.7760/flat,750x1000,075,f.u3.jpg" alt="First slide")
+                        p(class="cl-white text-center margin-zero") Name: Rias
+                        p(class="cl-white text-center margin-zero") 3 sizes: B99-W58-H90
+                        p(class="cl-white text-center margin-zero") Distance: In Japan
+                    div(class="col-lg-4")
+                        img(class="d-block search-image" src="https://lh3.googleusercontent.com/proxy/JHLxlNW4pe-ERsPg-d8PScQqkU3Ie_270C1zepjof7dIkUdI84rRIslCgnZ4ZAzsgmaEBPef7CPXOBS7aa1F4_FsLDFSpP9l65fWSwDPcL82IBE9IAgijTTiH42LEJHSxMO75_EyhXfazB1C1Du2kg" alt="First slide")
+                        p(class="cl-white text-center margin-zero") Name: PC
+                        p(class="cl-white text-center margin-zero") Age: 21
+                        p(class="cl-white text-center margin-zero") Distance: Nya
 
 
-    script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js")
-    script(src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js")
-    script(src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js")
+        script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js")
+        script(src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js")
+        script(src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js")
+        script(src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.all.min.js")
+        script(type='text/javascript', src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@2.1.7/dist/loadingoverlay.min.js")
+        script
+            include ../scripts/search.js

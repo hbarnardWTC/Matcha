@@ -69,19 +69,21 @@ async function addNewUsers(){
 	var locationManager = require('./managers/locationManager.js');
 	if (count >= ((config.userCount-5)-1) && msg == 0){
 		msg++;
-		await userManager.getAllUsers().then(async (users) => {
-			await users.forEach(async (user) => {
-				await locationManager.updateLocation(user.userid, "bellville", "capetown", "AIzaSyDCdn8N23XLWZNYKKfnG0uENNsTJQiGsnA");
+		setTimeout(async () => {
+			await userManager.getAllUsers().then(async (users) => {
+				await users.forEach(async (user) => {
+					console.log(user.userid);
+					await locationManager.updateLocation(user.userid, "bellville", "capetown", "AIzaSyDCdn8N23XLWZNYKKfnG0uENNsTJQiGsnA");
+				})
 			})
-		})
-		setTimeout(() => {
-			getUserCount().then(val => {
-				console.log("EndHo: ".green+"Added (".rainbow+val+") Users".rainbow);
-				console.log("EndHo: ".green+"Successfully Created Endless Horizon Database".rainbow);
-				process.exit(0);
-			})
-		}, 3000);
-		msg++;
+			setTimeout(() => {
+				getUserCount().then(val => {
+					console.log("EndHo: ".green+"Added (".rainbow+val+") Users".rainbow);
+					console.log("EndHo: ".green+"Successfully Created Endless Horizon Database".rainbow);
+					process.exit(0);
+				})
+			}, 4000);
+		}, 2000);
 	} else if (count < ((config.userCount-5))) {
 		var userManager = require('./managers/userManager.js');
 		var namesM = require('./setup/NamesM.json');
@@ -97,13 +99,13 @@ async function addNewUsers(){
 		var int = getRndInteger(0,si);
 		var age = getRndInteger(18,120);
 		var sp = getRndInteger(0,2);
-		userManager.addUser(namesF[si]+"69",namesF[si],surnames[int],age,1,namesF[si]+"@EndHo.EndHo","testing",sp,"I am Fake","anime#coding");
+		userManager.addUser(namesF[si]+"69",namesF[si],surnames[int],age,1,namesF[si]+surnames[int]+age+"@EndHo.EndHo","testing",sp,"I am Fake","anime#coding");
 		count++;
 	
 		var int = getRndInteger(0,si);
 		var age = getRndInteger(18,120);
 		var sp = getRndInteger(0,2);
-		userManager.addUser(namesM[si]+"69",namesM[si],surnames[int],age,0,namesM[si]+"@EndHo.EndHo","testing",sp,"I am Fake","anime#coding");
+		userManager.addUser(namesM[si]+"69",namesM[si],surnames[int],age,0,namesM[si]+surnames[int]+age+"@EndHo.EndHo","testing",sp,"I am Fake","anime#coding");
 		count++;
 		console.log("EndHo: Added (".rainbow+count+") users".rainbow);
 	}
@@ -137,7 +139,7 @@ async function tests(){
 	await userManager.getAllUsers().then(async (users) => {
 		await users.forEach(async (user) => {
 			console.log(user);
-			await tableManager.updateValue("images","image1" ,user.userid, images.img1);
+			await tableManager.updateValue("images","image1" ,user.userid, images.img2);
 			await tableManager.updateValue("images","image2" ,user.userid, images.img2);
 			await tableManager.updateValue("images","image3" ,user.userid, images.img3);
 			await tableManager.updateValue("images","image4" ,user.userid, images.img4);

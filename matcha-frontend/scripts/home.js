@@ -91,7 +91,9 @@ function updateUser() {
           ints.slice(0,-2);
           $("#personInts").html("Interests: "+ints);
           $("#personBio").html("About Me: "+data.bio);
-          getImages();
+          updateLikeBtn(data.userid);
+          updateFame(data.userid);
+          getImages(data.userid);
         },
         error: function(xhr) {
           console.log(xhr);
@@ -99,11 +101,56 @@ function updateUser() {
     });
 }
 updateUser();
-
-function getImages(){
+function updateFame(userid) {
+  $.ajax({
+    url: '/user/getLikes',
+    type: "GET",
+    data: {
+      "userid": userid
+    },
+    success: function(data) {
+      console.log(data);
+      $("#fame").html(data.likes)
+    },
+    error: function(xhr) {
+      console.log(xhr);
+    }
+  });
+}
+function updateLikeBtn(userid){
+  $("#likeBtn").remove();
+  var a = $("<button>", {"class": "btn btn-primary","onclick": "addLike("+userid+")", "id": "likeBtn","type": "button"});
+  $("#btnsDiv").prepend(a);
+  var div = $("<i>", {"class": "fa fa-heart"});
+  a.append(div);
+}
+function addLike(userid){
+  $.ajax({
+    url: '/user/createMatch',
+    type: "GET",
+    data: {
+      "userid": userid
+    },
+    success: function(data) {
+      swal(
+        'Matched!',
+        'Successfully Liked, Go Send Them A Message!',
+        'success'
+      )
+      updateUser();
+    },
+    error: function(xhr) {
+      console.log(xhr);
+    }
+  });
+}
+function getImages(userid){
   $.ajax({
     url: '/user/getUserImages',
     type: "GET",
+    data: {
+      "userid": userid
+    },
     success: function(data) {
       console.log(data);
       $("#img1").attr("src",data[0].image1);
