@@ -6,13 +6,17 @@ html
         style
             include ../style/default.css
     body
-        div(class="text-center log-flex")
-            form(class="form-signin cl-white" action="/user/login" method="POST")
-                img(class="mb-4" src="https://www.pngitem.com/pimgs/m/11-117580_neko-girl-png-brown-hair-cute-anime-girl.png" , alt="uwu" height="400" width="300")
-                h1(class="h3 mb-3 font-weight-normal") Please Sign In
-                label(for="inputEmail" class="sr-only") Email address
-                input(type="email" id="inputEmail" name="email" class="form-control" placeholder="Email address" required autofocus)
-                label(for="inputPassword" class="sr-only") Password
-                input(type="password" id="inputPassword" name="password" class="form-control" placeholder="Password" required)
-                button(class="btn btn-lg btn-secondary btn-block" type="submit") Sign-in
-                p(class="mt-5 mb-3 text-muted") © 2020 Copyright: Endless Horizon
+        main
+            div(class="text-center log-flex")
+                form(class="form-signin cl-white" action="/user/login" method="POST")
+                    h1(class="h3 mb-3 font-weight-normal") Please Sign In
+                    img(class="mb-4" src="https://www.pngitem.com/pimgs/m/11-117580_neko-girl-png-brown-hair-cute-anime-girl.png" , alt="uwu" height="400" width="300")
+                    label(for="inputEmail" class="sr-only") Email address
+                    input(type="email" id="inputEmail" name="email" class="form-control" placeholder="Email address" required autofocus)
+                    label(for="inputPassword" class="sr-only") Password
+                    input(type="password" id="inputPassword" name="password" class="form-control" placeholder="Password" required)
+                    button(class="btn btn-lg btn-secondary btn-block" type="submit") Sign-in
+                    a(href="/signup") Sign-Up
+
+        footer(class="container")
+           div(class="footer-copyright text-center py-3 cl-white") © 2020 Copyright: Endless Horizon
