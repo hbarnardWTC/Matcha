@@ -297,6 +297,16 @@ router.get('/editing', function(req, res) {
     res.render('edit.pug')
 })
 
+// route for invitation
+router.get('/validate', function(req, res) {
+    res.render('validated.pug')
+})
+
+// route for sent email
+router.get('/sent', function(req, res) {
+    res.render('sent.pug')
+})
+
 // route for our profile editing
 router.get('/search', function(req, res) {
     ssn = req.session;

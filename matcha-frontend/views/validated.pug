@@ -1,0 +1,54 @@
+doctype html
+html
+    head
+        title Validated
+        link(rel='stylesheet', href='https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css')
+        link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css")
+        style
+            include ../style/default.css
+            
+    body
+        header
+            nav.navbar.navbar-expand-lg.navbar-dark
+                .container
+                    a.navbar-brand(href='/home') Endless Horizon
+                    button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarsExample07', aria-controls='navbarsExample07', aria-expanded='false', aria-label='Toggle navigation')
+                        span.navbar-toggler-icon
+                    #navbarsExample07.collapse.navbar-collapse
+                        ul.navbar-nav.mr-auto
+                            li.nav-item.active
+                                a.nav-link(href='/home')
+                                    | Home 
+                                    span.sr-only (current)
+                            li.nav-item
+                                a.nav-link(href='/chats') Chats
+                            li.nav-item
+                                a.nav-link(href='/editing') Profile Edit
+                            li.nav-item
+                                a.nav-link(href='/search') Finder
+                        ul.navbar-nav.navbar-right
+                            li.nav-item.dropdown
+                                a#dropdown07.nav-link.dropdown-toggle(href='http://example.com', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Notification
+                                .dropdown-menu.not-size(aria-labelledby='dropdown07')
+                                    p.dropdown-item.size.break User1 has viewed your profile
+                                    p.dropdown-item.size.break User2 has liked your profile
+                                    p.dropdown-item.size.break User3 has blocked your profile
+                                    p.dropdown-item.size.break User2 has liked your profile
+                                    p.dropdown-item.size.break User3 has blocked your profile
+                                    p.dropdown-item.size.break use2143258435u34290242u24 has viewed your profile
+                            li.nav-item
+                                a.nav-link(href='/logout') Log Out
+    
+        main.inner.cover.text-center.custom-container
+            h1.cover-heading.cl-white Account is now Validated
+            img(class="mb-4" src="https://data.whicdn.com/images/70163505/original.gif" , alt="uwu")
+
+        footer(class="custom-footer")
+            div(class="footer-copyright text-center py-3 cl-white") © 2020 Copyright: Endless Horizon
+                p.footer-margin Find us More on:
+                i.fa.fa-facebook-official.w3-hover-opacity.cl-white
+                i.fa.fa-instagram.w3-hover-opacity.cl-white
+                i.fa.fa-snapchat.w3-hover-opacity.cl-white
+                i.fa.fa-pinterest-p.w3-hover-opacity.cl-white
+                i.fa.fa-twitter.w3-hover-opacity.cl-white
+                i.fa.fa-linkedin.w3-hover-opacity.cl-white

@@ -3,68 +3,77 @@ html
     head
         title Sign-Up
         link(rel='stylesheet', href='https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css')
+        link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css")
         style
             include ../style/default.css
     body
-        div(class="center-text log-flex")
-            form(class="form-signup" action="/user/register" method="POST")
-                h1(class="h3 mb-3 font-weight-normal text-center cl-white") Account Creation
-                img(class="mb-4" src="https://www.pngitem.com/pimgs/m/11-117580_neko-girl-png-brown-hair-cute-anime-girl.png" , alt="uwu" height="400" width="300")
-                div(class="mb-3")
-                    label(for="name" class="cl-white margin-zero") Name
-                    div(class="input-group")
-                        input(type="text" class="form-control" name="name" placeholder="Name" required)
-                        div(class="invalid-feedback")
-                            Your name is required
-                div(class="mb-3")
-                    label(for="surname" class="cl-white margin-zero") Surname
-                    div(class="input-group")
-                        input(type="text" class="form-control" name="surname" placeholder="Surname" required)
-                        div(class="invalid-feedback")
-                            Your surname is required
-                div(class="mb-3")
-                    label(for="username" class="cl-white margin-zero") Username
-                    div(class="input-group")
-                        input(type="text" class="form-control" name="username" placeholder="Username" required)
-                        div(class="invalid-feedback")
-                            Your username is required
-                div(class="mb-3")
-                    label(for="email" class="cl-white margin-zero") Email
-                    div(class="input-group")
-                        input(type="email" class="form-control" name="email" placeholder="EndlessHorizon@example.com" required)
-                        div(class="invalid-feedback")
-                            Your email is required
-                div(class="mb-3")
-                    label(for="password" class="cl-white margin-zero") Password
-                    div(class="input-group")
-                        input(type="password" class="form-control" name="password" placeholder="Insert Password Senpai" required)
-                        div(class="invalid-feedback")
-                            Your password is required
-                div(class="mb-3")
-                    label(for="passwordconfirm" class="cl-white margin-zero") Password Confirm
-                    div(class="input-group")
-                        input(type="password" class="form-control" name="passwordconfirm" placeholder="Hint Hint *****" required)
-                        div(class="invalid-feedback")
-                            Your password does not match
-                div(class="mb-3")
-                    label(for="address" class="cl-white margin-zero") Address
-                    div(class="input-group")
-                        input(type="text" class="form-control" name="address" placeholder="1 Endless Horizon Avenue" required)
-                        div(class="invalid-feedback")
-                            Your email is required
-                div(class="mb-3")
-                    label(for="dob" class="cl-white margin-zero") Date Of Birth
-                    div(class="input-group")
-                        input(type="date" class="form-control" name="dob" placeholder="I is Born!" required)
-                        div(class="invalid-feedback")
-                            Your Date of Birth is required
-                div(class="mb-3")
-                    label(for="gender" class="cl-white go-away") Select your Gender
-                    select(name="gender" id="gender")
-                      option(value="Male") Male
-                      option(value="Female") Female
-                button(class="btn btn-secondary btn-lg btn-block" type="submit") Register
-                a.custom-align(href="/login") Login
+        main
+            div(class="center-text log-flex")
+                form(class="form-signup" action="/user/register" method="POST")
+                    h1(class="h3 mb-3 font-weight-normal text-center cl-white") Account Creation
+                    img(class="mb-4" src="https://www.pngitem.com/pimgs/m/11-117580_neko-girl-png-brown-hair-cute-anime-girl.png" , alt="uwu" height="400" width="300")
+                    div(class="mb-3")
+                        label(for="name" class="cl-white margin-zero") Name
+                        div(class="input-group")
+                            input(type="text" class="form-control" name="name" placeholder="Name" required)
+                            div(class="invalid-feedback")
+                                Your name is required
+                    div(class="mb-3")
+                        label(for="surname" class="cl-white margin-zero") Surname
+                        div(class="input-group")
+                            input(type="text" class="form-control" name="surname" placeholder="Surname" required)
+                            div(class="invalid-feedback")
+                                Your surname is required
+                    div(class="mb-3")
+                        label(for="username" class="cl-white margin-zero") Username
+                        div(class="input-group")
+                            input(type="text" class="form-control" name="username" placeholder="Username" required)
+                            div(class="invalid-feedback")
+                                Your username is required
+                    div(class="mb-3")
+                        label(for="email" class="cl-white margin-zero") Email
+                        div(class="input-group")
+                            input(type="email" class="form-control" name="email" placeholder="EndlessHorizon@example.com" required)
+                            div(class="invalid-feedback")
+                                Your email is required
+                    div(class="mb-3")
+                        label(for="password" class="cl-white margin-zero") Password
+                        div(class="input-group")
+                            input(type="password" class="form-control" name="password" placeholder="Insert Password Senpai" required)
+                            div(class="invalid-feedback")
+                                Your password is required
+                    div(class="mb-3")
+                        label(for="passwordconfirm" class="cl-white margin-zero") Password Confirm
+                        div(class="input-group")
+                            input(type="password" class="form-control" name="passwordconfirm" placeholder="Hint Hint *****" required)
+                            div(class="invalid-feedback")
+                                Your password does not match
+                    div(class="mb-3")
+                        label(for="address" class="cl-white margin-zero") Address
+                        div(class="input-group")
+                            input(type="text" class="form-control" name="address" placeholder="1 Endless Horizon Avenue" required)
+                            div(class="invalid-feedback")
+                                Your email is required
+                    div(class="mb-3")
+                        label(for="dob" class="cl-white margin-zero") Date Of Birth
+                        div(class="input-group")
+                            input(type="date" class="form-control" name="dob" placeholder="I is Born!" required)
+                            div(class="invalid-feedback")
+                                Your Date of Birth is required
+                    div(class="mb-3")
+                        label(for="gender" class="cl-white go-away") Select your Gender
+                        select(name="gender" id="gender")
+                          option(value="Male") Male
+                          option(value="Female") Female
+                    button(class="btn btn-secondary btn-lg btn-block" type="submit") Register
+                    a.custom-align(href="/login") Login
         
         footer(class="container")
            div(class="footer-copyright text-center py-3 cl-white") © 2020 Copyright: Endless Horizon
+                p.footer-margin Find us More on:
+                i.fa.fa-facebook-official.w3-hover-opacity.cl-white
+                i.fa.fa-instagram.w3-hover-opacity.cl-white
+                i.fa.fa-snapchat.w3-hover-opacity.cl-white
+                i.fa.fa-pinterest-p.w3-hover-opacity.cl-white
+                i.fa.fa-twitter.w3-hover-opacity.cl-white
+                i.fa.fa-linkedin.w3-hover-opacity.cl-white

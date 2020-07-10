@@ -23,6 +23,32 @@ body {
     overflow-x: hidden;
 }
 
+.custom-container {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    left: 50%;top: 45%;
+}
+
+.custom-footer {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    left: 50%;top: 90%;
+}
+
+.custom-header {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    left: 50%;top: 5%;
+}
+
+.custom-font {
+    font-size: 25px;
+}
+
+.footer-margin {
+    margin: 0 !important;
+}
+
 .log-flex {
     display: flex;
 }
