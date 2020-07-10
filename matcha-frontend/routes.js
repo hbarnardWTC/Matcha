@@ -320,9 +320,14 @@ router.get('/editing', function(req, res) {
     res.render('edit.pug')
 })
 
-// route for invitation
+// route for validated
 router.get('/validate', function(req, res) {
     res.render('validated.pug')
+})
+
+// route for fail to validate
+router.get('/failure', function(req, res) {
+    res.render('failure.pug')
 })
 
 // route for sent email
