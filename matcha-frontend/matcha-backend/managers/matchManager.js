@@ -74,19 +74,20 @@ module.exports = {
 		var con = mysql.createConnection(config.userDB);
 		return new Promise(ret => {
 			con.connect(function(err) {
-				if (err) { { console.log("Endho: ".red+"Error Connecting To DB At getStatus!! Set Debug To (error) To View Details".magenta); if(config.debug == "error"){console.log("EndHo: ".red+err)}return;} }
-				console.log("EndHo:".green+" Request To Get Status for ID".blue+"("+userid+")");
+				if (err) { { console.log("Endho: ".red+"Error Connecting To DB At adwwad!! Set Debug To (error) To View Details".magenta); if(config.debug == "error"){console.log("EndHo: ".red+err)}return;} }
+				console.log("EndHo:".green+" Request To Get awddwa for ID".blue+"("+userid+")");
 				var sql = "SELECT userid_1 FROM ";
 				var Tablename = "matches";
 				var options = " WHERE userid_2 = ?";
 				ret(new Promise(data => {
 					con.query(sql+Tablename+options, [userid],function(err,result) {
-						if (err) { console.log("Endho: ".red+"Error Selecting Online From Status!! Set Debug To (error) To View Details".magenta); if(config.debug == "error"){console.log("EndHo: ".red+err)}return;}
+						if (err) { console.log("Endho: ".red+"Error Selecting Online From Staawdwatus!! Set Debug To (error) To View Details".magenta); if(config.debug == "error"){console.log("EndHo: ".red+err)}return;}
 						if (config.debug == "true") {console.log(result);}
-						console.log("EndHo:".green+" Got Status for".cyan+"("+userid+")");
+						console.log("EndHo:".green+" Got awdawd for".cyan+"("+userid+")");
 						if (result.length >= 0){
 							var ret = {
-								"likes": result.length
+								"likes": result.length,
+								"users": result
 							}
 							data(ret);
 						} else {

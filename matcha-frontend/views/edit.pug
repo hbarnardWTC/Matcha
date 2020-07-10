@@ -37,7 +37,7 @@ html(lang="en")
                   ul.navbar-nav.navbar-right
                     li.nav-item.dropdown
                       a#dropdown07.nav-link.dropdown-toggle(href='http://example.com', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Notification
-                      .dropdown-menu.not-size(aria-labelledby='dropdown07')
+                      .dropdown-menu.not-size(aria-labelledby='dropdown07' id="dropDiv")
                         p.dropdown-item.size.break User1 has viewed your profile
                         p.dropdown-item.size.break User2 has liked your profile
                         p.dropdown-item.size.break User3 has blocked your profile
@@ -51,7 +51,7 @@ html(lang="en")
 
         main(role="main")
           div(class="center-text log-flex container")
-            form(class="edit-form-signup" action="/user/register" method="POST")
+            form(class="edit-form-signup")
               h1(class="h3 mb-3 font-weight-normal text-center cl-white") Profile Editing
               div(class="row")
                 div(class="col-md-6 mb-3")
@@ -73,7 +73,7 @@ html(lang="en")
                   input(type="text" class="form-control" id="password" placeholder="Name that bish" required)
                 div(class="col-md-6 mb-3")
                   label(for="pwconfirm" class="cl-white") Password Confirmation
-                  input(type="text" class="form-control" id="pwconfirm" placeholder="Say that again bish" required)
+                  input(type="text" class="form-control" id="pwconfirm" onchange="verifyPass()" placeholder="Say that again bish" required)
               div(class="row")
                 div(class="col-md-6 mb-3")
                   label(for="address" class="cl-white") Address

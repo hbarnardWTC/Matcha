@@ -112,6 +112,16 @@ router.get('/user/createMatch', async function(req, res, next) {
        res.send("");
     }
 });
+router.get('/user/getUserById', async function(req, res, next) {
+    ssn = req.session;
+    if (!ssn.userid || ssn.userid == null){
+        res.redirect('/login')
+    } else {
+        userManager.getUserById(req.query.userid).then(user => {
+            res.send(user);
+        });
+    }
+});
 router.get('/user/getLikes', async function(req, res, next) {
     ssn = req.session;
     if (!ssn.userid || ssn.userid == null){
@@ -127,9 +137,15 @@ router.get('/user/getUserImages', async function(req, res, next) {
     if (!ssn.userid || ssn.userid == null){
         res.redirect('/login')
     } else {
-        await tableManager.getValues("images",["image1","image2","image3","image4","image5"],req.query.userid).then(vals => {
-            res.send(vals);
-        });
+        if (req.query.userid != "logged"){
+            await tableManager.getValues("images",["image1","image2","image3","image4","image5"],req.query.userid).then(vals => {
+                res.send(vals);
+            });
+        } else {
+            await tableManager.getValues("images",["image1","image2","image3","image4","image5"],ssn.userid).then(vals => {
+                res.send(vals);
+            });
+        }
     }
 });
 router.get('/user/getMatchedUsers', async function(req, res, next) {
@@ -162,7 +178,7 @@ router.get('/user/getMatchingUsers', async function(req, res, next) {
                                         await userManager.getUserById(id).then(user => {
                                             usersL.users.push(user);
                                             usersL.dist.push(dist);
-                                            console.log(usersL.length);
+                                            console.log(usersL.users.length);
                                             console.log(userids.length);
                                         })
                                     }
