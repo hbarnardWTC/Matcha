@@ -22,38 +22,6 @@ function verifyPass(){
   return true;
 }
 
-setTimeout(() => {
-  $.ajax({
-    url: '/user/getLikes',
-    type: "GET",
-    success: function(data) {
-      console.log(data);
-      data.users.forEach(user => {
-        $.ajax({
-          url: '/user/getUserById',
-          type: "GET",
-          data: {
-            "userid": user.userid_1
-          },
-          success: function(data2) {
-            console.log(data2);
-            $("dropDiv").empty();
-            var p = $("<p>", {"class": "dropdown-item size break"});
-            p.html(user.username+"Liked You!");
-            $("dropDiv").prepend(p);
-          },
-          error: function(xhr) {
-            console.log(xhr);
-          }
-        });
-      })
-    },
-    error: function(xhr) {
-      console.log(xhr);
-    }
-  });
-}, 3000);
-
 
 function getUserDetails(){
       $.ajax({

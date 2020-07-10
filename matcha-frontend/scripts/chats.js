@@ -16,9 +16,15 @@ function submitBtnFn(id2){
     }
   });
 }
+$.LoadingOverlaySetup({
+  background      : "rgba(0, 0, 0, 0.5)",
+  image           : "",
+  fontawesome     : "fa fa-cog fa-spin"
+});
 matchedUsers();
 function matchedUsers(){
-  // $("#matchedUsers").empty();
+  $("#matchedUsers").empty();
+  $("#matchedUsers").LoadingOverlay("show");
   $.ajax({
     method: 'POST',
     url: '/user/getAllUsers',
@@ -28,6 +34,7 @@ function matchedUsers(){
       data.forEach(row => {
           getMatchedUser(row);
       });
+      $("#matchedUsers").LoadingOverlay("hide", true);
     }
   });
 }
@@ -76,6 +83,7 @@ function addMatchedUser(userid,username,latestMessage){
 }
 function updateMessages(id1,id2){
   allMessages = new Array();
+  $("#chatDisplay").LoadingOverlay("show");
   $("#chatDisplay").empty();
   $("#submitArea").empty();
   addSubmitbtn(id2);
@@ -119,6 +127,7 @@ async function sortMessages(){
       addReceivedMessage(message);
     }
   })
+  $("#chatDisplay").LoadingOverlay("hide", true);
 }
 
 

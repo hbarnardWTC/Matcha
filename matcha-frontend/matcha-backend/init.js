@@ -154,8 +154,8 @@ async function tests(){
 	await locationManager.getLocation(1);
 
 	await userManager.getMatchedUsers(18,24,0,["coding","gaming"],1).then(async (value) => {
-		await new Promise(ret => {
-			ret(value.forEach(async (user) => {
+		(async() => {
+			for (let user of vakue){
 				await new Promise(ret => {
 					ret(userManager.getUserById(user).then(user => {
 						console.log("EndHo: ".green+user.name);
@@ -168,7 +168,7 @@ async function tests(){
 						});
 					}));
 				});
-			}));
-		});
+			};
+		})();
 	});
 }

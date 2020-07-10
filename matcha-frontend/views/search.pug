@@ -37,7 +37,7 @@ html(lang="en")
                         ul.navbar-nav.navbar-right
                             li.nav-item.dropdown
                                 a#dropdown07.nav-link.dropdown-toggle(href='#', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Notification
-                                .dropdown-menu.not-size(aria-labelledby='dropdown07')
+                                .dropdown-menu.not-size(aria-labelledby='dropdown07' id="dropDiv12")
                                     p.dropdown-item.size.break User1 has viewed your profile
                                     p.dropdown-item.size.break User2 has liked your profile
                                     p.dropdown-item.size.break User3 has blocked your profile
@@ -185,5 +185,6 @@ html(lang="en")
         script(type='text/javascript', src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@2.1.7/dist/loadingoverlay.min.js")
         script
             include ../scripts/search.js
+            include ../scripts/notifications.js
 
             //- https://i.chzbgr.com/full/8378017280/hA258D43C/aww-cmere  // gif for no results found //

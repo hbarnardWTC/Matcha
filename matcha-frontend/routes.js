@@ -29,8 +29,9 @@ router.get('/', function(req, res) {
     ssn = req.session;
     if (!ssn.userid || ssn.userid == null){
         res.redirect('/login')
+    } else {
+        res.redirect("/home");
     }
-    res.sendFile(path.join(__dirname, './index.html'));
 })
 
 // route for our signup page
@@ -127,9 +128,15 @@ router.get('/user/getLikes', async function(req, res, next) {
     if (!ssn.userid || ssn.userid == null){
         res.redirect('/login')
     } else {
-       matchManager.getLikes(req.query.userid).then(val => {
-        res.send(val);
-       })
+        if (req.query.userid != "logged"){
+            matchManager.getLikes(req.query.userid).then(val => {
+                res.send(val);
+            })
+        } else {
+            matchManager.getLikes(ssn.userid).then(val => {
+                res.send(val);
+            })
+        }
     }
 });
 router.get('/user/getUserImages', async function(req, res, next) {
@@ -199,76 +206,81 @@ router.get('/user/getMatchedUser', function(req, res, next) {
     ssn = req.session;
     if (!ssn.userid || ssn.userid == null){
         res.redirect('/login')
-    }
-    var returnV = {
-        "username": "",
-        "userid": req.query.userid,
-        "latestMessage": ""
-    };
-    chatManager.getMessages(ssn.userid,req.query.userid).then(messages =>{
-        var counter = 0;
-        var counter2 = 0;
-        console.log(messages);
-        if (messages != "Error"){
-            var GM = JSON.parse(messages[1]);
-            GM.forEach(message => {
-                counter++;
-            });
-            GM.forEach(message => {
-                if (counter2 == counter-1){
-                    returnV.latestMessage = message.message;
-                }
-                counter2++;
-            });
-        }
-        tableManager.getValues("users",["username"],req.query.userid).then(val => {
-            returnV.username = val[0].username;
-            res.send(returnV);
+    } else {
+        var returnV = {
+            "username": "",
+            "userid": req.query.userid,
+            "latestMessage": ""
+        };
+        chatManager.getMessages(ssn.userid,req.query.userid).then(messages =>{
+            var counter = 0;
+            var counter2 = 0;
+            console.log(messages);
+            if (messages != "Error"){
+                var GM = JSON.parse(messages[1]);
+                GM.forEach(message => {
+                    counter++;
+                });
+                GM.forEach(message => {
+                    if (counter2 == counter-1){
+                        returnV.latestMessage = message.message;
+                    }
+                    counter2++;
+                });
+            }
+            tableManager.getValues("users",["username"],req.query.userid).then(val => {
+                returnV.username = val[0].username;
+                res.send(returnV);
+            })
         })
-    })
+    }
 });
 router.get('/message/send', function(req, res, next) {
     ssn = req.session;
     if (!ssn.userid || ssn.userid == null){
         res.redirect('/login')
+    } else {
+        chatManager.addMessage(ssn.userid,req.query.userid2,req.query.message).then(ret => {
+            res.redirect('/chats')
+        });
     }
-    chatManager.addMessage(ssn.userid,req.query.userid2,req.query.message).then(ret => {
-        res.redirect('/chats')
-    });
 });
 router.get('/user/updateLocation', function(req, res, next) {
     ssn = req.session;
     if (!ssn.userid || ssn.userid == null){
         res.redirect('/login')
+    } else {
+        locationManager.updateLocation(ssn.userid,req.query.area,req.query.ip,req.query.apiKey).then(val => {
+            res.send("");
+        })
     }
-    locationManager.updateLocation(ssn.userid,req.query.area,req.query.ip,req.query.apiKey).then(val => {
-        res.send("");
-    })
 });
 router.get('/user/getLocation', function(req, res, next) {
     ssn = req.session;
     if (!ssn.userid || ssn.userid == null){
         res.redirect('/login')
-    }
-    console.log(req.query.userid);
-    if (req.query.userid == "logged"){
-        locationManager.getLocation(ssn.userid).then(val => {
-            res.send(val);
-        })
-    } else if (req.query.userid) {
-        locationManager.getLocation(req.query.userid).then(val => {
-            res.send(val);
-        })
+    } else {
+        console.log(req.query.userid);
+        if (req.query.userid == "logged"){
+            locationManager.getLocation(ssn.userid).then(val => {
+                res.send(val);
+            })
+        } else if (req.query.userid) {
+            locationManager.getLocation(req.query.userid).then(val => {
+                res.send(val);
+            })
+        }
     }
 });
 router.get('/message/getMessages', function(req, res, next) {
     ssn = req.session;
     if (!ssn.userid || ssn.userid == null){
         res.redirect('/login')
+    } else {
+        chatManager.getMessages(ssn.userid,req.query.userid_2).then(ret => {
+            res.send(ret);
+        });
     }
-    chatManager.getMessages(ssn.userid,req.query.userid_2).then(ret => {
-        res.send(ret);
-    });
 });
 
 router.post('/user/login', function(req, res, next) {
@@ -276,7 +288,7 @@ router.post('/user/login', function(req, res, next) {
     var pass = req.body.password;
     ssn = req.session;
     userManager.authUser(email, pass).then(userid =>{
-        if (userid != "error"){
+        if (userid != "Error" && userid != "error" && userid != "Wrong Pass"){
             ssn.userid = userid;
             res.redirect('/')
         } else {
@@ -318,8 +330,9 @@ router.get('/home', function(req, res) {
     ssn = req.session;
     if (!ssn.userid || ssn.userid == null){
         res.redirect('/login')
+    } else {
+        res.render('home.pug')
     }
-    res.render('home.pug')
 })
 
 // route for our chats
@@ -327,28 +340,49 @@ router.get('/chats', function(req, res) {
     ssn = req.session;
     if (!ssn.userid || ssn.userid == null){
         res.redirect('/login')
+    } else {
+        res.render('chat.pug')
     }
-    res.render('chat.pug')
 })
 
 // route for our profile editing
 router.get('/editing', function(req, res) {
-    res.render('edit.pug')
+    ssn = req.session;
+    if (!ssn.userid || ssn.userid == null){
+        res.redirect('/login')
+    } else {
+        res.render('edit.pug')
+    }
 })
 
 // route for validated
 router.get('/validate', function(req, res) {
-    res.render('validated.pug')
+    ssn = req.session;
+    if (!ssn.userid || ssn.userid == null){
+        res.redirect('/login')
+    } else {
+        res.render('validated.pug')
+    }
 })
 
 // route for fail to validate
 router.get('/failure', function(req, res) {
-    res.render('failure.pug')
+    ssn = req.session;
+    if (!ssn.userid || ssn.userid == null){
+        res.redirect('/login')
+    } else {
+        res.render('failure.pug')
+    }
 })
 
 // route for sent email
 router.get('/sent', function(req, res) {
-    res.render('sent.pug')
+    ssn = req.session;
+    if (!ssn.userid || ssn.userid == null){
+        res.redirect('/login')
+    } else {
+        res.render('sent.pug')
+    }
 })
 
 // route for our profile editing
@@ -356,13 +390,19 @@ router.get('/search', function(req, res) {
     ssn = req.session;
     if (!ssn.userid || ssn.userid == null){
         res.redirect('/login')
+    } else {
+        res.render('search.pug')
     }
-    res.render('search.pug')
 })
 
 // route for testing
 router.get('/test', function(req, res) {
-    res.render('tests.pug')
+    ssn = req.session;
+    if (!ssn.userid || ssn.userid == null){
+        res.redirect('/login')
+    } else {
+        res.render('tests.pug')
+    }
 })
 
 router.get('./contact');

@@ -37,7 +37,7 @@ html(lang="en")
             ul.navbar-nav.navbar-right
               li.nav-item.dropdown
                 a#dropdown07.nav-link.dropdown-toggle(href='#', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Notification
-                .dropdown-menu.not-size(aria-labelledby='dropdown07')
+                .dropdown-menu.not-size(aria-labelledby='dropdown07' id="dropDiv12")
                   p.dropdown-item.size.break User1 has viewed your profile
                   p.dropdown-item.size.break User2 has liked your profile
                   p.dropdown-item.size.break User3 has blocked your profile
@@ -116,3 +116,4 @@ html(lang="en")
   script(src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.all.min.js")
   script
     include ../scripts/home.js
+    include ../scripts/notifications.js

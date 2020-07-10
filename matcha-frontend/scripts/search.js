@@ -3,9 +3,8 @@
 var interests = new Array();
 $.LoadingOverlaySetup({
     background      : "rgba(0, 0, 0, 0.5)",
-    image           : "img/custom.svg",
-    imageAnimation  : "1.5s fadein",
-    imageColor      : "#ffcc00"
+    image           : "",
+    fontawesome     : "fa fa-cog fa-spin"
 });
 function applyFilters(){
     $.LoadingOverlay("show");
