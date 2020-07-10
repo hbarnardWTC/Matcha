@@ -9,5 +9,7 @@
 	"password": "password VARCHAR(2505)",
 	"sp": "sexualPreference INT(255)",
 	"bio": "bio VARCHAR(1000)",
-	"interests": "interests VARCHAR(255)"
+	"interests": "interests VARCHAR(255)",
+	"verified": "verified VARCHAR(255)",
+	"vtoken": "vtoken VARCHAR(2505)"
 }

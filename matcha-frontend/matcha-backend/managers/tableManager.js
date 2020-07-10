@@ -128,6 +128,8 @@ module.exports = {
 			users.password+","+
 			users.sp+","+
 			users.bio+","+
+			users.verified+","+
+			users.vtoken+","+
 			users.interests
 			+")";
 			ret(new Promise(ret2 => {
