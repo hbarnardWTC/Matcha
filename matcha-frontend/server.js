@@ -1,10 +1,10 @@
 // server.js
 var express = require('express');
 var app = express();
-var port = 8080;
+var port = 5005;
 
 // our router
-var router = require('./app/routes');
+var router = require('./routes');
 app.use('/', router);
 
 // start the server

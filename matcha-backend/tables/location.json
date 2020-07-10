@@ -1,6 +1,0 @@
-{
-	"userid": "userid INT(255)",
-	"area": "area VARCHAR(255)",
-	"ip": "ip VARCHAR(255)",
-	"apiKey": "apiKey VARCHAR(255)"
-}

@@ -1,0 +1,4 @@
+{
+	"viewer": "viewer INT(255)",
+	"viewed": "viewed INT(255)"
+}

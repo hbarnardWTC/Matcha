@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        //- script(src='../node_modules/bootstrap/js/dist/carousel.js')
+        //- link(rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css")
+        style
+            include ../style/default.css
+        //- link(rel="custom_stylesheet", href="../style/default.css")
+        link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css")
+        link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css")
+        //- script(src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous")
+        //- link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css")
+        //- script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js")
+        title Home
+    body.recommendback
+        //- Navbar construction
+        header
+            nav.navbar.navbar-expand-lg.navbar-dark
+                .container
+                    a.navbar-brand(href='/home') Endless Horizon
+                    button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarsExample07', aria-controls='navbarsExample07', aria-expanded='false', aria-label='Toggle navigation')
+                        span.navbar-toggler-icon
+                    #navbarsExample07.collapse.navbar-collapse
+                        ul.navbar-nav.mr-auto
+                            li.nav-item.active
+                                a.nav-link(href='/home')
+                                    | Home 
+                                    span.sr-only (current)
+                            li.nav-item
+                                a.nav-link(href='/chats') Chats
+                            li.nav-item
+                                a.nav-link(href='/editing') Profile Edit
+                            li.nav-item
+                                a.nav-link(href='/search') Finder
+                        ul.navbar-nav.navbar-right
+                            li.nav-item.dropdown
+                                a#dropdown07.nav-link.dropdown-toggle(href='#', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Notification
+                                .dropdown-menu.not-size(aria-labelledby='dropdown07' id="dropDiv12")
+                                    p.dropdown-item.size.break User1 has viewed your profile
+                                    p.dropdown-item.size.break User2 has liked your profile
+                                    p.dropdown-item.size.break User3 has blocked your profile
+                                    p.dropdown-item.size.break User2 has liked your profile
+                                    p.dropdown-item.size.break User3 has blocked your profile
+                                    p.dropdown-item.size.break use2143258435u34290242u24 has viewed your profile
+                            li.nav-item
+                                a.nav-link(href='/logout') Log Out
+
+        .container.text-center
+            h1.mt-white.text-center.mt-5.display-3#heading.cl-white So Sexy
+
+        .container.my-3.mx-auto(style="max-width:750px")
+            button#SortFilter.btn.btn-info.btn-block.w-40(type='button', data-toggle="collapse", data-target=".multi-collapse", aria-expanded="false", aria-controls="Filter Sort") Sort/Filter
+            .row
+                .col-sm-11.py-2.mx-auto
+                    #Sort.collapse.multi-collapse
+                        .card.card-body.cont.recommend-card.text-center(style='max-width: 750px;')
+                            h6(style="color: black !important") Sort By:
+                            hr
+                            #radio.funkyradio
+                                .form-group
+                                    label.go-away(for="AgeGape") Age:
+                                    select(name="AgeGape" id="AgeGape")
+                                        option(value="none") Age Gape?
+                                        option(value="ascending") Ascending
+                                        option(value="descending") Descending
+                                .form-group
+                                    label.go-away(for="popularity") Popularity:
+                                    select(name="popularity" id="popularity")
+                                        option(value="none") Sluttitiness Factors
+                                        option(value="ascending") Ascending
+                                        option(value="descending") Descending
+                                .form-group
+                                    label.go-away(for="socailDistancing") Distance:
+                                    select(name="socailDistancing" id="socailDistancing")          
+                                        option(value="none") Milfs in your area
+                                        option(value="ascending") Ascending
+                                        option(value="descending") Descending
+                                        option(value="descending") Descending
+                                .form-group
+                                    label.go-away(for="sexualpref") Sexual Preference:
+                                    select(name="sp" id="sP")
+                                        option(value="none") Select your homo (no homo / homo)
+                                        option(value="0") Male
+                                        option(value="1") Female
+                                        option(value="2") Bisexual
+                .col-sm-11.py-2.mx-auto
+                    #Filter.collapse.multi-collapse
+                        .card.card-body.cont.recommend-card.text-center(style='max-width: 750px;')
+                            .container
+                                h6(style="color: black !important") Filter By:
+                                br
+                                input#minPop.form-control(type='text', placeholder='Minimum Popularity', name='fameMin')
+                                small#fameHelpBlock.form-text.text-muted(style="color: black !important")
+                                    | Minimum Popularity level, 
+                                b           
+                                input#ageDiff.form-control(type='text', placeholder='Age Range', name='ageDiff')
+                                small#ageHelpBlock.form-text.text-muted(style="color: black !important")
+                                    | A maximum age range, to display x years above and below your age.
+                                b           
+                                input#DistanceDiff.form-control(type='text', placeholder='Max Distance', name='DistanceDiff')
+                                small#distanceHelpBlock.form-text.text-muted(style="color: black !important")
+                                    | The Maximum distance from you that you're willing to view people.
+                                div#userInterests(onkeyup="updateInts()" class="IntDiv")
+                                    p(id="contentInt" contenteditable="true" class="intInput" onclick="clearp()") Interests
+                                small#interestHelpBlock.form-text.text-muted(style="color: black !important")
+                                    | Interests seperated by commas. Example: food, coding, gaming
+                        br
+                        button#Submit.btn.btn-success.btn-block.btn-lg(type='button', onclick='applyFilters()', name='filterSort') Apply
+                            //end of filt           
+            .container(style="max-width:750px")
+                .grid
+                    if arrayExists
+                        each val in userArray
+                            if maxDistEntered
+                                if (val.distance < maxDist)
+                                    .grid-item
+                                        .card.recommend-card
+                                            a(href="/user/profile/"+val.username) 
+                                                img.card-img-top.img-fluid(src=val.userImage, alt='User Profile Image')
+                                            .card-body.mbg-light-grey
+                                                h5.card-title.text-capitalize #{val.FirstName} #{val.LastName}
+                                                if val.distance == 9999
+                                                    p Distance from you : unknown
+                                                else	
+                                                    p Distance from you : #{val.distance}km
+                                                p Popularity : #{val.fame}
+                                                p Age : #{val.userAge}
+                                                .row.mx-auto
+                            else
+                                .grid-item
+                                    .card.text-black
+                                    .text-center
+                                        a(href="/user/profile/"+val.username) 
+                                            img.card-img-top.img-fluid(src=val.userImage, alt='User Profile Image')
+                                        .card-body.recommend-card
+                                            h4.card-title.text-capitalize #{val.userFirstName} #{val.userLastName}
+                                            p
+                                                i.fa.fa-birthday-cake.mx-2.pink
+                                                |  Age : #{val.userAge}
+                                            if val.distance == 9999
+                                                p
+                                                    i.fa.fa-map-marker.mx-2.red
+                                                    |  Distance from you : unknown
+                                            else	
+                                                p
+                                                    i.fa.fa-compass.mx-2.red
+                                                    |  Distance from you : #{val.distance}km
+                                                p
+                                                    i.fa.fa-trophy.mx-2.yellow
+                                                    |  Likes : #{val.fame}
+        div(class="container")
+            div(class="row drop-panties justify-content-center" id="matchesList")
+                div(class="col-lg-4")
+                    img(class="d-block search-image" src="https://pbs.twimg.com/media/DNkyKjSW4AAdPpW.jpg" alt="First slide")
+                    p(class="cl-white text-center margin-zero") Name: Liam
+                    p(class="cl-white text-center margin-zero") Age: 20
+                    p(class="cl-white text-center margin-zero") Distance: Near You
+                div(class="col-lg-4")
+                    img(class="d-block search-image" src="https://ih1.redbubble.net/image.449679317.7760/flat,750x1000,075,f.u3.jpg" alt="First slide")
+                    p(class="cl-white text-center margin-zero") Name: Rias
+                    p(class="cl-white text-center margin-zero") 3 sizes: B99-W58-H90
+                    p(class="cl-white text-center margin-zero") Distance: In Japan
+                div(class="col-lg-4")
+                    img(class="d-block search-image" src="https://i.pinimg.com/236x/c0/58/00/c05800b8cd0beb2448328c510d3307b4.jpg" alt="First slide")
+                    p(class="cl-white text-center margin-zero") Name: PC
+                    p(class="cl-white text-center margin-zero") Age: 21
+                    p(class="cl-white text-center margin-zero") Distance: Nya
+
+        footer(class="container")
+           div(class="footer-copyright text-center py-3 cl-white") © 2020 Copyright: Endless Horizon
+                p.footer-margin Find us More on:
+                i.fa.fa-facebook-official.w3-hover-opacity.cl-white
+                i.fa.fa-instagram.w3-hover-opacity.cl-white
+                i.fa.fa-snapchat.w3-hover-opacity.cl-white
+                i.fa.fa-pinterest-p.w3-hover-opacity.cl-white
+                i.fa.fa-twitter.w3-hover-opacity.cl-white
+                i.fa.fa-linkedin.w3-hover-opacity.cl-white
+
+        script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js")
+        script(src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js")
+        script(src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js")
+        script(src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.all.min.js")
+        script(type='text/javascript', src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@2.1.7/dist/loadingoverlay.min.js")
+        script
+            include ../scripts/search.js
+            include ../scripts/notifications.js
+
+            //- https://i.chzbgr.com/full/8378017280/hA258D43C/aww-cmere  // gif for no results found //

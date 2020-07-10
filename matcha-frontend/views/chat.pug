@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+
+html(lang="en")
+
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        style
+            include ../style/chat.css
+            include ../style/default.css
+        link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css")
+        link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css")
+        title Chat
+        script(type='text/javascript', src="https://code.jquery.com/jquery-3.5.1.js")
+    body
+        header
+        //- Navbar construction
+        header
+          nav.navbar.navbar-expand-lg.navbar-dark
+              .container
+                  a.navbar-brand(href='/home') Endless Horizon
+                  button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarsExample07', aria-controls='navbarsExample07', aria-expanded='false', aria-label='Toggle navigation')
+                      span.navbar-toggler-icon
+                  #navbarsExample07.collapse.navbar-collapse
+                      ul.navbar-nav.mr-auto
+                          li.nav-item.active
+                              a.nav-link(href='/home')
+                                  | Home 
+                                  span.sr-only (current)
+                          li.nav-item
+                              a.nav-link(href='/chats') Chats
+                          li.nav-item
+                              a.nav-link(href='/editing') Profile Edit
+                          li.nav-item
+                              a.nav-link(href='/search') Finder
+                      ul.navbar-nav.navbar-right
+                          li.nav-item.dropdown
+                              a#dropdown07.nav-link.dropdown-toggle(href='#', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Notification
+                              .dropdown-menu.not-size(aria-labelledby='dropdown07' id="dropDiv12")
+                                  p.dropdown-item.size.break User1 has viewed your profile
+                                  p.dropdown-item.size.break User2 has liked your profile
+                                  p.dropdown-item.size.break User3 has blocked your profile
+                                  p.dropdown-item.size.break User2 has liked your profile
+                                  p.dropdown-item.size.break User3 has blocked your profile
+                                  p.dropdown-item.size.break use2143258435u34290242u24 has viewed your profile
+                          li.nav-item
+                              a.nav-link(href='/logout') Log Out
+
+        div(class="container py-5 px-4")
+            div(class="row rounded-lg overflow-hidden shadow")
+                //- <!-- Users box-->
+                div(class="col-5 px-0 hide-scroll")
+                    div(class="bg-white-c")
+
+                        div(class="bg-gray px-4 py-2 bg-white-c")
+                            p(class="h5 mb-0 py-1 text-center") Recent
+
+                    div(class="messages-box")
+                        div(class="list-group rounded-0" id="matchedUsers")
+                            //- a(class="list-group-item list-group-item-action active text-white rounded-0")
+                            //-     div(class="media")
+                            //-         img(src="https://i.pinimg.com/736x/5a/e2/a5/5ae2a545eb7bd167984c1dfc792e2776.jpg" alt="user" width="50" class="rounded-circle")
+                            //-         div(class="media-body ml-4")
+                            //-             div(class="d-flex align-items-center justify-content-between mb-1")
+                            //-                 h6(class="mb-0") Neko
+                            //-                 small(class="small font-weight-bold") 25 Dec
+                            //-             p(class="font-italic mb-0 text-small") Just some bull
+
+                            //- a(href="#" class="list-group-item list-group-item-action list-group-item-light rounded-0")
+                            //-     div(class="media")
+                            //-         img(src="https://www.pngitem.com/pimgs/m/78-782739_stickers-kawaii-anime-gatitos-cute-anime-girls-neko.png" alt="user" width="50" class="rounded-circle")
+                            //-         div(class="media-body ml-4")
+                            //-             div(class="d-flex align-items-center justify-content-between mb-1")
+                            //-                 h6(class="mb-0") Rias
+                            //-                 small(class="small font-weight-bold") 11 June
+                            //-             p(class="font-italic text-muted mb-0 text-small") Hi im looking for Issei Hyoudou.
+
+                            //- a(href="#" class="list-group-item list-group-item-action list-group-item-light rounded-0")
+                            //-     div(class="media")
+                            //-         img(src="https://cdn140.picsart.com/309894446213201.jpg?type=webp&to=min&r=640" alt="user" width="50" class="rounded-circle")
+                            //-         div(class="media-body ml-4")
+                            //-             div(class="d-flex align-items-center justify-content-between mb-1")
+                            //-                 h6(class="mb-0") PandaGears
+                            //-                 small(class="small font-weight-bold") 10 Jan
+                            //-             p(class="font-italic text-muted mb-0 text-small") Just a Randomer.
+
+                            //- a(href="#" class="list-group-item list-group-item-action list-group-item-light rounded-0")
+                            //-     div(class="media")
+                            //-         img(src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQgMxCPwCb8MwLHvgmo-Wi8XRWvWFxmas8oUw&usqp=CAU" alt="user" width="50" class="rounded-circle")
+                            //-         div(class="media-body ml-4")
+                            //-             div(class="d-flex align-items-center justify-content-between mb-1")
+                            //-                 h6(class="mb-0") Liam
+                            //-                 small(class="small font-weight-bold") 2 Jan
+                            //-             p(class="font-italic text-muted mb-0 text-small") Looking for some booty
+
+                            //- a(href="#" class="list-group-item list-group-item-action list-group-item-light rounded-0")
+                            //-     div(class="media")
+                            //-         img(src="https://i.pinimg.com/originals/a1/32/5e/a1325ed5b0faf997902b0d336e1f68aa.jpg" alt="user" width="50" class="rounded-circle")
+                            //-         div(class="media-body ml-4")
+                            //-             div(class="d-flex align-items-center justify-content-between mb-1")
+                            //-                 h6(class="mb-0") Pc
+                            //-                 small(class="small font-weight-bold") 7 Feb
+                            //-             p(class="font-italic text-muted mb-0 text-small") Where is Rem.
+
+                            //- a(href="#" class="list-group-item list-group-item-action list-group-item-light rounded-0")
+                            //-     div(class="media")
+                            //-         img(src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTa9NyBVYYC2lCOPyHZA6o693GnIJagfbYC9w&usqp=CAU" alt="user" width="50" class="rounded-circle")
+                            //-         div(class="media-body ml-4")
+                            //-             div(class="d-flex align-items-center justify-content-between mb-1")
+                            //-                 h6(class="mb-0") Cami
+                            //-                 small(class="small font-weight-bold") 27 Aug
+                            //-             p(class="font-italic text-muted mb-0 text-small") Sodeska
+                <!-- Chat Box-->
+                div(class="col-7 px-0")
+                    div(id="chatDisplay" class="px-4 py-5 chat-box bg-white-c-2")
+                        //- <!-- Sender Message-->
+                        //- div(class="media w-50 mb-3")
+                        //-     img(src="https://i.pinimg.com/736x/5a/e2/a5/5ae2a545eb7bd167984c1dfc792e2776.jpg" alt="user" width="50" class="rounded-circle")
+                        //-     div(class="media-body ml-3")
+                        //-         div(class="bg-light rounded py-2 px-3 mb-2")
+                        //-             p(class="text-small mb-0 text-muted") Test which is a new approach all solutions
+                        //-         p(class="small text-muted") 12:00 PM | Aug 13
+
+                        //- <!-- Reciever Message-->
+                        //- div(class="media w-50 ml-auto mb-3")
+                        //-     div(class="media-body")
+                        //-         div(class="bg-primary rounded py-2 px-3 mb-2")
+                        //-             p(class="text-small mb-0 text-white") Test which is a new approach to have all solutions
+                        //-         p(class="small text-muted") 12:00 PM | Aug 13
+
+                        //- <!-- Sender Message-->
+                        //- div(class="media w-50 mb-3")
+                        //-     img(src="https://i.pinimg.com/736x/5a/e2/a5/5ae2a545eb7bd167984c1dfc792e2776.jpg" alt="user" width="50" class="rounded-circle")
+                        //-     div(class="media-body ml-3")
+                        //-         div(class="bg-light rounded py-2 px-3 mb-2")
+                        //-             p(class="text-small mb-0 text-muted") Test, which is a new approach to have
+                        //-         p(class="small text-muted") 12:00 PM | Aug 13
+
+                        //- <!-- Reciever Message-->
+                        //- div(class="media w-50 ml-auto mb-3")
+                        //-     div(class="media-body")
+                        //-         div(class="bg-primary rounded py-2 px-3 mb-2")
+                        //-             p(class="text-small mb-0 text-white") Apollo University, Delhi, India Test
+                        //-         p(class="small text-muted") 12:00 PM | Aug 13
+
+                        //- <!-- Sender Message-->
+                        //- div(class="media w-50 mb-3")
+                        //-     img(src="https://i.pinimg.com/736x/5a/e2/a5/5ae2a545eb7bd167984c1dfc792e2776.jpg" alt="user" width="50" class="rounded-circle")
+                        //-     div(class="media-body ml-3")
+                        //-         div(class="bg-light rounded py-2 px-3 mb-2")
+                        //-             p(class="text-small mb-0 text-muted") Test, which is a new approach
+                        //-         p(class="small text-muted") 12:00 PM | Aug 13
+
+                        //- <!-- Reciever Message-->
+                        //- div(class="media w-50 ml-auto mb-3")
+                        //-     div(class="media-body")
+                        //-         div(class="bg-primary rounded py-2 px-3 mb-2")
+                        //-             p(class="text-small mb-0 text-white") Apollo University, Delhi, India Test
+                        //-         p(class="small text-muted") 12:00 PM | Aug 13
+
+                    <!-- Typing area -->
+                    form(action="#" class="bg-light")
+                        div(class="input-group")
+                            input(type="text" placeholder="Type a message" id="inputMessage" aria-describedby="button-addon2" class="form-control rounded-0 border-0 py-4 bg-light")
+                            input(type="text" id="receiverId" value="" hidden)
+                            div(class="input-group-append" id="submitArea")
+                                button(id="button-addon2" type="submit" class="btn btn-link")
+                                    i(class="fa fa-paper-plane")
+
+
+
+            //- div(id="leftNav" class="leftBox")
+            //-     div(id="leftTitle" class="matchesTitle")
+            //-         h3 Chats
+            //-     div(id="matches" class="matchesBox")
+            //-             div(class="chat")
+            //-                 h4(id="user1" class="username") Nosy
+            //-                 p(class="latestChat") latest message
+            //-             div(class="chat")
+            //-                 h4(id="user2" class="username") PC
+            //-                 p(class="latestChat") latest message
+            //- div(id="bodyDiv" class="displayBody")
+            //-     div(id="chatmid")
+            //-         div(id="chatDisplay" class="chatDiv")
+            //-             p(class="sent message") message
+            //-             p(class="sent message") message
+            //-             p(class="received message") message
+            //-             p(class="sent message") message
+            //-             p(class="received message") message
+            //-             p(class="received message") message
+            //-         form(id="chatMessage" class="chatForm")
+            //-             input(id="chatInput" type="text" class="chatInput" required)
+            //-             button(id="chatSubmit" type="submit" class="chatSubmit") Send
+            
+        footer(class="container")
+          div(class="footer-copyright text-center py-3 cl-white") © 2020 Copyright: Endless Horizon
+            p.footer-margin Find us More on:
+            i.fa.fa-facebook-official.w3-hover-opacity.cl-white
+            i.fa.fa-instagram.w3-hover-opacity.cl-white
+            i.fa.fa-snapchat.w3-hover-opacity.cl-white
+            i.fa.fa-pinterest-p.w3-hover-opacity.cl-white
+            i.fa.fa-twitter.w3-hover-opacity.cl-white
+            i.fa.fa-linkedin.w3-hover-opacity.cl-white
+
+    script(
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.slim.min.js"
+      integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g="
+      crossorigin="anonymous"
+    )
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.13.0/umd/popper.min.js" integrity="sha256-pS96pU17yq+gVu4KBQJi38VpSuKN7otMrDQprzf/DWY=" crossorigin="anonymous")
+    script(
+      src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/js/bootstrap.min.js"
+      integrity="sha256-DiWJXXyq81WlPRnDfGmgYZj2aOVCKyEdJ1l+2TmDuAs="
+      crossorigin="anonymous"
+    )
+    script(type='text/javascript', src="https://code.jquery.com/jquery-3.5.1.js")
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.all.min.js")
+    script(type='text/javascript', src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@2.1.7/dist/loadingoverlay.min.js")
+    script
+      include ../scripts/chats.js
+      include ../scripts/notifications.js

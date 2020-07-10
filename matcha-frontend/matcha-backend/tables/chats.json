@@ -1,0 +1,6 @@
+{
+	"userid_1": "userid_1 INT(255)",
+	"userid_2": "userid_2 INT(255)",
+	"messages_1": "messages_1 VARCHAR(2000)",
+	"messages_2": "messages_2 VARCHAR(2000)"
+}

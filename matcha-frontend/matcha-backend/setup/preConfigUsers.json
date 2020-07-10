@@ -1,0 +1,62 @@
+[
+	{
+		"username": "Nosy",
+		"name": "Liam",
+		"surname": "Du Preez",
+		"age": "20",
+		"gender": "0",
+		"email": "hello.dieliam@gmail.com",
+		"password": "testing1234",
+		"sexualPreference": "1",
+		"bio": "Hi my name is liam du preez i do all of the work here, as per usual.",
+		"interests": "bikes#gaming#coding"
+	},
+	{
+		"username": "Apex",
+		"name": "Pin",
+		"surname": "Chyan",
+		"age": "20",
+		"gender": "0",
+		"email": "pc@gmail.com",
+		"password": "testing1234",
+		"sexualPreference": "1",
+		"bio": "Hi my name is Pin Chyan i do none of the work here, as per usual.",
+		"interests": "hentai#gaming#coding"
+	},
+	{
+		"username": "RiasG",
+		"name": "Rias",
+		"surname": "Gremory",
+		"age": "20",
+		"gender": "2",
+		"email": "riasG@gmail.com",
+		"password": "testing1234",
+		"sexualPreference": "0",
+		"bio": "Hi my name is RiasG. <br> test",
+		"interests": "hentai#gaming#coding#anime"
+	},
+	{
+		"username": "a",
+		"name": "a",
+		"surname": "a",
+		"age": "20",
+		"gender": "1",
+		"email": "a@a.a",
+		"password": "a",
+		"sexualPreference": "0",
+		"bio": "Hi my name is a.",
+		"interests": "hentai#gaming#coding#anime"
+	},
+	{
+		"username": "PandaGears",
+		"name": "Tamara",
+		"surname": "Radlof",
+		"age": "20",
+		"gender": "1",
+		"email": "Panda@gmail.com",
+		"password": "panda",
+		"sexualPreference": "0",
+		"bio": "Hi my name is PandaGears.",
+		"interests": "hentai#gaming#coding#anime"
+	}
+]

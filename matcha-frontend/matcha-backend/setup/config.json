@@ -1,0 +1,26 @@
+{
+	"debug": "error",
+	"userMessage": "true",
+	"userCount": 50,
+	"user": {
+		"host": "localhost",
+		"port": "3306",
+		"user": "matcha",
+		"password": "matcha",
+		"waitForConnections" : true,
+		"queueLimit" : 15000,
+		"connectionLimit": 1000,
+    	"acquireTimeout": 60000
+	},
+	"userDB": {
+		"host": "localhost",
+		"port": "3306",
+		"user": "matcha",
+		"password": "matcha",
+		"database": "matcha_db",
+		"waitForConnections" : true,
+		"queueLimit" : 15000,
+		"connectionLimit": 1000,
+    	"acquireTimeout": 60000
+	}
+}

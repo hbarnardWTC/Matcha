@@ -1,0 +1,267 @@
+body {
+    /* background-color: black !important;
+    background-image: url("https://steamcdn-a.akamaihd.net/steamcommunity/public/images/items/375200/672c92c870c32250550ff9ee6d1d2aa9fdfd01cb.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center; */
+    background-color: var(--background);
+    color: var(--color);
+    /* background-image: url("https://steamcdn-a.akamaihd.net/steamcommunity/public/images/items/375200/672c92c870c32250550ff9ee6d1d2aa9fdfd01cb.jpg"); */
+    /* background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.30), rgba(80, 40, 0, 0.00)), url(https://steamcdn-a.akamaihd.net/steamcommunity/public/images/items/375200/672c92c870c32250550ff9ee6d1d2aa9fdfd01cb.jpg); */
+    /* background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.30), rgba(80, 40, 0, 0.40)), url(https://steamcdn-a.akamaihd.net/steamcommunity/public/images/items/375200/672c92c870c32250550ff9ee6d1d2aa9fdfd01cb.jpg); */
+    background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.20), rgba(255, 255, 255, 0.1)), url(https://steamcdn-a.akamaihd.net/steamcommunity/public/images/items/375200/672c92c870c32250550ff9ee6d1d2aa9fdfd01cb.jpg);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    min-height: 100vh;
+    position: relative;
+    padding-bottom: 90px;
+    overflow-x: hidden;
+}
+
+.custom-container {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    left: 50%;top: 45%;
+}
+
+.custom-footer {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    left: 50%;top: 90%;
+}
+
+.custom-header {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    left: 50%;top: 5%;
+}
+
+.custom-font {
+    font-size: 25px;
+}
+
+.footer-margin {
+    margin: 0 !important;
+}
+
+.log-flex {
+    display: flex;
+}
+
+.form-signin {
+    width: 100%;
+    max-width: 330px;
+    padding: 15px;
+    margin: auto;
+}
+
+.form-signup {
+    width: 100%;
+    max-width: 330px;
+    padding: 15px;
+    margin: auto;
+}
+
+.edit-form-signup {
+    width: 100%;
+    max-width: 600px;
+    padding: 15px;
+    margin: auto;
+}
+
+.search-form-signup {
+    width: 100%;
+    max-width: 600px;
+    padding: 15px;
+    margin: auto;
+}
+
+.custom-control-input {
+    position: absolute;
+    left: 0;
+    z-index: -1;
+    width: 1rem;
+    height: 1.25rem;
+    opacity: 0;
+}
+
+.pad-zero {
+    padding-left: 0;
+}
+
+.carousel-caption {
+    position: relative;
+}
+
+.carousel {
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.go-right {
+    margin-left: 5px;
+}
+
+.go-away {
+    margin-right: 10px;
+}
+
+.drop-panties {
+    margin-top: 15px !important;
+}
+
+.margin-zero {
+    margin: 0;
+}
+
+.custom-align {
+    text-align: center !important;
+    display: block;
+}
+
+.not-size {
+    max-width: 250px !important;
+    max-height: 200px;
+    overflow-x: hidden;
+}
+
+::-webkit-scrollbar {
+    width: 0px;
+    background: transparent; /* make scrollbar transparent */
+}
+
+.break {
+    font-size: 1.2vh;
+    /* width: auto !important; */
+    /* height: auto !important; */
+    /* overflow: hidden !important; */
+    /* overflow-wrap: break-word !important; */
+    word-wrap: break-word !important;
+    white-space: break-spaces !important;
+    /* hyphens: auto !important; */
+    /* box-sizing: inherit !important; */
+}
+
+.profile-image {
+    width: 500px;
+    height: 700px;
+    object-fit: contain;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.search-image {
+    width: 300px;
+    height: 350px;
+    object-fit: cover;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 10px;
+}
+
+.col-lg-4 {
+    max-width: none !important;
+}
+
+.l-search-image {
+    width: 350px;
+    height: 400px;
+    object-fit: contain;
+    /* float: left; */
+}
+
+.r-search-image {
+    width: 350px;
+    height: 400px;
+    object-fit: contain;
+    /* float: left; */
+}
+
+.col-lg-4 {
+    padding-left: 5px !important;
+    padding-right: 5px !important;
+}
+
+.cl-white {
+    color: white;
+}
+
+.cl-grey {
+    color: rgb(140, 140, 140);
+}
+
+/* chat css */
+
+.chat-flex {
+    display: flex;
+    justify-content: space-around;
+}
+
+.chatmid-flex {
+    display: flex;
+    align-items: center;
+}
+
+.spSelect {
+    outline: none;
+    text-align: center;
+    border: 1px solid #ced4da;
+}
+.spSelect:hover {
+    background-color: #ced4da;
+    cursor: pointer;
+}
+.spSelectItem {
+    border: none;
+    outline: none;
+    background-color: white;
+}
+.spSelectItem:hover {
+    background-color: #ced4da !important;
+    color: black !important;
+}
+
+.verifiedInt {
+    float: left;
+    background: deepskyblue;
+    border-radius: 5px;
+    padding: 5px;
+    margin: 5px;
+}
+.intInput {
+    min-width: calc(100% - 10px);
+    height: fit-content;
+    position: relative;
+    float: right;
+    outline: none;
+    margin: 5px;
+    text-align: left;
+    padding-left: 6px;
+}
+.intInput:hover {
+    background-color: #ced4da !important;
+}
+.intInput:focus {
+    background-color: #ced4da !important;
+}
+.IntDiv {
+    height: fit-content;
+    position: relative;
+    display: flow-root;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+}
+.verifiedIntClose {
+    height: 0px;
+    width: 1rem;
+    text-align: center;
+    background: none;
+    border: none !important;
+    outline: none !important;
+}

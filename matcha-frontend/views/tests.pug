@@ -1,0 +1,134 @@
+html
+	head
+		//- include global_stylesheets
+		//- link(rel='stylesheet', href='/recommendations.css')
+		link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css")
+		link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css")       
+
+		//- link(rel='favicon', href='https://res.cloudinary.com/ddrrwygt1/image/upload/v1594120076/logo_phhyl7.ico%27')
+		//- link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css%27')
+		//- link(rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous")
+		//- link(href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css", rel="stylesheet", integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN", crossorigin="anonymous")
+	body.recommendback
+		//- include navbar.pug
+		.container.text-center
+			h1.mt-white.text-center.mt-5.display-3#heading Search
+									
+									// the filter
+		.container.my-3.mx-auto(style="max-width:750px")
+			button#SortFilter.btn.btn-info.btn-block.w-40(type='button', data-toggle="collapse", data-target=".multi-collapse", aria-expanded="false", aria-controls="Filter Sort") Sort/Filter
+			.row
+				.col-sm-11.py-2.mx-auto
+					#Sort.collapse.multi-collapse
+						.card.card-body.cont.recommend-card.text-center(style='max-width: 750px;')
+							h6(style="color: white !important") Sort By:
+							hr
+							#radio.funkyradio
+								.form-group
+									.funkyradio-success
+										input#AgeUp(type='radio', name='radio', value="AgeUp")
+										label(for='AgeUp' style="color: white !important") Age, ascending
+									.funkyradio-success
+										input#AgeDown(type='radio', name='radio', value="AgeDown")
+										label(for='AgeDown' style="color: white !important") Age, descending
+								.form-group
+									.funkyradio-success
+										input#FameUp(type='radio', name='radio', value="FameUp")
+										label(for='FameUp' style="color: white !important") Popularity, ascending
+									.funkyradio-success
+										input#FameDown(type='radio', name='radio', value="FameDown")
+										label(for='FameDown' style="color: white !important") Popularity, descending
+								.form-group
+									.funkyradio-success
+										input#Close(type='radio', name='radio', value="Closer")
+										label(for='Close' style="color: white !important") Closest
+									.funkyradio-success
+										input#Far(type='radio', name='radio', value="Further")
+										label(for='Far' style="color: white !important") Furthest
+
+				.col-sm-11.py-2.mx-auto
+					#Filter.collapse.multi-collapse
+						.card.card-body.cont.recommend-card.text-center(style='max-width: 750px;')
+							.container
+								h6(style="color: white !important") Filter By:
+								hr
+								
+								input#minPop.form-control(type='text', placeholder='Minimum Popularity', name='fameMin')
+								small#fameHelpBlock.form-text.text-muted(style="color: white !important")
+									| Minimum Popularity level, 
+								br
+								
+								input#ageDiff.form-control(type='text', placeholder='Age Range', name='ageDiff')
+								small#ageHelpBlock.form-text.text-muted(style="color: white !important")
+									| A maximum age range, to display x years above and below your age.
+								br
+								
+								input#DistanceDiff.form-control(type='text', placeholder='Max Distance', name='DistanceDiff')
+								small#distanceHelpBlock.form-text.text-muted(style="color: white !important")
+									| The Maximum distance from you that you're willing to view people.
+								br
+
+								input#userInterests.form-control(type='text' placeholder='Interest' name='userInterests')
+								small#interestHelpBlock.form-text.text-muted(style="color: white !important")
+									| Only one interest. Example: #food
+						br
+						button#Submit.btn.btn-success.btn-block.btn-lg(type='button', onclick='sendParams();', name='filterSort') Apply
+									//end of filter
+
+			.container(style="max-width:750px")
+				.grid
+					if arrayExists
+						each val in userArray
+							if maxDistEntered
+								if (val.distance < maxDist)
+									.grid-item
+										.card.recommend-card
+											a(href="/user/profile/"+val.username) 
+												img.card-img-top.img-fluid(src=val.userImage, alt='User Profile Image')
+											.card-body.mbg-light-grey
+												h5.card-title.text-capitalize #{val.FirstName} #{val.LastName}
+												if val.distance == 9999
+													p Distance from you : unknown
+												else	
+													p Distance from you : #{val.distance}km
+												p Popularity : #{val.fame}
+												p Age : #{val.userAge}
+												.row.mx-auto
+							else
+								.grid-item
+									.card.text-black
+									.text-center
+										a(href="/user/profile/"+val.username) 
+											img.card-img-top.img-fluid(src=val.userImage, alt='User Profile Image')
+										.card-body.recommend-card
+											h4.card-title.text-capitalize #{val.userFirstName} #{val.userLastName}
+											p
+												i.fa.fa-birthday-cake.mx-2.pink
+												|  Age : #{val.userAge}
+											if val.distance == 9999
+												p
+													i.fa.fa-map-marker.mx-2.red
+													|  Distance from you : unknown
+											else	
+												p
+													i.fa.fa-compass.mx-2.red
+													|  Distance from you : #{val.distance}km
+												p
+													i.fa.fa-trophy.mx-2.yellow
+													|  Likes : #{val.fame}
+
+	//- script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js%22")
+	//- script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js', integrity='sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1', crossorigin='anonymous')
+	//- script(src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js', integrity='sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM', crossorigin='anonymous')
+	//- script(src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.all.min.js%22")
+
+	script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js")
+	script(src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js")
+	script(src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js")
+
+
+		//- include footer
+
+		//- script(src='/recommendations.js')
+		//- include global_scripts
+		//- script(src="/profileActions.js")
