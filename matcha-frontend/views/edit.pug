@@ -80,10 +80,10 @@ html(lang="en")
                   input(type="text" class="form-control" id="address" placeholder="1 Endless Horizon Avenue" required)
                 div(class="col-md-6 mb-3")
                   label(for="sp" class="cl-white go-away") Sexual Preference
-                  select(name="sp" id="gender" class="form-control")
-                    option(value="Male") Male
-                    option(value="Female") Female
-                    option(value="Bisexual") Bisexual
+                  select(name="sp" id="sp" class="form-control")
+                    option(value="0") Male
+                    option(value="1") Female
+                    option(value="2") Bisexual
               div(class="row")
                 div(class="col-md-6 mb-3")
                   label(for="interest" class="cl-white") Interests
@@ -111,9 +111,10 @@ html(lang="en")
                   input(type="file" class="form-control-file cl-white" id="img-5" name="n-img-5")
                 div(class="col-md-6 mb-3")
                   label(for="gender" class="cl-white") Gender
-                  select(name="sp" id="gender" class="form-control")
-                    option(value="Male") Male
-                    option(value="Female") Female
+                  select(name="gender" id="gender" class="form-control")
+                    option(value="0") Male
+                    option(value="1") Female
+                    option(value="2") Bisexual
                 
               button(class="btn btn-secondary btn-lg btn-block" type="submit") Change Info
 
@@ -138,4 +139,6 @@ html(lang="en")
       integrity="sha256-DiWJXXyq81WlPRnDfGmgYZj2aOVCKyEdJ1l+2TmDuAs="
       crossorigin="anonymous"
     )
-    
+    script(type='text/javascript', src="https://code.jquery.com/jquery-3.5.1.js")
+    script
+      include ../scripts/edit.js

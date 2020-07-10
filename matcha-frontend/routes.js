@@ -269,6 +269,17 @@ router.post('/user/login', function(req, res, next) {
     })
 });
 
+router.get('/user/getCurrentUser', async function(req, res, next) {
+    ssn = req.session;
+    if (!ssn.userid || ssn.userid == null){
+        res.redirect('/login')
+    } else {
+       await userManager.getUserById(ssn.userid).then(user => {
+               res.send(user);
+       });
+    }
+});
+
 // route for our login page
 router.get('/login', function(req, res) {
     res.render('login.pug')
