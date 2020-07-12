@@ -22,6 +22,26 @@ function verifyPass(){
   return true;
 }
 
+function toDataURL(src, outputFormat) {
+  var img = new Image();
+  img.crossOrigin = 'Anonymous';
+  img.onload = function() {
+    var canvas = document.createElement('CANVAS');
+    var ctx = canvas.getContext('2d');
+    var dataURL;
+    canvas.height = this.naturalHeight;
+    canvas.width = this.naturalWidth;
+    ctx.drawImage(this, 0, 0);
+    dataURL = canvas.toDataURL(outputFormat);
+    return(dataURL);
+  };
+  img.src = src;
+  if (img.complete || img.complete === undefined) {
+    img.src = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
+    img.src = src;
+  }
+}
+
 
 function getUserDetails(){
       $.ajax({
@@ -84,7 +104,7 @@ function updateUserInfo(){
     var gender = $("#gender").children("option:selected").val();
     if (verifyPass()){
       $.ajax({
-          url: '/',
+          url: '/user/update',
           type: "GET",
           data: {
               'name': $("#name").val(),
@@ -92,14 +112,13 @@ function updateUserInfo(){
               'username': $("#username").val(),
               'email': $("#email").val(),
               'password': $("#password").val(),
-              // 'name': $("#address").val(),
               'sexualPreference': sp,
               'interests': $("#interests").val(),
               'bio': $("#bio").val(),
-              // image section
               'gender': gender
           },
           success: function(data) {
+            updateUserImages();
               console.log(data);
             },
             error: function(xhr) {
@@ -107,6 +126,47 @@ function updateUserInfo(){
             }
         })
     }
+}
+
+function updateUserImages(){
+  console.log($("#img-1").files[0]);
+  if (verifyPass()){
+    $.ajax({
+        url: '/user/updateImages',
+        type: "GET",
+        data: {
+            'image1': toDataURL($("#img-1").files[0],"base64"),
+            'image2': toDataURL($("#img-2").files[0],"base64"),
+            'image3': toDataURL($("#img-3").files[0],"base64"),
+            'image4': toDataURL($("#img-4").files[0],"base64"),
+            'image5': toDataURL($("#img-5").files[0],"base64")
+        },
+        success: function(data) {
+            console.log(data);
+            updateUserAddress();
+          },
+          error: function(xhr) {
+            console.log(xhr);
+          }
+      })
+  }
+}
+function updateUserAddress(){
+  if (verifyPass()){
+    $.ajax({
+        url: '/user/updateAddress',
+        type: "GET",
+        data: {
+            'address': $("#address").val(),
+        },
+        success: function(data) {
+            console.log(data);
+          },
+          error: function(xhr) {
+            console.log(xhr);
+          }
+      })
+  }
 }
 
 getUserDetails();

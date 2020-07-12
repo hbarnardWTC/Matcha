@@ -106,3 +106,31 @@ module.exports = {
 		});
 	});
   }
+
+
+async function updateUserImgs(userid,img1,img2,img3,img4,img5){
+	var con = mysql.createConnection(config.userDB);
+	return new Promise(ret => {
+		con.connect(function(err) {
+			if (err) { { console.log("Endho: ".red+"Error Connecting To DB At updateUserImgs!! Set Debug To (error) To View Details".magenta); if(config.debug == "error"){console.log("EndHo: ".red+err)}return;} }
+			var sql = "UPDATE ";
+			var Tablename = "images";
+			var options = " SET image1 = ?, image2 = ?, image3 = ?, image4 = ?, image5 = ? WHERE userid = ?"
+			ret(new Promise(ret2 => {
+				con.query(sql+Tablename+options, [img1,img2,img3,img4,img5,userid],function(err,result) {
+					if (err) { console.log("Endho: ".red+"Error updateUserImgs updateUserImgs!! Set Debug To (error) To View Details".magenta); if(config.debug == "error"){console.log("EndHo: ".red+err)}return;}
+					if (config.debug == "true") {console.log(result);}
+					console.log(result);
+					if (result.affectedRows == 1){
+            			ret2("Success");
+						con.end();
+					} else {
+						ret2("Error");
+						con.end();
+					}
+				})
+			}));
+		});
+	});
+}
+module.exports.updateUserImgs = updateUserImgs;

@@ -256,6 +256,32 @@ async function setToken(userid){
 	});
 }
 
+async function updateUserVals(userid,name,surname,username,email,password,sp,ints,bio,gender){
+	var con = mysql.createConnection(config.userDB);
+	return new Promise(ret => {
+		con.connect(function(err) {
+			if (err) { { console.log("Endho: ".red+"Error Connecting To DB At updateUserVals!! Set Debug To (error) To View Details".magenta); if(config.debug == "error"){console.log("EndHo: ".red+err)}return;} }
+			var sql = "UPDATE ";
+			var Tablename = "users";
+			var options = " SET name = ?, surname = ?, username = ?, email = ?, password = ?, sexualPreference = ?, interests = ?, bio = ?, gender = ?  WHERE userid = ?"
+			ret(new Promise(ret2 => {
+				con.query(sql+Tablename+options, [name,surname,username,email,passwordHash.generate(password),sp,ints,bio,gender,userid],function(err,result) {
+					if (err) { console.log("Endho: ".red+"Error updateUserVals updateUserVals!! Set Debug To (error) To View Details".magenta); if(config.debug == "error"){console.log("EndHo: ".red+err)}return;}
+					if (config.debug == "true") {console.log(result);}
+					console.log(result);
+					if (result.affectedRows == 1){
+            			ret2("Success");
+						con.end();
+					} else {
+						ret2("Error");
+						con.end();
+					}
+				})
+			}));
+		});
+	});
+}
+
 //Get matched users
 //
 async function getMatchedUsers(ageMin,ageMax,gender,interests,sp){
@@ -313,6 +339,7 @@ function getMU(ageMin,ageMax,gender,interests,sp){
 module.exports.getUserById = getUserById;
 module.exports.getMatchedUsers = getMatchedUsers;
 module.exports.verifyEmail = verifyEmail;
+module.exports.updateUserVals = updateUserVals;
 
 
 

@@ -12,6 +12,7 @@ var matchManager = require('./matcha-backend/managers/matchManager.js');
 var notificationManager = require('./matcha-backend/managers/notificationManager.js');
 var bodyParser = require('body-parser');
 const { table } = require('console');
+const imageManager = require('./matcha-backend/managers/imageManager.js');
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -331,6 +332,40 @@ router.get('/user/verifyEmail', async function(req, res, next) {
             res.redirect('/failure')
         }
     });
+});
+router.get('/user/update', async function(req, res, next) {
+    ssn = req.session;
+    if(ssn.userid) {
+        var vals = req.query;
+        await userManager.updateUserVals(ssn.userid,vals.name,vals.surname,vals.username,vals.email,vals.password,vals.sp,vals.ints,vals.bio,vals.gender).then(status => {
+            res.send(status);
+        })
+    } else {
+        res.redirect('/login');
+    }
+});
+router.get('/user/updateImages', async function(req, res, next) {
+    ssn = req.session;
+    if(ssn.userid) {
+        var vals = req.query;
+        await imageManager.updateUserImgs(ssn.userid,vals.img1,vals.img2,vals.img3,vals.img4,vals.img5).then(status => {
+            res.send(status);
+        })
+    } else {
+        res.redirect('/login');
+    }
+});
+router.get('/user/updateAddress', async function(req, res, next) {
+    ssn = req.session;
+    if(ssn.userid) {
+        var vals = req.query;
+        var area = vals.address.split(",");
+        await locationManager.updateLocation(ssn.userid,area[0],area[1],"AIzaSyDCdn8N23XLWZNYKKfnG0uENNsTJQiGsnA").then(status => {
+            res.send(status);
+        })
+    } else {
+        res.redirect('/login');
+    }
 });
 
 
