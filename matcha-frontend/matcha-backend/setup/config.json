@@ -1,7 +1,7 @@
 {
 	"debug": "error",
 	"userMessage": "true",
-	"userCount": 5000,
+	"userCount": 10,
 	"user": {
 		"host": "localhost",
 		"port": "3306",

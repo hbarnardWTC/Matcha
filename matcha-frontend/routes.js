@@ -29,7 +29,7 @@ app.set("view engine", "pug");
 // route for our home page
 router.get('/', function(req, res) {
     ssn = req.session;
-    if (!ssn.userid || ssn.userid == null){
+    if (!ssn.userid || !ssn.verified || ssn.userid == null || ssn.verified == false){
         res.redirect('/login')
     } else {
         res.redirect("/home");
@@ -68,7 +68,7 @@ router.post('/user/register', function(req, res, next) {
 });
 router.get('/user/getNotifications', async function(req, res, next) {
     ssn = req.session;
-    if (!ssn.userid || ssn.userid == null){
+    if (!ssn.userid || !ssn.verified || ssn.userid == null || ssn.verified == false){
         res.redirect('/login')
     } else {
         await notificationManager.getNotifications(ssn.userid).then(val => {
@@ -78,7 +78,7 @@ router.get('/user/getNotifications', async function(req, res, next) {
 });
 router.post('/user/getAllUsers', function(req, res, next) {
     ssn = req.session;
-    if (!ssn.userid || ssn.userid == null){
+    if (!ssn.userid || !ssn.verified || ssn.userid == null || ssn.verified == false){
         res.redirect('/login')
     } else {
         matchManager.getMatchedUsersTrue(ssn.userid).then(users => {
@@ -88,7 +88,7 @@ router.post('/user/getAllUsers', function(req, res, next) {
 });
 router.get('/user/getRandomUser', async function(req, res, next) {
     ssn = req.session;
-    if (!ssn.userid || ssn.userid == null){
+    if (!ssn.userid || !ssn.verified || ssn.userid == null || ssn.verified == false){
         res.redirect('/login')
     } else {
         var newId = ssn.userid;
@@ -111,7 +111,7 @@ router.get('/user/getRandomUser', async function(req, res, next) {
 });
 router.get('/user/createMatch', async function(req, res, next) {
     ssn = req.session;
-    if (!ssn.userid || ssn.userid == null){
+    if (!ssn.userid || !ssn.verified || ssn.userid == null || ssn.verified == false){
         res.redirect('/login')
     } else {
        matchManager.createMatch(ssn.userid,req.query.userid);
@@ -120,7 +120,7 @@ router.get('/user/createMatch', async function(req, res, next) {
 });
 router.get('/user/addLikeYes', async function(req, res, next) {
     ssn = req.session;
-    if (!ssn.userid || ssn.userid == null){
+    if (!ssn.userid || !ssn.verified || ssn.userid == null || ssn.verified == false){
         res.redirect('/login')
     } else {
        matchManager.addLike(ssn.userid,req.query.userid).then(val => {
@@ -130,7 +130,7 @@ router.get('/user/addLikeYes', async function(req, res, next) {
 });
 router.get('/user/getUserById', async function(req, res, next) {
     ssn = req.session;
-    if (!ssn.userid || ssn.userid == null){
+    if (!ssn.userid || !ssn.verified || ssn.userid == null || ssn.verified == false){
         res.redirect('/login')
     } else {
         userManager.getUserById(req.query.userid).then(user => {
@@ -140,7 +140,7 @@ router.get('/user/getUserById', async function(req, res, next) {
 });
 router.get('/user/getLikes', async function(req, res, next) {
     ssn = req.session;
-    if (!ssn.userid || ssn.userid == null){
+    if (!ssn.userid || !ssn.verified || ssn.userid == null || ssn.verified == false){
         res.redirect('/login')
     } else {
         if (req.query.userid != "logged"){
@@ -156,7 +156,7 @@ router.get('/user/getLikes', async function(req, res, next) {
 });
 router.get('/user/getUserImages', async function(req, res, next) {
     ssn = req.session;
-    if (!ssn.userid || ssn.userid == null){
+    if (!ssn.userid || !ssn.verified || ssn.userid == null || ssn.verified == false){
         res.redirect('/login')
     } else {
         if (req.query.userid != "logged"){
@@ -172,7 +172,7 @@ router.get('/user/getUserImages', async function(req, res, next) {
 });
 router.get('/user/getMatchedUsers', async function(req, res, next) {
     ssn = req.session;
-    if (!ssn.userid || ssn.userid == null){
+    if (!ssn.userid || !ssn.verified || ssn.userid == null || ssn.verified == false){
         res.redirect('/login')
     } else {
         await userManager.getMatchedUsers()
@@ -180,7 +180,7 @@ router.get('/user/getMatchedUsers', async function(req, res, next) {
 });
 router.get('/user/getMatchingUsers', async function(req, res, next) {
     ssn = req.session;
-    if (!ssn.userid || ssn.userid == null){
+    if (!ssn.userid || !ssn.verified || ssn.userid == null || ssn.verified == false){
         res.redirect('/login')
     } else {
         var usersL = {
@@ -219,7 +219,7 @@ function getRndInteger(min, max) {
   }
 router.get('/user/getMatchedUser', function(req, res, next) {
     ssn = req.session;
-    if (!ssn.userid || ssn.userid == null){
+    if (!ssn.userid || !ssn.verified || ssn.userid == null || ssn.verified == false){
         res.redirect('/login')
     } else {
         var returnV = {
@@ -252,7 +252,7 @@ router.get('/user/getMatchedUser', function(req, res, next) {
 });
 router.get('/message/send', function(req, res, next) {
     ssn = req.session;
-    if (!ssn.userid || ssn.userid == null){
+    if (!ssn.userid || !ssn.verified || ssn.userid == null || ssn.verified == false){
         res.redirect('/login')
     } else {
         chatManager.addMessage(ssn.userid,req.query.userid2,req.query.message).then(ret => {
@@ -262,7 +262,7 @@ router.get('/message/send', function(req, res, next) {
 });
 router.get('/user/updateLocation', function(req, res, next) {
     ssn = req.session;
-    if (!ssn.userid || ssn.userid == null){
+    if (!ssn.userid || !ssn.verified || ssn.userid == null || ssn.verified == false){
         res.redirect('/login')
     } else {
         locationManager.updateLocation(ssn.userid,req.query.area,req.query.ip,req.query.apiKey).then(val => {
@@ -272,7 +272,7 @@ router.get('/user/updateLocation', function(req, res, next) {
 });
 router.get('/user/getLocation', function(req, res, next) {
     ssn = req.session;
-    if (!ssn.userid || ssn.userid == null){
+    if (!ssn.userid || !ssn.verified || ssn.userid == null || ssn.verified == false){
         res.redirect('/login')
     } else {
         console.log(req.query.userid);
@@ -289,7 +289,7 @@ router.get('/user/getLocation', function(req, res, next) {
 });
 router.get('/message/getMessages', function(req, res, next) {
     ssn = req.session;
-    if (!ssn.userid || ssn.userid == null){
+    if (!ssn.userid || !ssn.verified || ssn.userid == null || ssn.verified == false){
         res.redirect('/login')
     } else {
         chatManager.getMessages(ssn.userid,req.query.userid_2).then(ret => {
@@ -304,8 +304,20 @@ router.post('/user/login', function(req, res, next) {
     ssn = req.session;
     userManager.authUser(email, pass).then(userid =>{
         if (userid != "Error" && userid != "error" && userid != "Wrong Pass"){
-            ssn.userid = userid;
-            res.redirect('/')
+            userManager.getVerEmail(userid).then(stat => {
+                console.log(stat[0].verified);
+                if (stat[0].verified == 'false'){
+                    ssn.verified = false;
+                    res.redirect('/login');
+                } else if (stat[0].verified == 'true'){
+                    ssn.userid = userid;
+                    ssn.verified = true;
+                    res.redirect('/');
+                } else {
+                    console.log("error");
+                    res.redirect('/login');
+                }
+            })
         } else {
             res.redirect('/login')
         }
@@ -314,7 +326,7 @@ router.post('/user/login', function(req, res, next) {
 
 router.get('/user/getCurrentUser', async function(req, res, next) {
     ssn = req.session;
-    if (!ssn.userid || ssn.userid == null){
+    if (!ssn.userid || !ssn.verified || ssn.userid == null || ssn.verified == false){
         res.redirect('/login')
     } else {
        await userManager.getUserById(ssn.userid).then(user => {
@@ -324,9 +336,11 @@ router.get('/user/getCurrentUser', async function(req, res, next) {
 });
 
 router.get('/user/verifyEmail', async function(req, res, next) {
+    ssn = req.session;
     await userManager.verifyEmail(req.query.userid, req.query.email).then(status => {
         console.log(status);
         if (status == 'Success') {
+            ssn.verified == true;
             res.redirect('/validate')
         } else {
             res.redirect('/failure')
@@ -335,7 +349,7 @@ router.get('/user/verifyEmail', async function(req, res, next) {
 });
 router.get('/user/update', async function(req, res, next) {
     ssn = req.session;
-    if(ssn.userid) {
+    if(ssn.userid && ssn.verified) {
         var vals = req.query;
         await userManager.updateUserVals(ssn.userid,vals.name,vals.surname,vals.username,vals.email,vals.password,vals.sp,vals.ints,vals.bio,vals.gender).then(status => {
             res.send(status);
@@ -346,7 +360,7 @@ router.get('/user/update', async function(req, res, next) {
 });
 router.get('/user/updateImages', async function(req, res, next) {
     ssn = req.session;
-    if(ssn.userid) {
+    if(ssn.userid && ssn.verified) {
         var vals = req.query;
         await imageManager.updateUserImgs(ssn.userid,vals.img1,vals.img2,vals.img3,vals.img4,vals.img5).then(status => {
             res.send(status);
@@ -357,7 +371,7 @@ router.get('/user/updateImages', async function(req, res, next) {
 });
 router.get('/user/updateAddress', async function(req, res, next) {
     ssn = req.session;
-    if(ssn.userid) {
+    if(ssn.userid && ssn.verified) {
         var vals = req.query;
         var area = vals.address.split(",");
         await locationManager.updateLocation(ssn.userid,area[0],area[1],"AIzaSyDCdn8N23XLWZNYKKfnG0uENNsTJQiGsnA").then(status => {
@@ -375,7 +389,7 @@ router.get('/login', function(req, res) {
 })
 router.get('/logout', function(req, res) {
     ssn = req.session;
-    if(ssn.userid) {
+    if(ssn.userid && ssn.verified) {
         delete ssn.userid;
         res.redirect('/login');
     } else {
@@ -386,7 +400,7 @@ router.get('/logout', function(req, res) {
 // route for our home page
 router.get('/home', function(req, res) {
     ssn = req.session;
-    if (!ssn.userid || ssn.userid == null){
+    if (!ssn.userid || !ssn.verified || ssn.userid == null || ssn.verified == false){
         res.redirect('/login')
     } else {
         res.render('home.pug')
@@ -396,7 +410,7 @@ router.get('/home', function(req, res) {
 // route for our chats
 router.get('/chats', function(req, res) {
     ssn = req.session;
-    if (!ssn.userid || ssn.userid == null){
+    if (!ssn.userid || !ssn.verified || ssn.userid == null || ssn.verified == false){
         res.redirect('/login')
     } else {
         res.render('chat.pug')
@@ -406,7 +420,7 @@ router.get('/chats', function(req, res) {
 // route for our profile editing
 router.get('/editing', function(req, res) {
     ssn = req.session;
-    if (!ssn.userid || ssn.userid == null){
+    if (!ssn.userid || !ssn.verified || ssn.userid == null || ssn.verified == false){
         res.redirect('/login')
     } else {
         res.render('edit.pug')
@@ -416,7 +430,7 @@ router.get('/editing', function(req, res) {
 // route for validated
 router.get('/validate', function(req, res) {
     ssn = req.session;
-    if (!ssn.userid || ssn.userid == null){
+    if (!ssn.userid || !ssn.verified || ssn.userid == null || ssn.verified == false){
         res.redirect('/login')
     } else {
         res.render('validated.pug')
@@ -426,7 +440,7 @@ router.get('/validate', function(req, res) {
 // route for fail to validate
 router.get('/failure', function(req, res) {
     ssn = req.session;
-    if (!ssn.userid || ssn.userid == null){
+    if (!ssn.userid || !ssn.verified || ssn.userid == null || ssn.verified == false){
         res.redirect('/login')
     } else {
         res.render('failure.pug')
@@ -436,7 +450,7 @@ router.get('/failure', function(req, res) {
 // route for sent email
 router.get('/sent', function(req, res) {
     ssn = req.session;
-    if (!ssn.userid || ssn.userid == null){
+    if (!ssn.userid || !ssn.verified || ssn.userid == null || ssn.verified == false){
         res.redirect('/login')
     } else {
         res.render('sent.pug')
@@ -446,7 +460,7 @@ router.get('/sent', function(req, res) {
 // route for our profile editing
 router.get('/search', function(req, res) {
     ssn = req.session;
-    if (!ssn.userid || ssn.userid == null){
+    if (!ssn.userid || !ssn.verified || ssn.userid == null || ssn.verified == false){
         res.redirect('/login')
     } else {
         res.render('search.pug')
@@ -456,7 +470,7 @@ router.get('/search', function(req, res) {
 // route for testing
 router.get('/test', function(req, res) {
     ssn = req.session;
-    if (!ssn.userid || ssn.userid == null){
+    if (!ssn.userid || !ssn.verified || ssn.userid == null || ssn.verified == false){
         res.redirect('/login')
     } else {
         res.render('tests.pug')

@@ -3,6 +3,7 @@ var tableManager = require('./managers/tableManager.js');
 var config = require('./setup/config.json');
 const colors = require('colors');
 
+process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
 var con = mysql.createConnection(config.user)
 con.connect(function(err) {
 	if (err) { { console.log("Endho: ".red+"Error Found!! Set Debug To (error) To View Details".magenta); if(config.debug == "error"){console.log("EndHo: ".red+err)}return;} }

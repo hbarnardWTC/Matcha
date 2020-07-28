@@ -145,6 +145,30 @@ module.exports = {
 			});
 		});
 	},
+	getVerEmail: function (userid){
+		var con = mysql.createConnection(config.userDB);
+		return new Promise(ret => {
+			con.connect(function(err) {
+				if (err) { { console.log("Endho: ".red+"Error Connecting To DB At awdawdawddwa!! Set Debug To (error) To View Details".magenta); if(config.debug == "error"){console.log("EndHo: ".red+err)}return;} }
+				console.log("EndHo:".green+" Request To Get All awdawdawd ".blue);
+				var sql = 'SELECT verified FROM `users` WHERE userid = ?';
+				ret(new Promise(data => {
+					con.query(sql, [userid],function(err,result) {
+						if (err) { console.log("Endho: ".red+"Error Getting All Users!! Set Debug To (error) To View Details".magenta); if(config.debug == "error"){console.log("EndHo: ".red+err)}return;}
+						if (config.debug == "true") {console.log(result);}
+						if (result[0]){
+							console.log("EndHo:".green+" Got All Users ".cyan);
+							data(result);
+							con.end();
+						} else {
+							data("Error");
+							con.end();
+						}
+					});
+				}))
+			});
+		});
+	},
 	getAG: function (userid){
 		var con = mysql.createConnection(config.userDB);
 		return new Promise(ret => {
