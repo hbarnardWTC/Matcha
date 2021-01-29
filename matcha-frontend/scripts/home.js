@@ -3,14 +3,14 @@
 if (navigator.geolocation){
     navigator.geolocation.getCurrentPosition(function(position){
         console.log(position);
-        $.get("https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyDCdn8N23XLWZNYKKfnG0uENNsTJQiGsnA&latlng="+position.coords.latitude+","+position.coords.longitude+"&sensor=false", function (data) {
+        $.get("https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyAAZk4JTpJ993tYeA1GQPTKTkiivuBym1s&latlng="+position.coords.latitude+","+position.coords.longitude+"&sensor=false", function (data) {
             console.log(data);
             $.ajax({
                 url: '/user/updateLocation',
                 data: { 
                   "area": data.results[0].address_components[2].long_name,
                   "ip": data.results[0].address_components[3].long_name,
-                  "apiKey": "AIzaSyDCdn8N23XLWZNYKKfnG0uENNsTJQiGsnA"
+                  "apiKey": "AIzaSyAAZk4JTpJ993tYeA1GQPTKTkiivuBym1s"
                 },
                 type: "GET",
                 success: function(data) {
@@ -40,7 +40,7 @@ async function getDistance(userid){
       },
       type: "GET",
       success: function(data) {
-        $.get("https://maps.googleapis.com/maps/api/geocode/json?address="+data.area+"+"+data.ip+"&key=AIzaSyDCdn8N23XLWZNYKKfnG0uENNsTJQiGsnA", function (data2) {
+        $.get("https://maps.googleapis.com/maps/api/geocode/json?address="+data.area+"+"+data.ip+"&key=AIzaSyAAZk4JTpJ993tYeA1GQPTKTkiivuBym1s", function (data2) {
             console.log(data2);
             $.ajax({
               url: '/user/getLocation',
@@ -50,7 +50,7 @@ async function getDistance(userid){
               type: "GET",
               success: function(data3) {
                 console.log(data3);
-                $.get("https://maps.googleapis.com/maps/api/geocode/json?address="+data3.area+"+"+data3.ip+"&key=AIzaSyDCdn8N23XLWZNYKKfnG0uENNsTJQiGsnA", function (data4) {
+                $.get("https://maps.googleapis.com/maps/api/geocode/json?address="+data3.area+"+"+data3.ip+"&key=AIzaSyAAZk4JTpJ993tYeA1GQPTKTkiivuBym1s", function (data4) {
                     console.log(data4);
                     haversine_distance(data2.results[0].geometry,data4.results[0].geometry)
                 })

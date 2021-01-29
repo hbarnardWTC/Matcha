@@ -57,10 +57,10 @@ router.post('/user/register', function(req, res, next) {
     var d = new Date();
     var Syear = d.getFullYear();
     var age = Syear - year;
-    if (req.body.female == "on"){
+    if (req.body.gender == "Female"){
         var sp = "0";
             userManager.addUser(username, name, surname, age, "1", email, pass, sp, bio, interests);
-    } else if (req.body.male == "on"){
+    } else if (req.body.gender == "Male"){
         var sp = "1";
             userManager.addUser(username, name, surname, age, "0", email, pass, sp, bio, interests);
     }

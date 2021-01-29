@@ -64,6 +64,8 @@ module.exports = {
 					});
 					sql = sql.slice(0, -2);
 					var options = " FROM `"+table+"` WHERE userid = ?";
+					console.log(sql+options);
+					console.log("1");
 					ret(new Promise(data => {
 						con.query(sql+options, [userid],function(err,result) {
 							if (err) { console.log("Endho: ".red+"Error getting Values!! Set Debug To (error) To View Details".magenta); if(config.debug == "error"){console.log("EndHo: ".red+err)}return;}
@@ -90,7 +92,9 @@ module.exports = {
 						sql = sql+val+", ";
 					});
 					sql = sql.slice(0, -2);
-					var options = " FROM `"+table;
+					var options = " FROM `"+table+"`";
+					console.log(sql+options);
+					console.log("2");
 					ret(new Promise(data => {
 						con.query(sql+options, [userid],function(err,result) {
 							if (err) { console.log("Endho: ".red+"Error getting Values!! Set Debug To (error) To View Details".magenta); if(config.debug == "error"){console.log("EndHo: ".red+err)}return;}

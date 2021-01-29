@@ -2,6 +2,7 @@ var mysql = require('mysql');
 var config = require('../setup/config.json');
 var PCUsers = require('../setup/preConfigUsers.json');
 var statusManager = require('./statusManager.js');
+var locationManager = require('./locationManager.js');
 var passwordHash = require('password-hash');
 var chatManager = require('./chatManager.js');
 var nodemailer = require('nodemailer');
@@ -369,6 +370,7 @@ module.exports.updateUserVals = updateUserVals;
 
 function addUserToImages(givenUsername,givenEmail,givenName){
 	var con = mysql.createConnection(config.userDB);
+	var theuserid;
 	return new Promise(data => {
 		con.connect(function(err) {
 			if (err) { { console.log("Endho: ".red+"Error Connecting To DB At addUserToImages!! Set Debug To (error) To View Details".magenta); if(config.debug == "error"){console.log("EndHo: ".red+err)}return;} }
@@ -384,6 +386,7 @@ function addUserToImages(givenUsername,givenEmail,givenName){
 					var values = " VALUES('"+
 					result[0].userid
 					+"')";
+					theuserid = result[0].userid;
 					statusManager.createStatus(result[0].userid);
 					var domain = givenEmail.toLowerCase().split("@");
 					if (domain[1] == "endho.endho"){} else {
@@ -397,7 +400,11 @@ function addUserToImages(givenUsername,givenEmail,givenName){
 							if (config.debug == "true") {console.log(result);}
 							if (result.affectedRows == 1) {
 								if (config.userMessage == "true"){console.log("EndHo:".green+" Added User To Images Table".cyan);}
-								data3("Success");
+								data3(new Promise(data4 => {
+									locationManager.updateLocation(theuserid, "bellville", "capetown", "AIzaSyAAZk4JTpJ993tYeA1GQPTKTkiivuBym1s").then(val => {
+										data4(val);
+									})
+								}));
 								con.end();
 							} else {
 								data3("Error");
