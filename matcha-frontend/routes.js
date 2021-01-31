@@ -26,6 +26,8 @@ module.exports = router;
 app.set('views', __dirname + './');
 app.engine('pug', require('pug').__express);
 app.set("view engine", "pug");
+
+router.use('/images', express.static(__dirname + '/images'));
 // route for our home page
 router.get('/', function(req, res) {
     ssn = req.session;
@@ -359,9 +361,12 @@ router.get('/user/update', async function(req, res, next) {
     }
 });
 router.get('/user/updateImages', async function(req, res, next) {
+    console.log("Update/Images");
     ssn = req.session;
     if(ssn.userid && ssn.verified) {
         var vals = req.query;
+        console.log("Update/ImagesV");
+        console.log(vals);
         await imageManager.updateUserImgs(ssn.userid,vals.img1,vals.img2,vals.img3,vals.img4,vals.img5).then(status => {
             res.send(status);
         })

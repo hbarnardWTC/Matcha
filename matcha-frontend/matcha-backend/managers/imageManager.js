@@ -109,6 +109,7 @@ module.exports = {
 
 
 async function updateUserImgs(userid,img1,img2,img3,img4,img5){
+	console.log("update all images");
 	var con = mysql.createConnection(config.userDB);
 	return new Promise(ret => {
 		con.connect(function(err) {

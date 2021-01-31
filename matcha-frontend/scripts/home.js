@@ -167,11 +167,39 @@ function getImages(userid){
     },
     success: function(data) {
       console.log(data);
-      $("#img1").attr("src",data[0].image1);
-      $("#img2").attr("src",data[0].image2);
-      $("#img3").attr("src",data[0].image3);
-      $("#img4").attr("src",data[0].image4);
-      $("#img5").attr("src",data[0].image5);
+      if (data[0].image1){
+        $("#img1").attr("src",data[0].image1);
+      }else {
+        $("#img1").attr("src","https://picsum.photos/500/700");
+      }
+
+
+      if (data[0].image2){
+        $("#img2").attr("src",data[0].image2);
+      }else {
+        $("#img2").attr("src","https://picsum.photos/500/700");
+      }
+
+
+      if (data[0].image3){
+        $("#img3").attr("src",data[0].image3);
+      }else {
+        $("#img3").attr("src","https://picsum.photos/500/700");
+      }
+
+
+      if (data[0].image4){
+        $("#img4").attr("src",data[0].image4);
+      }else {
+        $("#img4").attr("src","https://picsum.photos/500/700");
+      }
+
+
+      if (data[0].image5){
+        $("#img5").attr("src",data[0].image5);
+      }else {
+        $("#img5").attr("src","https://picsum.photos/500/700");
+      }
     },
     error: function(xhr) {
       console.log(xhr);

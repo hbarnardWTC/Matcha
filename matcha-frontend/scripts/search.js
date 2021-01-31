@@ -89,7 +89,7 @@ function removeid(id){
     validatedInts();
 }
 
-
+$("#matchesList").empty();
 function updateUsers(data){
     $("#matchesList").empty();
     var i = 0;
@@ -104,7 +104,7 @@ function updateUsers(data){
 function generateUserDiv(userid,name,age,distance,bio){
     var div1 = $("<div>", {"class": "col-lg-4"});
     $("#matchesList").append(div1);
-    var img = $("<img>", {"class": "d-block search-image","src": "https://pbs.twimg.com/media/DNkyKjSW4AAdPpW.jpg", "alt": "First Image"});
+    var img = $("<img>", {"class": "d-block search-image","src": "https://picsum.photos/300/350", "alt": "First Image"});
     div1.append(img);
     var div2 = $("<div>", {"class": "container text-center", "id": "profileDetails"});
     div1.append(div2);
