@@ -1,8 +1,8 @@
 {
 	"userid": "userid INT(255)",
-	"image1": "image1 TEXT(2000)",
-	"image2": "image2 TEXT(2000)",
-	"image3": "image3 TEXT(2000)",
-	"image4": "image4 TEXT(2000)",
-	"image5": "image5 TEXT(2000)"
+	"image1": "image1 TEXT(65000)",
+	"image2": "image2 TEXT(65000)",
+	"image3": "image3 TEXT(65000)",
+	"image4": "image4 TEXT(65000)",
+	"image5": "image5 TEXT(65000)"
 }

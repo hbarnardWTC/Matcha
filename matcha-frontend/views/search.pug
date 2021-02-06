@@ -13,7 +13,7 @@ html(lang="en")
         //- script(src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous")
         //- link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css")
         //- script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js")
-        title Home
+        title Homo
     body.recommendback
         //- Navbar construction
         header
@@ -38,17 +38,17 @@ html(lang="en")
                             li.nav-item.dropdown
                                 a#dropdown07.nav-link.dropdown-toggle(href='#', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Notification
                                 .dropdown-menu.not-size(aria-labelledby='dropdown07' id="dropDiv12")
-                                    p.dropdown-item.size.break User1 has viewed your profile
-                                    p.dropdown-item.size.break User2 has liked your profile
-                                    p.dropdown-item.size.break User3 has blocked your profile
-                                    p.dropdown-item.size.break User2 has liked your profile
-                                    p.dropdown-item.size.break User3 has blocked your profile
-                                    p.dropdown-item.size.break use2143258435u34290242u24 has viewed your profile
+                                    p.dropdown-item.size.break John has viewed your profile
+                                    p.dropdown-item.size.break Samantha has liked your profile
+                                    p.dropdown-item.size.break Rick has blocked your profile
+                                    p.dropdown-item.size.break Tamara has liked your profile
+                                    p.dropdown-item.size.break Randy has blocked your profile
+                                    p.dropdown-item.size.break Katy has viewed your profile
                             li.nav-item
                                 a.nav-link(href='/logout') Log Out
 
         .container.text-center
-            h1.mt-white.text-center.mt-5.display-3#heading.cl-white So Sexy
+            h1.mt-white.text-center.mt-5.display-3#heading.cl-white Find The Perfect Someone
 
         .container.my-3.mx-auto(style="max-width:750px")
             button#SortFilter.btn.btn-info.btn-block.w-40(type='button', data-toggle="collapse", data-target=".multi-collapse", aria-expanded="false", aria-controls="Filter Sort") Sort/Filter
@@ -62,26 +62,21 @@ html(lang="en")
                                 .form-group
                                     label.go-away(for="AgeGape") Age:
                                     select(name="AgeGape" id="AgeGape")
-                                        option(value="none") Age Gape?
                                         option(value="ascending") Ascending
                                         option(value="descending") Descending
                                 .form-group
                                     label.go-away(for="popularity") Popularity:
                                     select(name="popularity" id="popularity")
-                                        option(value="none") Sluttitiness Factors
                                         option(value="ascending") Ascending
                                         option(value="descending") Descending
                                 .form-group
                                     label.go-away(for="socailDistancing") Distance:
                                     select(name="socailDistancing" id="socailDistancing")          
-                                        option(value="none") Milfs in your area
                                         option(value="ascending") Ascending
-                                        option(value="descending") Descending
                                         option(value="descending") Descending
                                 .form-group
                                     label.go-away(for="sexualpref") Sexual Preference:
                                     select(name="sp" id="sP")
-                                        option(value="none") Select your homo (no homo / homo)
                                         option(value="0") Male
                                         option(value="1") Female
                                         option(value="2") Bisexual
@@ -93,19 +88,25 @@ html(lang="en")
                                 br
                                 input#minPop.form-control(type='text', placeholder='Minimum Popularity', name='fameMin')
                                 small#fameHelpBlock.form-text.text-muted(style="color: black !important")
-                                    | Minimum Popularity level, 
-                                b           
+                                    | Minimum Popularity level. 
+                                br           
+                                br
                                 input#ageDiff.form-control(type='text', placeholder='Age Range', name='ageDiff')
                                 small#ageHelpBlock.form-text.text-muted(style="color: black !important")
                                     | A maximum age range, to display x years above and below your age.
-                                b           
+                                br           
+                                br
                                 input#DistanceDiff.form-control(type='text', placeholder='Max Distance', name='DistanceDiff')
                                 small#distanceHelpBlock.form-text.text-muted(style="color: black !important")
                                     | The Maximum distance from you that you're willing to view people.
+                                br
+                                br
                                 div#userInterests(onkeyup="updateInts()" class="IntDiv")
                                     p(id="contentInt" contenteditable="true" class="intInput" onclick="clearp()") Interests
                                 small#interestHelpBlock.form-text.text-muted(style="color: black !important")
                                     | Interests seperated by commas. Example: food, coding, gaming
+                                br
+                                br
                         br
                         button#Submit.btn.btn-success.btn-block.btn-lg(type='button', onclick='applyFilters()', name='filterSort') Apply
                             //end of filt           
@@ -152,21 +153,21 @@ html(lang="en")
                                                     |  Likes : #{val.fame}
         div(class="container")
             div(class="row drop-panties justify-content-center" id="matchesList")
-                div(class="col-lg-4")
-                    img(class="d-block search-image" src="https://pbs.twimg.com/media/DNkyKjSW4AAdPpW.jpg" alt="First slide")
-                    p(class="cl-white text-center margin-zero") Name: Liam
-                    p(class="cl-white text-center margin-zero") Age: 20
-                    p(class="cl-white text-center margin-zero") Distance: Near You
-                div(class="col-lg-4")
-                    img(class="d-block search-image" src="https://ih1.redbubble.net/image.449679317.7760/flat,750x1000,075,f.u3.jpg" alt="First slide")
-                    p(class="cl-white text-center margin-zero") Name: Rias
-                    p(class="cl-white text-center margin-zero") 3 sizes: B99-W58-H90
-                    p(class="cl-white text-center margin-zero") Distance: In Japan
-                div(class="col-lg-4")
-                    img(class="d-block search-image" src="https://i.pinimg.com/236x/c0/58/00/c05800b8cd0beb2448328c510d3307b4.jpg" alt="First slide")
-                    p(class="cl-white text-center margin-zero") Name: PC
-                    p(class="cl-white text-center margin-zero") Age: 21
-                    p(class="cl-white text-center margin-zero") Distance: Nya
+                //- div(class="col-lg-4")
+                //-     img(class="d-block search-image" src="https://pbs.twimg.com/media/DNkyKjSW4AAdPpW.jpg" alt="First slide")
+                //-     p(class="cl-white text-center margin-zero") Name: Liam
+                //-     p(class="cl-white text-center margin-zero") Age: 20
+                //-     p(class="cl-white text-center margin-zero") Distance: Near You
+                //- div(class="col-lg-4")
+                //-     img(class="d-block search-image" src="https://ih1.redbubble.net/image.449679317.7760/flat,750x1000,075,f.u3.jpg" alt="First slide")
+                //-     p(class="cl-white text-center margin-zero") Name: Rias
+                //-     p(class="cl-white text-center margin-zero") 3 sizes: B99-W58-H90
+                //-     p(class="cl-white text-center margin-zero") Distance: In Japan
+                //- div(class="col-lg-4")
+                //-     img(class="d-block search-image" src="https://i.pinimg.com/236x/c0/58/00/c05800b8cd0beb2448328c510d3307b4.jpg" alt="First slide")
+                //-     p(class="cl-white text-center margin-zero") Name: PC
+                //-     p(class="cl-white text-center margin-zero") Age: 21
+                //-     p(class="cl-white text-center margin-zero") Distance: Nya
 
         footer(class="container")
            div(class="footer-copyright text-center py-3 cl-white") © 2020 Copyright: Endless Horizon

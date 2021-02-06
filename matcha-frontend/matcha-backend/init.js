@@ -3,6 +3,7 @@ var tableManager = require('./managers/tableManager.js');
 var config = require('./setup/config.json');
 const colors = require('colors');
 
+process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
 var con = mysql.createConnection(config.user)
 con.connect(function(err) {
 	if (err) { { console.log("Endho: ".red+"Error Found!! Set Debug To (error) To View Details".magenta); if(config.debug == "error"){console.log("EndHo: ".red+err)}return;} }
@@ -98,13 +99,13 @@ async function addNewUsers(){
 		var int = getRndInteger(0,si);
 		var age = getRndInteger(18,120);
 		var sp = getRndInteger(0,2);
-		userManager.addUser(namesF[si]+"69",namesF[si],surnames[int],age,1,namesF[si]+surnames[int]+age+"@EndHo.EndHo","testing",sp,"I am Fake","anime#coding");
+		userManager.addUser(namesF[si]+age,namesF[si],surnames[int],age,1,namesF[si]+surnames[int]+age+"@EndHo.EndHo","testing",sp,"I am Fake","anime#coding");
 		count++;
 	
 		var int = getRndInteger(0,si);
 		var age = getRndInteger(18,120);
 		var sp = getRndInteger(0,2);
-		userManager.addUser(namesM[si]+"69",namesM[si],surnames[int],age,0,namesM[si]+surnames[int]+age+"@EndHo.EndHo","testing",sp,"I am Fake","anime#coding");
+		userManager.addUser(namesM[si]+age,namesM[si],surnames[int],age,0,namesM[si]+surnames[int]+age+"@EndHo.EndHo","testing",sp,"I am Fake","anime#coding");
 		count++;
 		console.log("EndHo: Added (".rainbow+count+") users".rainbow);
 	}

@@ -2,6 +2,7 @@ var mysql = require('mysql');
 var config = require('../setup/config.json');
 var PCUsers = require('../setup/preConfigUsers.json');
 var statusManager = require('./statusManager.js');
+var locationManager = require('./locationManager.js');
 var passwordHash = require('password-hash');
 var chatManager = require('./chatManager.js');
 var nodemailer = require('nodemailer');
@@ -145,6 +146,30 @@ module.exports = {
 			});
 		});
 	},
+	getVerEmail: function (userid){
+		var con = mysql.createConnection(config.userDB);
+		return new Promise(ret => {
+			con.connect(function(err) {
+				if (err) { { console.log("Endho: ".red+"Error Connecting To DB At awdawdawddwa!! Set Debug To (error) To View Details".magenta); if(config.debug == "error"){console.log("EndHo: ".red+err)}return;} }
+				console.log("EndHo:".green+" Request To Get All awdawdawd ".blue);
+				var sql = 'SELECT verified FROM `users` WHERE userid = ?';
+				ret(new Promise(data => {
+					con.query(sql, [userid],function(err,result) {
+						if (err) { console.log("Endho: ".red+"Error Getting All Users!! Set Debug To (error) To View Details".magenta); if(config.debug == "error"){console.log("EndHo: ".red+err)}return;}
+						if (config.debug == "true") {console.log(result);}
+						if (result[0]){
+							console.log("EndHo:".green+" Got All Users ".cyan);
+							data(result);
+							con.end();
+						} else {
+							data("Error");
+							con.end();
+						}
+					});
+				}))
+			});
+		});
+	},
 	getAG: function (userid){
 		var con = mysql.createConnection(config.userDB);
 		return new Promise(ret => {
@@ -256,6 +281,32 @@ async function setToken(userid){
 	});
 }
 
+async function updateUserVals(userid,name,surname,username,email,password,sp,ints,bio,gender){
+	var con = mysql.createConnection(config.userDB);
+	return new Promise(ret => {
+		con.connect(function(err) {
+			if (err) { { console.log("Endho: ".red+"Error Connecting To DB At updateUserVals!! Set Debug To (error) To View Details".magenta); if(config.debug == "error"){console.log("EndHo: ".red+err)}return;} }
+			var sql = "UPDATE ";
+			var Tablename = "users";
+			var options = " SET name = ?, surname = ?, username = ?, email = ?, password = ?, sexualPreference = ?, interests = ?, bio = ?, gender = ?  WHERE userid = ?"
+			ret(new Promise(ret2 => {
+				con.query(sql+Tablename+options, [name,surname,username,email,passwordHash.generate(password),sp,ints,bio,gender,userid],function(err,result) {
+					if (err) { console.log("Endho: ".red+"Error updateUserVals updateUserVals!! Set Debug To (error) To View Details".magenta); if(config.debug == "error"){console.log("EndHo: ".red+err)}return;}
+					if (config.debug == "true") {console.log(result);}
+					console.log(result);
+					if (result.affectedRows == 1){
+            			ret2("Success");
+						con.end();
+					} else {
+						ret2("Error");
+						con.end();
+					}
+				})
+			}));
+		});
+	});
+}
+
 //Get matched users
 //
 async function getMatchedUsers(ageMin,ageMax,gender,interests,sp){
@@ -313,11 +364,13 @@ function getMU(ageMin,ageMax,gender,interests,sp){
 module.exports.getUserById = getUserById;
 module.exports.getMatchedUsers = getMatchedUsers;
 module.exports.verifyEmail = verifyEmail;
+module.exports.updateUserVals = updateUserVals;
 
 
 
 function addUserToImages(givenUsername,givenEmail,givenName){
 	var con = mysql.createConnection(config.userDB);
+	var theuserid;
 	return new Promise(data => {
 		con.connect(function(err) {
 			if (err) { { console.log("Endho: ".red+"Error Connecting To DB At addUserToImages!! Set Debug To (error) To View Details".magenta); if(config.debug == "error"){console.log("EndHo: ".red+err)}return;} }
@@ -333,6 +386,7 @@ function addUserToImages(givenUsername,givenEmail,givenName){
 					var values = " VALUES('"+
 					result[0].userid
 					+"')";
+					theuserid = result[0].userid;
 					statusManager.createStatus(result[0].userid);
 					var domain = givenEmail.toLowerCase().split("@");
 					if (domain[1] == "endho.endho"){} else {
@@ -346,7 +400,11 @@ function addUserToImages(givenUsername,givenEmail,givenName){
 							if (config.debug == "true") {console.log(result);}
 							if (result.affectedRows == 1) {
 								if (config.userMessage == "true"){console.log("EndHo:".green+" Added User To Images Table".cyan);}
-								data3("Success");
+								data3(new Promise(data4 => {
+									locationManager.updateLocation(theuserid, "bellville", "capetown", "AIzaSyAAZk4JTpJ993tYeA1GQPTKTkiivuBym1s").then(val => {
+										data4(val);
+									})
+								}));
 								con.end();
 							} else {
 								data3("Error");

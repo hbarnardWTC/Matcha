@@ -11,16 +11,22 @@ html
             div(class="text-center log-flex")
                 form(class="form-signin cl-white" action="/user/login" method="POST")
                     h1(class="h3 mb-3 font-weight-normal") Please Sign In
-                    img(class="mb-4" src="https://www.pngitem.com/pimgs/m/11-117580_neko-girl-png-brown-hair-cute-anime-girl.png" , alt="uwu" height="400" width="300")
+                    img(class="mb-4" src="../images/logo2.png" , alt="uwu" height="400" width="300" style="object-fit: contain;")
                     label(for="inputEmail" class="sr-only") Email address
                     input(type="email" id="inputEmail" name="email" class="form-control" placeholder="Email address" required autofocus)
+                    br
                     label(for="inputPassword" class="sr-only") Password
                     input(type="password" id="inputPassword" name="password" class="form-control" placeholder="Password" required)
+                    br
                     button(class="btn btn-lg btn-secondary btn-block" type="submit") Sign-in
-                    a(href="/signup") Sign-Up
+                    br
+                    br
+                    a.lah(href="/signup") Sign-Up
+                    br
+                    a.lah(href="/login") Forgot Password?
 
         footer(class="container")
-            div(class="footer-copyright text-center py-3 cl-white") © 2020 Copyright: Endless Horizon
+            div(class="footer-copyright text-center py-3 cl-white") © 2020 Copyright: Horizon Solutions
                 p.footer-margin Find us More on:
                 i.fa.fa-facebook-official.w3-hover-opacity.cl-white
                 i.fa.fa-instagram.w3-hover-opacity.cl-white

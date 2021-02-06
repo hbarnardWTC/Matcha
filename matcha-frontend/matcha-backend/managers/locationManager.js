@@ -91,7 +91,7 @@ module.exports = {
 						if (config.debug == "true") {console.log(result);}
 						console.log("EndHo:".green+" Got Location for".cyan+"("+"|at|"+result[0].area+")");
 						data(new Promise(call1 => {
-							https.get("https://maps.googleapis.com/maps/api/geocode/json?address="+result[0].area+"+"+result[0].ip+"&key=AIzaSyDCdn8N23XLWZNYKKfnG0uENNsTJQiGsnA", (resp) => {
+							https.get("https://maps.googleapis.com/maps/api/geocode/json?address="+result[0].area+"+"+result[0].ip+"&key=AIzaSyAAZk4JTpJ993tYeA1GQPTKTkiivuBym1s", (resp) => {
 								let data = '';
 							  
 								// A chunk of data has been recieved.
@@ -103,7 +103,7 @@ module.exports = {
 								resp.on('end', () => {
 									var return1 = JSON.parse(data);
 									call1(new Promise(call2 => {
-										https.get("https://maps.googleapis.com/maps/api/geocode/json?address="+result[1].area+"+"+result[1].ip+"&key=AIzaSyDCdn8N23XLWZNYKKfnG0uENNsTJQiGsnA", (resp) => {
+										https.get("https://maps.googleapis.com/maps/api/geocode/json?address="+result[1].area+"+"+result[1].ip+"&key=AIzaSyAAZk4JTpJ993tYeA1GQPTKTkiivuBym1s", (resp) => {
 											let data3 = '';
 										
 											// A chunk of data has been recieved.
